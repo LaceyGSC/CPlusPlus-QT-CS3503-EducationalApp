@@ -37,7 +37,7 @@ macx{
 }
 
 
-win32{
+!mac{
 CONFIG(debug, debug|release): LIBS += -L$$PWD/ext/Box2D/debug -lBox2D
 CONFIG(release, debug|release): LIBS += -L$$PWD/ext/Box2D/release -lBox2D
 
