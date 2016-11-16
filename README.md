@@ -85,12 +85,13 @@
 	5. About const with member functions:
 	
 		a. const int someMethod() // Returned value cannot be changed
-		- Useful if you want to return something that you do not want to be changed.
+		- Useful if you want to return something that you do not want to be changed. (Such as a reference
+		  variable that you do not want to be changed)
 		- E.g.: "const Frame& getFrame()"
 		- Note: This should probably be "const Frame& getFrame() const". See (c).
 		
 		b. void someMethod(const int num) // Passed value cannot be changed
-		- Useful if you want to ensure arguments passed to the function shall not be changed.
+		- Useful if you want to ensure arguments passed to the function will not be changed.
 		- E.g.: "void print(const Point& point1)"
 		
 		c. void someMethod() const // Method does not modify the object
