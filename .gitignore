@@ -1,0 +1,12 @@
+# Precompiled Headers
+*.gch
+*.pch
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Qt files
+*.autosave
+*.pro.user
