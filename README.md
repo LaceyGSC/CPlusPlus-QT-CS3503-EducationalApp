@@ -1,7 +1,10 @@
 # Important Things to Note
 	1. Read the code style guide below.
+	
 	2. Create an issue detailing the event leading up to a segmentation fault if you find one.
+	
 	3. Please ensure that your code conforms to the code style guide before committing.
+	
 	4. DO NOT MERGE WITH THE MASTER BRANCH if your current commit does not build/run.
 
 # Code Style Guide
@@ -51,3 +54,32 @@
 		 {
 		 	// Do something
 		 }"
+
+# Other Useful Stuff
+	1. Try to minimize the use of pointers. Only use pointers if the object created needs to be kept alive beyond
+	   the current scope.
+	   
+	2. Use std::unique_ptr<type> (located in <memory>) as a replacement of naked pointers if you do not want to
+	   manage the memory manually (meaning, no need to delete with std::unique_ptr). std::unique_ptr works the
+	   same way as naked pointers.
+		E.g.: Naked pointer: "int *p = 10",
+		      std::unique_ptr: "std::unique_ptr<int> p = 10"
+		      Dereferencing is the same for both: "std::cout << *p"
+		      
+	3. ALWAYS check if a pointer is nullptr before dereferencing (it will help to avoid seg fault):
+		E.g.: "if (p != nullptr) { // Do something }"
+		
+	4. It might be a good idea to use std::move if you no longer want to use an STL container but want to copy
+	   the data out.
+		E.g.: "CustomClass returnMethod()
+		       {
+		           CustomClass obj(...);
+			   
+			   // This moves the data from obj into the copy of the CustomClass to be returned.
+			   // This means that no deep copies were performed.
+		           return std::move(obj);
+		       }"
+		       Note: You need a move constructor for std::move to work on custom classes. AFAIK, all STL
+		       containers have move constructor and therefore, can be used with std::move.
+		       
+	5. If you have any other useful tips, share it here!
