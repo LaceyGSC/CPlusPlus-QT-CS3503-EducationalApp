@@ -81,5 +81,25 @@
 		       }"
 		       Note: You need a move constructor for std::move to work on custom classes. AFAIK, all STL
 		       containers have move constructor and therefore, can be used with std::move.
-		       
-	5. If you have any other useful tips, share it here!
+	
+	5. About const with member functions:
+	
+		a. const int someMethod() // Returned value cannot be changed
+		- Useful if you want to return something that you do not want to be changed.
+		- E.g.: "const Frame& getFrame()"
+		- Note: This should probably be "const Frame& getFrame() const". See (c).
+		
+		b. void someMethod(const int num) // Passed value cannot be changed
+		- Useful if you want to ensure arguments passed to the function shall not be changed.
+		- E.g.: "void print(const Point& point1)"
+		
+		c. void someMethod() const // Method does not modify the object
+		- Useful if you want to ensure that the method does not modify the object (read-only). (Normally,
+		  this is true for accessor/get functions)
+		- E.g.: "Point getPoint() const"
+		
+	   Please use const appropriately when writing member functions because not only does it help with readability,
+	   it prevents seg faults by restraining the ability to change variables that are not meant to be changed or are
+	   assumed to be unalterable.
+		
+	6. If you have any other useful tips, share it here!
