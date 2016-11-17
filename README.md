@@ -62,8 +62,8 @@
 	2. Use std::unique_ptr<type> (located in <memory>) as a replacement of naked pointers if you do not want to
 	   manage the memory manually (meaning, no need to delete with std::unique_ptr). std::unique_ptr works the
 	   same way as naked pointers.
-		E.g.: Naked pointer: "int *p = 10",
-		      std::unique_ptr: "std::unique_ptr<int> p = 10"
+		E.g.: Naked pointer: "int *p = new int(10)",
+		      std::unique_ptr: "std::unique_ptr<int> p(new int(10))"
 		      Dereferencing is the same for both: "std::cout << *p"
 		      
 	3. ALWAYS check if a pointer is nullptr before dereferencing (it will help to avoid seg fault):
