@@ -1,34 +1,27 @@
+/*
+ * Author: King Hoe Wong
+ * Desc: Program entry.
+ * Courtest of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
+ *
+ */
+
 #include <QApplication>
 #include <QFrame>
-#include <Box2D/Box2D.h>
-#include <SFML/Graphics.hpp>
+
+#include "SFMLCanvas.h"
 
 int main(int argc, char *argv[])
 {
     QApplication App(argc, argv);
 
+    // Create the main frame
     QFrame* mainFrame = new QFrame;
     mainFrame->setWindowTitle("Edu App");
-    mainFrame->resize(400, 400);
+    mainFrame->resize(800, 600);
     mainFrame->show();
 
-    sf::RenderWindow window();
-
-    b2Vec2 gravity(0.f, 9.8f);
-    b2World world(gravity);
-
-    b2BodyDef bodyDef;
-    bodyDef.position = b2Vec2(100.f, 100.f);
-    bodyDef.type = b2_dynamicBody;
-    b2Body* body = world.CreateBody(&bodyDef);
-
-    b2PolygonShape shape;
-    shape.SetAsBox((32.f/2)/3, (32.f/2)/3);
-    b2FixtureDef fixtureDef;
-    fixtureDef.density = 1.f;
-    fixtureDef.friction = 0.7f;
-    fixtureDef.shape = &shape;
-    body->CreateFixture(&fixtureDef);
-
+    // Create a SFML view inside the main frame
+    SFMLCanvas* SFMLView = new SFMLCanvas(QPoint(100, 100), QSize(600, 400), mainFrame);
+    SFMLView->show();
     return App.exec();
 }

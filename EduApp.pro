@@ -12,9 +12,13 @@ TARGET = EduApp
 TEMPLATE = app
 
 SOURCES += \
-    src/Main.cpp
+    src/Main.cpp \
+    src/QSFMLWidget.cpp \
+    src/SFMLCanvas.cpp
 
-HEADERS +=
+HEADERS += \
+    src/QSFMLWidget.h \
+    src/SFMLCanvas.h
 
 !macx{
 CONFIG(debug, debug|release): LIBS += -L$$PWD/ext/SFML/debug/lib
