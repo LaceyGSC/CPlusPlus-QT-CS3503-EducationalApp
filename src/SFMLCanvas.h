@@ -1,7 +1,7 @@
 /*
  * Author: King Hoe Wong
  * Desc: Represents an SFMLCanvas. Sprites should be drawn on the canvas.
- * Courtest of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
+ * Courtesy of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
  *
  */
 

@@ -1,7 +1,7 @@
 /*
  * Author: King Hoe Wong
  * Desc: Implementation of abstract class QSFMLWidget.
- * Courtest of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
+ * Courtesy of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
  *
  */
 
@@ -35,10 +35,6 @@ QSFMLWidget::QSFMLWidget(const QPoint &pos, const QSize &size, QWidget *parent, 
 
     // Setup the refresh timer
     mRefreshTimer.setInterval(refreshTime);
-}
-
-QSFMLWidget::~QSFMLWidget()
-{
 }
 
 // Tells Qt that we're not using any of its built-in paint engines

@@ -15,13 +15,26 @@ SOURCES += \
     src/Main.cpp \
     src/QSFMLWidget.cpp \
     src/SFMLCanvas.cpp \
-    src/ResourceManager.inl
+    src/ResourceManager.inl \
+    src/Application.cpp \
+    src/State.cpp \
+    src/StateStack.cpp \
+    src/TitleState.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
     src/SFMLCanvas.h \
     src/ResourceManager.h \
-    src/ResourceIdentifiers.h
+    src/ResourceIdentifiers.h \
+    src/Application.h \
+    src/State.h \
+    src/StateStack.h \
+    src/StateIdentifiers.h \
+    src/TitleState.h
+
+FORMS += \
+    src/Application.ui \
+    src/TitleState.ui
 
 !macx{
 CONFIG(debug, debug|release): LIBS += -L$$PWD/ext/SFML/debug/lib
@@ -61,6 +74,3 @@ DEPENDPATH += $$PWD/ext/Box2D
 
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 }
-
-
-

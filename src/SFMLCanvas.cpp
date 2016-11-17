@@ -1,15 +1,11 @@
 /*
  * Author: King Hoe Wong
  * Desc: Implementation for SFMLCanvas class.
- * Courtest of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
+ * Courtesy of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
  *
  */
 
 #include "SFMLCanvas.h"
-
-#include <iostream>
-#include <string>
-#include <QDir>
 
 SFMLCanvas::SFMLCanvas(const QPoint &pos, const QSize &size, QWidget *parent)
     : QSFMLWidget(pos, size, parent)
@@ -18,10 +14,10 @@ SFMLCanvas::SFMLCanvas(const QPoint &pos, const QSize &size, QWidget *parent)
 
 void SFMLCanvas::onInit()
 {
-    // Initialize
+    // Initialize sprites with textures, etc.
 }
 
 void SFMLCanvas::onUpdate()
 {
-    // Draw calls should be here
+    // SFML draw calls should be here
 }

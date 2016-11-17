@@ -2,7 +2,7 @@
  * Author: King Hoe Wong
  * Desc: Abstract class for a Qt + SFML widget. This widget will allow SFML to draw onto the widget
  *       to display the sprites.
- * Courtest of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
+ * Courtesy of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
  *
  */
 
@@ -21,7 +21,6 @@ public:
     // there is no other event to process and we want the widget to refresh as many times
     // as possible for a smooth display
     explicit                QSFMLWidget(const QPoint &pos, const QSize &size, QWidget *parent = 0, unsigned int refreshTime = 0);
-    virtual                 ~QSFMLWidget();
 
     virtual QPaintEngine*   paintEngine() const;
 

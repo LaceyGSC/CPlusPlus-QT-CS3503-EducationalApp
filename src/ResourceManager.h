@@ -1,6 +1,8 @@
 /*
  * Author: King Hoe Wong
- * Desc: Template for a resource manager.
+ * Desc: Template for a resource manager. Stores the resources in an unordered map to
+ *       prevent loading of the same resources in multiple places.
+ * Note for Author: Might need to unload resources.
  *
  */
 
@@ -17,11 +19,14 @@ template <typename Resource, typename Identifier>
 class ResourceManager
 {
 private:
+    // This is one long ass declaration
     typename std::unordered_map<Identifier, std::unique_ptr<Resource>> ResourceMap;
 
 public:
+    // Both load methods throw std::runtime_error if resource is not found
     void                load(Identifier id, const std::string& filename);
     void                load(Identifier id, const Resource& data);
+
     const Resource&     get(Identifier id) const;
 
 private:
