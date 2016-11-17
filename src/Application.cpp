@@ -14,6 +14,7 @@
 #include <SFML/System.hpp>
 
 #include "StateIdentifiers.h"
+#include "State.h"
 #include "TitleState.h"
 
 // 60 FPS
@@ -22,10 +23,11 @@ const sf::Time Application::TIME_PER_FRAME = sf::seconds(1.f/60.f);
 Application::Application(QWidget *parent)
     : QMainWindow(parent)
     , mUi(new Ui::Application)
-    , mStateStack()
+    , mStateStack(State::Context(mTextures))
     , mLoopTimer(this)
     , mElapsedTime(sf::Time::Zero)
     , mClock()
+    , mTextures()
 {
     mUi->setupUi(this);
 

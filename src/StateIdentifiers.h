@@ -12,10 +12,7 @@ namespace States
     enum class ID
     {
         None,
-        TitleState,
-        MenuState,
-        GameState,
-        PauseState
+        TitleState
     };
 }
 

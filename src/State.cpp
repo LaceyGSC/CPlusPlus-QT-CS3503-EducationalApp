@@ -7,9 +7,17 @@
 #include "State.h"
 #include "StateStack.h"
 
-State::State(StateStack& stack, QWidget *parent)
+#include "ResourceIdentifiers.h"
+
+State::Context::Context(TextureManager &textures)
+    : textures(textures)
+{
+}
+
+State::State(StateStack &stack, Context &context, QWidget *parent)
     : QWidget(parent)
     , mStateStack(&stack)
+    , mContext(context)
 {
 }
 
@@ -26,4 +34,9 @@ void State::requestStackPop()
 void State::requestStackClear()
 {
     mStateStack->clearStates();
+}
+
+State::Context State::getContext() const
+{
+    return mContext;
 }
