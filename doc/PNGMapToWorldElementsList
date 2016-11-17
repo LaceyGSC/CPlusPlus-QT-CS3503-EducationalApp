@@ -3,23 +3,23 @@
 //impassable
 0x0000FF  DeepFreshWater 
 0x0000F0  DeepSaltWater 
-0x444400 Mountain/hill  //TODO
-0x444401 wall   //TODO
+0x444400 Mountain/hill  
+0x444401 wall   
 
 //passable
 0x8888FF  ShallowFreshWater
 0x8888F0  ShallowSaltWater
 
 0x444400 Dirt    
-0x444402 bridge  //TODO
+0x444402 bridge  
 0xFFFFAA sand
 0xFFAAAA red sand
 
 
-0x00FF00 Permanent plant?  //TODO
-0x00FF01 Tree    //TODO
+0x00FF00 Permanent plant?  
+0x00FF01 Tree    
 0x008800 Grass
 
 //lethel
-0xFFFFA0 Quick Sand  //TODO
+0xFFFFA0 Quick Sand  
 0xFF0000 Fire    
