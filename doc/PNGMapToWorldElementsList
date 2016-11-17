@@ -3,7 +3,7 @@
 //impassable
 0x0000FF  DeepFreshWater 
 0x0000F0  DeepSaltWater 
-0x444400 Mountain/hill  
+0x444403 Mountain/hill  
 0x444401 wall   
 
 //passable
