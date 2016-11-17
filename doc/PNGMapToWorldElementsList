@@ -10,7 +10,7 @@
 0x8888FF  ShallowFreshWater
 0x8888F0  ShallowSaltWater
 
-0x444400 Dirt    //TODO
+0x444400 Dirt    
 0x444402 bridge  //TODO
 0xFFFFAA sand
 0xFFAAAA red sand
@@ -22,4 +22,4 @@
 
 //lethel
 0xFFFFA0 Quick Sand  //TODO
-0xFF0000 Fire    //TODO
+0xFF0000 Fire    
