@@ -20,20 +20,20 @@ public:
     // The default value of 0 for refreshTime will make the timer trigger a refresh whenever
     // there is no other event to process and we want the widget to refresh as many times
     // as possible for a smooth display
-    explicit QSFMLWidget(const QPoint &pos, const QSize &size, QWidget *parent = 0, unsigned int refreshTime = 0);
-    virtual ~QSFMLWidget();
+    explicit                QSFMLWidget(const QPoint &pos, const QSize &size, QWidget *parent = 0, unsigned int refreshTime = 0);
+    virtual                 ~QSFMLWidget();
 
-    virtual QPaintEngine* paintEngine() const;
+    virtual QPaintEngine*   paintEngine() const;
 
-    virtual void showEvent(QShowEvent*);
-    virtual void paintEvent(QPaintEvent*);
+    virtual void            showEvent(QShowEvent*);
+    virtual void            paintEvent(QPaintEvent*);
 
-    virtual void onInit() = 0;
-    virtual void onUpdate() = 0;
+    virtual void            onInit() = 0;
+    virtual void            onUpdate() = 0;
 
 private:
-    QTimer mRefreshTimer;
-    bool mInitialized;
+    QTimer                  mRefreshTimer;
+    bool                    mInitialized;
 };
 
 #endif // QSFMLWidget_H

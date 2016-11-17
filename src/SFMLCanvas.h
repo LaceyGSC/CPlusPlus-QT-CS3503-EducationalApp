@@ -15,10 +15,10 @@
 class SFMLCanvas : public QSFMLWidget
 {
 public :
-    explicit SFMLCanvas(const QPoint &pos, const QSize &size, QWidget *parent = 0);
+    explicit        SFMLCanvas(const QPoint &pos, const QSize &size, QWidget *parent = 0);
 
-    virtual void onInit();
-    virtual void onUpdate();
+    virtual void    onInit();
+    virtual void    onUpdate();
 };
 
 #endif // SFMLCANVAS_H

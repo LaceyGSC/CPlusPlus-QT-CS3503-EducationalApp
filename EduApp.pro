@@ -14,11 +14,14 @@ TEMPLATE = app
 SOURCES += \
     src/Main.cpp \
     src/QSFMLWidget.cpp \
-    src/SFMLCanvas.cpp
+    src/SFMLCanvas.cpp \
+    src/ResourceManager.inl
 
 HEADERS += \
     src/QSFMLWidget.h \
-    src/SFMLCanvas.h
+    src/SFMLCanvas.h \
+    src/ResourceManager.h \
+    src/ResourceIdentifiers.h
 
 !macx{
 CONFIG(debug, debug|release): LIBS += -L$$PWD/ext/SFML/debug/lib

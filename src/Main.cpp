@@ -23,5 +23,6 @@ int main(int argc, char *argv[])
     // Create a SFML view inside the main frame
     SFMLCanvas* SFMLView = new SFMLCanvas(QPoint(100, 100), QSize(600, 400), mainFrame);
     SFMLView->show();
+
     return App.exec();
 }
