@@ -9,7 +9,10 @@
 
 #include "Application.h"
 
-int main(int argc, char *argv[])
+#include <exception>
+#include <iostream>
+
+int main(int argc, char *argv[]) try
 {
     QApplication App(argc, argv);
 
@@ -17,4 +20,12 @@ int main(int argc, char *argv[])
     mainWindow.show();
 
     return App.exec();
+}
+catch(std::exception &e)
+{
+    std::cerr << e.what() << std::endl;
+}
+catch(...)
+{
+    std::cerr << "Unknown exception caught." << std::endl;
 }

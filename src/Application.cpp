@@ -3,7 +3,7 @@
  * Desc: Implementation for Application class.
  * Note: Do NOT modify the .ui file for this class. The different states
  *       should have their own .ui file that can be plugged into Application.
- *       The base of a state should be a QWidget (refer to TitleState.ui for
+ *       The base of a state should be a QWidget (refer to GameState.ui for
  *       an example).
  *
  */
@@ -15,7 +15,7 @@
 
 #include "StateIdentifiers.h"
 #include "State.h"
-#include "TitleState.h"
+#include "GameState.h"
 #include "mysqlconnection.h"
 
 // 60 FPS
@@ -38,7 +38,7 @@ Application::Application(QWidget *parent)
 
     // Setup the states and push the first state
     registerStates();
-    mStateStack.pushState(States::ID::TitleState);
+    mStateStack.pushState(States::ID::GameState);
 
     // Starts the game loop
     QObject::connect(&mLoopTimer, SIGNAL(timeout()), this, SLOT(gameLoop()));
@@ -56,7 +56,7 @@ Application::~Application()
 void Application::registerStates()
 {
     // A grid layout is used as the main layout because it centers its elements
-    mStateStack.registerState<TitleState>(States::ID::TitleState, mUi->mainLayout, mUi->mainContainer);
+    mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
 }
 
 void Application::gameLoop()
@@ -71,6 +71,8 @@ void Application::gameLoop()
         mElapsedTime -= TIME_PER_FRAME;
 
         // Handle events (TODO)
+        // Note: events might not need to be handled here since Qt has its own event handling system (i.e.
+        // handling events by overriding the virtual functions provided by Qt)
 
         // Update game logic
         mStateStack.update(TIME_PER_FRAME);

@@ -11,6 +11,7 @@
 #include <Qt/qx11info_x11.h>
 #include <X11/Xlib.h>
 #endif
+#include <QTimer>
 
 #include "State.h"
 
@@ -19,6 +20,7 @@ QSFMLWidget::QSFMLWidget(const QPoint &pos, const QSize &size, State::Context &c
     , mInitialized(false)
     , mRefreshTimer(this)
     , mContext(context)
+    , mCanvas()
 {
     // Tells Qt that we will not use its painting functions, and paint directly onto the widget
     QWidget::setAttribute(Qt::WA_PaintOnScreen);
@@ -45,7 +47,7 @@ QPaintEngine* QSFMLWidget::paintEngine() const
 }
 
 
-void QSFMLWidget::showEvent(QShowEvent*)
+void QSFMLWidget::showEvent(QShowEvent* event)
 {
     if (!mInitialized)
     {
@@ -55,8 +57,8 @@ void QSFMLWidget::showEvent(QShowEvent*)
             XFlush(QX11Info::display());
         #endif
 
-        // Create the SFML window with the widget handle
-        sf::RenderWindow::create((sf::WindowHandle)(winId()));
+        // Create SFML canvas with the window id
+        mCanvas.create((sf::WindowHandle)(winId()));
 
         // Let the derived class do its specific stuff
         onInit();
@@ -66,21 +68,35 @@ void QSFMLWidget::showEvent(QShowEvent*)
         mRefreshTimer.start();
         mInitialized = true;
     }
+
+    // QTimer gives a little time so that the show action can be executed first before
+    // resetting the canvas
+    QTimer::singleShot(0, this, SLOT(resetCanvas()));
 }
 
 void QSFMLWidget::paintEvent(QPaintEvent*)
 {
     // Clear screen
-    sf::RenderWindow::clear(sf::Color::Transparent);
+    mCanvas.clear(sf::Color::Transparent);
 
     // Let the derived class do its specific stuff
-    onDraw();
+    onDraw(mCanvas, sf::RenderStates::Default);
 
     // Display on screen
-    sf::RenderWindow::display();
+    mCanvas.display();
+}
+
+void QSFMLWidget::resizeEvent(QResizeEvent*)
+{
+    resetCanvas();
 }
 
 State::Context QSFMLWidget::getContext() const
 {
     return mContext;
+}
+
+void QSFMLWidget::resetCanvas()
+{
+    mCanvas.setSize(sf::Vector2u(mCanvas.getSize()));
 }
