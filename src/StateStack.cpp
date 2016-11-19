@@ -4,16 +4,19 @@
  *
  */
 
+#include "StateStack.h"
+
 #include <SFML/System.hpp>
 
-#include "StateStack.h"
+#include "State.h"
 
 #include <cassert>
 
-StateStack::StateStack()
+StateStack::StateStack(State::Context context)
     : mStack()
     , mPendingList()
     , mFactories()
+    , mContext(context)
 {
 }
 

@@ -16,6 +16,8 @@
 #include <SFML/System.hpp>
 
 #include "StateStack.h"
+#include "ResourceIdentifiers.h"
+#include "ResourceManager.h"
 
 // Forward declaration
 namespace Ui
@@ -55,6 +57,9 @@ private:
     // Used in ensuring fixed time steps
     sf::Time                mElapsedTime;
     sf::Clock               mClock;
+
+    // Resource managers
+    TextureManager          mTextures;
 };
 
 #endif // APPLICATION_H

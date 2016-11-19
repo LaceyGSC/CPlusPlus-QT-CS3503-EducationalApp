@@ -7,17 +7,30 @@
 
 #include "SFMLCanvas.h"
 
-SFMLCanvas::SFMLCanvas(const QPoint &pos, const QSize &size, QWidget *parent)
-    : QSFMLWidget(pos, size, parent)
+#include <SFML/Graphics.hpp>
+
+#include "State.h"
+#include "ResourceIdentifiers.h"
+#include "ResourceManager.h"
+
+SFMLCanvas::SFMLCanvas(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent)
+    : QSFMLWidget(pos, size, context, parent)
 {
 }
 
 void SFMLCanvas::onInit()
 {
-    // Initialize sprites with textures, etc.
+    // Load texture and initialize sprite with texture.
+    getContext().textures.load(static_cast<int>(Textures::ID::Default), "/Textures/default.png");
+    getContext().textures.get(static_cast<int>(Textures::ID::Default)).setSmooth(true);
+
+    mSprite.setTexture(getContext().textures.get(static_cast<int>(Textures::ID::Default)));
+    mSprite.setPosition(0.f, 0.f);
+    mSprite.scale(0.5f, 0.5f);
 }
 
-void SFMLCanvas::onUpdate()
+void SFMLCanvas::onDraw()
 {
-    // SFML draw calls should be here
+    // Draw sprite
+    sf::RenderWindow::draw(mSprite);
 }

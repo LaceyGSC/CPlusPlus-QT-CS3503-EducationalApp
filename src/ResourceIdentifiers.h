@@ -12,15 +12,7 @@ namespace Textures
 {
     enum class ID
     {
-        // Texture ids
-    };
-}
-
-namespace Fonts
-{
-    enum class ID
-    {
-        // Font ids
+        Default
     };
 }
 
@@ -28,13 +20,11 @@ namespace Fonts
 namespace sf
 {
     class Texture;
-    class Font;
 }
 template <typename Resource, typename Identifier>
 class ResourceManager;
 
 // Typedefs for different types of resources
-typedef ResourceManager<sf::Texture, Textures::ID>  TextureManager;
-typedef ResourceManager<sf::Font, Fonts::ID>        FontManager;
+typedef ResourceManager<sf::Texture, int>  TextureManager;
 
 #endif // RESOURCEIDENTIFIERS_H

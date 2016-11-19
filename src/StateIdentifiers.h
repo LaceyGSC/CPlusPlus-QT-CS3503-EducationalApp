@@ -9,13 +9,10 @@
 
 namespace States
 {
-    enum class ID
+    enum ID
     {
         None,
-        TitleState,
-        MenuState,
-        GameState,
-        PauseState
+        TitleState
     };
 }
 

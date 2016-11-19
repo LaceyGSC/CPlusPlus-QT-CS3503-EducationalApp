@@ -5,11 +5,15 @@
  *
  */
 
+#include <QDir>
+
 template <typename Resource, typename Identifier>
 void ResourceManager<Resource, Identifier>::load(Identifier id, const std::string& filename)
 {
+    std::string utf8_text = QDir::currentPath().toUtf8().constData();
+
     std::unique_ptr<Resource> resource(new Resource());
-    if (!resource->loadFromFile(filename))
+    if (!resource->loadFromFile(utf8_text + filename))
         throw std::runtime_error("ResourceManager::load - Failed to load: " + filename);
     insertResource(id, std::move(resource));
 }
@@ -19,6 +23,14 @@ void ResourceManager<Resource, Identifier>::load(Identifier id, const Resource& 
 {
     std::unique_ptr<Resource> resource(new Resource(data));
     insertResource(id, std::move(resource));
+}
+
+template <typename Resource, typename Identifier>
+Resource& ResourceManager<Resource, Identifier>::get(Identifier id)
+{
+    auto found = mResourceMap.find(id);
+    assert(found != mResourceMap.end());
+    return *found->second;
 }
 
 template <typename Resource, typename Identifier>

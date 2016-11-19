@@ -9,6 +9,8 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
+#include <SFML/Graphics.hpp>
+
 #include <memory>
 #include <unordered_map>
 #include <string>
@@ -20,13 +22,14 @@ class ResourceManager
 {
 private:
     // This is one long ass declaration
-    typename std::unordered_map<Identifier, std::unique_ptr<Resource>> ResourceMap;
+    typedef std::unordered_map<Identifier, std::unique_ptr<Resource>> ResourceMap;
 
 public:
     // Both load methods throw std::runtime_error if resource is not found
     void                load(Identifier id, const std::string& filename);
     void                load(Identifier id, const Resource& data);
 
+    Resource&           get(Identifier id);
     const Resource&     get(Identifier id) const;
 
 private:

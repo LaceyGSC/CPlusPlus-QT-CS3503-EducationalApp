@@ -23,10 +23,10 @@ class StateStack : private sf::NonCopyable
 {
 private:
     // This is one long ass declaration
-    typedef std::unordered_map<States::ID, std::function<State::Ptr()>> FactoryMap;
+    typedef std::unordered_map<int, std::function<State::Ptr()>> FactoryMap;
 
 public:
-                                StateStack();
+    explicit                    StateStack(State::Context context);
 
     // Registers the state with its declaration function into an unordered map. This
     // allows for the factory method pattern which can easily create varying states
@@ -74,7 +74,8 @@ private:
     // std::function trying to instantiate an abstract class
     FactoryMap                  mFactories;
 
-    // Context - Should be used in conjuction with ResourceManager (TODO)
+    // Context allows the states to get resources from the resource managers
+    State::Context              mContext;
 };
 
 // Factory function
@@ -83,7 +84,7 @@ void StateStack::registerState(States::ID stateID, QLayout *layout, QWidget *par
 {
     mFactories[stateID] = [this, parent, layout] ()
     {
-        State::Ptr state(new StateType(*this, parent));
+        State::Ptr state(new StateType(*this, mContext, parent));
 
         // We want to add the state widget to the main layout so that it is centered and expands
         // to the size of the main window.
