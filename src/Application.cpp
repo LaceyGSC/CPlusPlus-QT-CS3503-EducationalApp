@@ -15,6 +15,7 @@
 
 #include "StateIdentifiers.h"
 #include "TitleState.h"
+#include "mysqlconnection.h"
 
 // 60 FPS
 const sf::Time Application::TIME_PER_FRAME = sf::seconds(1.f/60.f);
@@ -30,6 +31,8 @@ Application::Application(QWidget *parent)
     mUi->setupUi(this);
 
     QMainWindow::setWindowTitle("Edu App");
+
+    MySQLConnection();
 
     // Setup the states and push the first state
     registerStates();

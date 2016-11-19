@@ -4,12 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = EduApp
 TEMPLATE = app
+QTPLUGIN =
 
 SOURCES += \
     src/Main.cpp \
@@ -19,7 +20,8 @@ SOURCES += \
     src/Application.cpp \
     src/State.cpp \
     src/StateStack.cpp \
-    src/TitleState.cpp
+    src/TitleState.cpp \
+    src/mysqlconnection.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -30,11 +32,13 @@ HEADERS += \
     src/State.h \
     src/StateStack.h \
     src/StateIdentifiers.h \
-    src/TitleState.h
+    src/TitleState.h \
+    src/mysqlconnection.h
 
 FORMS += \
     src/Application.ui \
     src/TitleState.ui
+
 
 !macx{
 CONFIG(debug, debug|release): LIBS += -L$$PWD/ext/SFML/debug/lib
@@ -74,3 +78,11 @@ DEPENDPATH += $$PWD/ext/Box2D
 
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 }
+
+
+INCLUDEPATH += $$PWD/ext/MySQL/lib
+DEPENDPATH += $$PWD/ext/MySQL/lib
+#LIBS += $$PWD/ext/MySQL/lib -lmysqlclient -lm -lz
+
+DISTFILES += \
+    ../../../../../Qt/5.7/msvc2015_64/plugins/sqldrivers/qsqlmysql.dll
