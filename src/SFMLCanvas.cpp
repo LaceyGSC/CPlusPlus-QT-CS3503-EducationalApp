@@ -21,10 +21,10 @@ SFMLCanvas::SFMLCanvas(const QPoint &pos, const QSize &size, State::Context &con
 void SFMLCanvas::onInit()
 {
     // Load texture and initialize sprite with texture.
-    getContext().textures.load(Textures::ID::Default, "/Textures/default.png");
-    getContext().textures.get(Textures::ID::Default).setSmooth(true);
+    getContext().textures.load(static_cast<int>(Textures::ID::Default), "/Textures/default.png");
+    getContext().textures.get(static_cast<int>(Textures::ID::Default)).setSmooth(true);
 
-    mSprite.setTexture(getContext().textures.get(Textures::ID::Default));
+    mSprite.setTexture(getContext().textures.get(static_cast<int>(Textures::ID::Default)));
     mSprite.setPosition(0.f, 0.f);
     mSprite.scale(0.5f, 0.5f);
 }

@@ -9,7 +9,7 @@
 
 namespace States
 {
-    enum class ID
+    enum ID
     {
         None,
         TitleState

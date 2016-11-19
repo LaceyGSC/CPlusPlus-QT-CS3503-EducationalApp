@@ -25,6 +25,6 @@ template <typename Resource, typename Identifier>
 class ResourceManager;
 
 // Typedefs for different types of resources
-typedef ResourceManager<sf::Texture, Textures::ID>  TextureManager;
+typedef ResourceManager<sf::Texture, int>  TextureManager;
 
 #endif // RESOURCEIDENTIFIERS_H
