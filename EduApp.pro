@@ -19,7 +19,8 @@ SOURCES += \
     src/Application.cpp \
     src/State.cpp \
     src/StateStack.cpp \
-    src/GameState.cpp
+    src/GameState.cpp \
+    src/mysqlconnection.cpp
     src/mysqlconnection.cpp
 
 HEADERS += \
@@ -31,7 +32,8 @@ HEADERS += \
     src/State.h \
     src/StateStack.h \
     src/StateIdentifiers.h \
-    src/GameState.h
+    src/GameState.h \
+    src/mysqlconnection.h
     src/mysqlconnection.h
 
 FORMS += \

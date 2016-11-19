@@ -33,7 +33,7 @@ Application::Application(QWidget *parent)
     mUi->setupUi(this);
 
     QMainWindow::setWindowTitle("Edu App");
-
+;
     MySQLConnection connection;
 
     // Setup the states and push the first state

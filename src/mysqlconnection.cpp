@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QSqlError>
 
+
 MySQLConnection::MySQLConnection()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
