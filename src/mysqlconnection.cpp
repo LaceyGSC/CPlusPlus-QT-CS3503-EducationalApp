@@ -14,10 +14,10 @@ MySQLConnection::MySQLConnection()
     db.setPassword("plantpassword");
 
     bool ok = db.open();
+     qDebug() << ok;
 
     QSqlQuery query;
     query.exec("Select * from PlantTable");
-
 
     while (query.next())
     {
@@ -25,7 +25,5 @@ MySQLConnection::MySQLConnection()
             QString name = query.value(1).toString();
             qDebug() << plantIndex << name;
     }
-
-    qDebug() << ok;
 
 }
