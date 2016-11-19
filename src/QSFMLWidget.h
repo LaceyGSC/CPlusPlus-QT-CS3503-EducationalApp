@@ -29,7 +29,10 @@ public:
     virtual void            paintEvent(QPaintEvent*);
 
     virtual void            onInit() = 0;
-    virtual void            onDraw() = 0;
+    // Over here, we pass the SFML canvas (target) and the transforms (states) to allow the
+    // derived classes to draw themselves. Passing transforms allow relative rather than
+    // absolute positioning of the sprites
+    virtual void            onDraw(sf::RenderTarget& target, sf::RenderStates states) = 0;
 
     State::Context          getContext() const;
 
@@ -39,6 +42,10 @@ private:
 
     // Context allows the widget to get resources from the resource managers
     State::Context          mContext;
+
+    // The SFML canvas is just an SFML window without the titlebar
+    sf::RenderWindow        mCanvas;
+    //int i = 0;
 };
 
 #endif // QSFMLWidget_H

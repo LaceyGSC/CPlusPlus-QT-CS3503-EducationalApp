@@ -14,11 +14,14 @@
 
 #include "State.h"
 
+#include <QDebug>
+
 QSFMLWidget::QSFMLWidget(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent, unsigned int refreshTime)
     : QWidget(parent)
     , mInitialized(false)
     , mRefreshTimer(this)
     , mContext(context)
+    , mCanvas()
 {
     // Tells Qt that we will not use its painting functions, and paint directly onto the widget
     QWidget::setAttribute(Qt::WA_PaintOnScreen);
@@ -55,8 +58,8 @@ void QSFMLWidget::showEvent(QShowEvent*)
             XFlush(QX11Info::display());
         #endif
 
-        // Create the SFML window with the widget handle
-        sf::RenderWindow::create((sf::WindowHandle)(winId()));
+        // Create SFML canvas with the window id
+        mCanvas.create((sf::WindowHandle)(winId()));
 
         // Let the derived class do its specific stuff
         onInit();
@@ -71,13 +74,15 @@ void QSFMLWidget::showEvent(QShowEvent*)
 void QSFMLWidget::paintEvent(QPaintEvent*)
 {
     // Clear screen
-    sf::RenderWindow::clear(sf::Color::Transparent);
+    mCanvas.clear(sf::Color::Transparent);
 
     // Let the derived class do its specific stuff
-    onDraw();
+    onDraw(mCanvas, sf::RenderStates::Default);
 
     // Display on screen
-    sf::RenderWindow::display();
+    mCanvas.display();
+
+    //qDebug() << "Paint!" << i++;
 }
 
 State::Context QSFMLWidget::getContext() const

@@ -14,27 +14,30 @@ TEMPLATE = app
 SOURCES += \
     src/Main.cpp \
     src/QSFMLWidget.cpp \
-    src/SFMLCanvas.cpp \
+    src/WorldCanvas.cpp \
     src/ResourceManager.inl \
     src/Application.cpp \
     src/State.cpp \
     src/StateStack.cpp \
-    src/TitleState.cpp
+    src/GameState.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
-    src/SFMLCanvas.h \
+    src/WorldCanvas.h \
     src/ResourceManager.h \
     src/ResourceIdentifiers.h \
     src/Application.h \
     src/State.h \
     src/StateStack.h \
     src/StateIdentifiers.h \
-    src/TitleState.h
+    src/GameState.h
 
 FORMS += \
     src/Application.ui \
-    src/TitleState.ui
+    src/GameState.ui
+
+RESOURCES += \
+    src/Textures.qrc
 
 !macx{
 CONFIG(debug, debug|release): LIBS += -L$$PWD/ext/SFML/debug/lib

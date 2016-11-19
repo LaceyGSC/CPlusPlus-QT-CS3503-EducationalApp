@@ -5,15 +5,16 @@
  *
  */
 
-#include <QDir>
+#include <QResource>
+#include <QString>
 
 template <typename Resource, typename Identifier>
 void ResourceManager<Resource, Identifier>::load(Identifier id, const std::string& filename)
 {
-    std::string utf8_text = QDir::currentPath().toUtf8().constData();
+    QResource qRes(QString::fromUtf8(filename.c_str()));
 
     std::unique_ptr<Resource> resource(new Resource());
-    if (!resource->loadFromFile(utf8_text + filename))
+    if (!resource->loadFromMemory(qRes.data(), qRes.size()))
         throw std::runtime_error("ResourceManager::load - Failed to load: " + filename);
     insertResource(id, std::move(resource));
 }

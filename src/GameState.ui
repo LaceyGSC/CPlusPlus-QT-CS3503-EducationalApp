@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TitleState</class>
- <widget class="QWidget" name="TitleState">
+ <class>GameState</class>
+ <widget class="QWidget" name="GameState">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>102</width>
+    <width>219</width>
     <height>96</height>
    </rect>
   </property>
@@ -35,21 +35,48 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <property name="spacing">
-    <number>0</number>
-   </property>
    <item row="0" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QGridLayout" name="gameContainer">
      <property name="spacing">
       <number>0</number>
      </property>
-     <item>
-      <widget class="QGroupBox" name="groupBox">
+     <item row="1" column="0">
+      <widget class="QGroupBox" name="worldBox">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="title">
+        <string>World Display</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QGridLayout" name="worldContainer"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QGroupBox" name="charStatsBox">
        <property name="enabled">
         <bool>true</bool>
        </property>
        <property name="title">
-        <string>Title Test</string>
+        <string>Character Statistics</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <property name="leftMargin">
@@ -76,7 +103,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Start</string>
+           <string>Test</string>
           </property>
          </widget>
         </item>
