@@ -51,7 +51,7 @@
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QGridLayout" name="gridLayout_3">
         <property name="leftMargin">
          <number>0</number>
         </property>
@@ -64,7 +64,7 @@
         <property name="bottomMargin">
          <number>0</number>
         </property>
-        <item>
+        <item row="0" column="0">
          <layout class="QGridLayout" name="worldContainer"/>
         </item>
        </layout>

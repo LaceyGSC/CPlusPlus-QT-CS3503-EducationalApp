@@ -11,10 +11,9 @@
 #include <Qt/qx11info_x11.h>
 #include <X11/Xlib.h>
 #endif
+#include <QTimer>
 
 #include "State.h"
-
-#include <QDebug>
 
 QSFMLWidget::QSFMLWidget(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent, unsigned int refreshTime)
     : QWidget(parent)
@@ -48,7 +47,7 @@ QPaintEngine* QSFMLWidget::paintEngine() const
 }
 
 
-void QSFMLWidget::showEvent(QShowEvent*)
+void QSFMLWidget::showEvent(QShowEvent* event)
 {
     if (!mInitialized)
     {
@@ -69,6 +68,10 @@ void QSFMLWidget::showEvent(QShowEvent*)
         mRefreshTimer.start();
         mInitialized = true;
     }
+
+    // QTimer gives a little time so that the show action can be executed first before
+    // resetting the canvas
+    QTimer::singleShot(0, this, SLOT(resetCanvas()));
 }
 
 void QSFMLWidget::paintEvent(QPaintEvent*)
@@ -81,11 +84,19 @@ void QSFMLWidget::paintEvent(QPaintEvent*)
 
     // Display on screen
     mCanvas.display();
+}
 
-    //qDebug() << "Paint!" << i++;
+void QSFMLWidget::resizeEvent(QResizeEvent*)
+{
+    resetCanvas();
 }
 
 State::Context QSFMLWidget::getContext() const
 {
     return mContext;
+}
+
+void QSFMLWidget::resetCanvas()
+{
+    mCanvas.setSize(sf::Vector2u(mCanvas.getSize()));
 }

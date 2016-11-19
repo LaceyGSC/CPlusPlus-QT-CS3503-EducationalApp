@@ -14,26 +14,27 @@
 #include "StateStack.h"
 #include "ResourceIdentifiers.h"
 #include "ResourceManager.h"
-#include "WorldCanvas.h"
+#include "World.h"
 
 GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
     , mUi(new Ui::GameState)
-    , mCanvas(QPoint(0, 0), QSize(400, 400), context)
+    , mWorld(QPoint(0, 0), QSize(400, 400), context)
 {
     mUi->setupUi(this);
 
     // Display the game state widget
     this->show();
 
-    // Sets the column ratio for worldCanvas : charStats to 3 : 1
+    // Sets the column ratio for World : charStats to 3 : 1
     mUi->gameContainer->setColumnStretch(0, 3);
     mUi->gameContainer->setColumnStretch(1, 1);
 
-    mCanvas.setParent(mUi->worldBox);
+    // Set parent to allow the canvas to be displayed with reference to its container
+    mWorld.setParent(mUi->worldBox);
 
     QObject::connect(mUi->pushButton, SIGNAL(pressed()), this, SLOT(start()));
-    mCanvas.hide();
+    mWorld.hide();
 }
 
 GameState::~GameState()
@@ -49,14 +50,14 @@ bool GameState::update(const sf::Time &deltaTime)
 
 void GameState::start()
 {
-    if (mCanvas.isHidden())
+    if (mWorld.isHidden())
     {
-        mUi->worldContainer->addWidget(&mCanvas);
-        mCanvas.show();
+        mUi->worldContainer->addWidget(&mWorld);
+        mWorld.show();
     }
     else
     {
-        mUi->worldContainer->removeWidget(&mCanvas);
-        mCanvas.hide();
+        mUi->worldContainer->removeWidget(&mWorld);
+        mWorld.hide();
     }
 }

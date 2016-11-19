@@ -68,6 +68,8 @@ void Application::gameLoop()
         mElapsedTime -= TIME_PER_FRAME;
 
         // Handle events (TODO)
+        // Note: events might not need to be handled here since Qt has its own event handling system (i.e.
+        // handling events by overriding the virtual functions provided by Qt)
 
         // Update game logic
         mStateStack.update(TIME_PER_FRAME);

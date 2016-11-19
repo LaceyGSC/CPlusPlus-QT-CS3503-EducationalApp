@@ -14,7 +14,7 @@ TEMPLATE = app
 SOURCES += \
     src/Main.cpp \
     src/QSFMLWidget.cpp \
-    src/WorldCanvas.cpp \
+    src/World.cpp \
     src/ResourceManager.inl \
     src/Application.cpp \
     src/State.cpp \
@@ -23,7 +23,7 @@ SOURCES += \
 
 HEADERS += \
     src/QSFMLWidget.h \
-    src/WorldCanvas.h \
+    src/World.h \
     src/ResourceManager.h \
     src/ResourceIdentifiers.h \
     src/Application.h \

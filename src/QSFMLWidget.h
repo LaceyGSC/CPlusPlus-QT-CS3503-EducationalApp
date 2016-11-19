@@ -17,6 +17,8 @@
 
 class QSFMLWidget : public QWidget, public sf::RenderWindow
 {
+    Q_OBJECT
+
 public:
     // The default value of 0 for refreshTime will make the timer trigger a refresh whenever
     // there is no other event to process and we want the widget to refresh as many times
@@ -27,6 +29,7 @@ public:
 
     virtual void            showEvent(QShowEvent*);
     virtual void            paintEvent(QPaintEvent*);
+    virtual void            resizeEvent(QResizeEvent*);
 
     virtual void            onInit() = 0;
     // Over here, we pass the SFML canvas (target) and the transforms (states) to allow the
@@ -35,6 +38,10 @@ public:
     virtual void            onDraw(sf::RenderTarget& target, sf::RenderStates states) = 0;
 
     State::Context          getContext() const;
+
+private slots:
+    // Resets the SFML canvas so that its (0, 0) coord is always at the top left
+    void                    resetCanvas();
 
 private:
     QTimer                  mRefreshTimer;
@@ -45,7 +52,6 @@ private:
 
     // The SFML canvas is just an SFML window without the titlebar
     sf::RenderWindow        mCanvas;
-    //int i = 0;
 };
 
 #endif // QSFMLWidget_H

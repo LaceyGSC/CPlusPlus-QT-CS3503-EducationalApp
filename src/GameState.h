@@ -1,6 +1,7 @@
 /*
  * Author: King Hoe Wong
- * Desc: Represents a game state (playing state).
+ * Desc: Represents a game state (playing state). This class should contain all the
+ *       gameplay-related data such as the world data, player data, etc..
  *
  */
 
@@ -12,7 +13,7 @@
 #include "State.h"
 #include "StateStack.h"
 
-#include "WorldCanvas.h"
+#include "World.h"
 
 namespace Ui {
     class GameState;
@@ -34,8 +35,8 @@ private slots:
 private:
     Ui::GameState  *mUi;
 
-    // SFML sprites can be drawn onto the canvas
-    WorldCanvas      mCanvas;
+    // SFML sprites should be declared in the World class and drawn there
+    World           mWorld;
 };
 
 #endif // GAMESTATE_H
