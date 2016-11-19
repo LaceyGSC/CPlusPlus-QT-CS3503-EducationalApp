@@ -34,7 +34,7 @@ Application::Application(QWidget *parent)
 
     QMainWindow::setWindowTitle("Edu App");
 
-    MySQLConnection();
+    MySQLConnection connection;
 
     // Setup the states and push the first state
     registerStates();
