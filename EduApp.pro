@@ -51,12 +51,18 @@ DEPENDPATH += $$PWD/ext/SFML/include
 }
 
 macx{
-    LIBS += -L$$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system
+    #LIBS += -L$$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system
 
-    INCLUDEPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
-    DEPENDPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
+    #INCLUDEPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
+    #DEPENDPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
+QMAKE_MAC_SDK = macosx10.12
 
-    QMAKE_+= $$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window
+LIBS += -L"/usr/local/lib" -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window
+
+INCLUDEPATH += "/usr/local/include"
+DEPENDPATH += "/usr/local/include"
+
+    #QMAKE_+= $$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window
 }
 
 
@@ -66,7 +72,6 @@ CONFIG(release, debug|release): LIBS += -L$$PWD/ext/Box2D/release -lBox2D
 
 INCLUDEPATH += $$PWD/ext/Box2D
 DEPENDPATH += $$PWD/ext/Box2D
-
 }
 
 macx{
@@ -77,3 +82,7 @@ DEPENDPATH += $$PWD/ext/Box2D
 
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 }
+
+QMAKE_POST_LINK="install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
+
+
