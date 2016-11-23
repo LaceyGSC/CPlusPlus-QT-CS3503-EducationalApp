@@ -15,6 +15,8 @@
 
 #include "World.h"
 
+#include "ServerConnection.h"
+
 namespace Ui {
     class GameState;
 }
@@ -37,6 +39,8 @@ private:
 
     // SFML sprites should be declared in the World class and drawn there
     World           mWorld;
+
+    ServerConnection connection;
 };
 
 #endif // GAMESTATE_H

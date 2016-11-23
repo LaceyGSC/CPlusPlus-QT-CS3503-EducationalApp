@@ -16,6 +16,7 @@
 #include "ResourceManager.h"
 #include "World.h"
 
+
 GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
     , mUi(new Ui::GameState)
@@ -54,6 +55,7 @@ void GameState::start()
     {
         mUi->worldContainer->addWidget(&mWorld);
         mWorld.show();
+        connection.sendPacket("test");
     }
     else
     {

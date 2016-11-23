@@ -20,8 +20,7 @@ SOURCES += \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
-    src/mysqlconnection.cpp
-    src/mysqlconnection.cpp
+    src/ServerConnection.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -33,8 +32,7 @@ HEADERS += \
     src/StateStack.h \
     src/StateIdentifiers.h \
     src/GameState.h \
-    src/mysqlconnection.h
-    src/mysqlconnection.h
+    src/ServerConnection.h
 
 FORMS += \
     src/Application.ui \
@@ -81,3 +79,5 @@ DEPENDPATH += $$PWD/ext/Box2D
 
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 }
+
+win32: LIBS += -L$$PWD/ext/MySQL/ -llibmysql
