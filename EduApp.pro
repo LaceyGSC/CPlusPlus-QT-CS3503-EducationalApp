@@ -19,7 +19,8 @@ SOURCES += \
     src/Application.cpp \
     src/State.cpp \
     src/StateStack.cpp \
-    src/GameState.cpp
+    src/GameState.cpp \
+    src/FractalExspressionEvaluator.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -30,7 +31,8 @@ HEADERS += \
     src/State.h \
     src/StateStack.h \
     src/StateIdentifiers.h \
-    src/GameState.h
+    src/GameState.h \
+    src/FractalExspressionEvaluator.h
 
 FORMS += \
     src/Application.ui \

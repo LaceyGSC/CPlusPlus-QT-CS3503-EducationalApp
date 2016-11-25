@@ -7,15 +7,6 @@
 
 class FractalExspressionEvaluator
 {
-    unsigned int mEscape;
-    unsigned int mMaxIters;
-    std::complex<double> mJuliaValue;
-
-    //these variables deal with scaling and positioning
-    unsigned int mRefSize;
-    std::complex<double> mRefPoit1;
-    std::complex<double> mRefPoit2;
-    //void* functionString = [](std::complex<double> z,const std::complex<double>& c,const std::complex<double>& j)->{};
 
 public:
 
@@ -43,6 +34,17 @@ public:
 
 
     int getValue(double x,double y);
+
+private:
+    unsigned int mEscape;
+    unsigned int mMaxIters;
+    std::complex<double> mJuliaValue;
+
+    //these variables deal with scaling and positioning
+    unsigned int mRefSize;
+    std::complex<double> mRefPoit1;
+    std::complex<double> mRefPoit2;
+    //void* functionString = [](std::complex<double> z,const std::complex<double>& c,const std::complex<double>& j)->{};
 
 };
 

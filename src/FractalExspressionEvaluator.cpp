@@ -11,13 +11,13 @@ FractalExspressionEvaluator::FractalExspressionEvaluator():
 
 }
 
-int FractalExspressionEvaluator::getEscapeValue(){return mEscape;}
+unsigned int FractalExspressionEvaluator::getEscapeValue(){return mEscape;}
 void FractalExspressionEvaluator::setEscapeValue(unsigned int Escape){mEscape=Escape;}
 
-int FractalExspressionEvaluator::getMaxIters(){return mMaxIters;}
+unsigned int FractalExspressionEvaluator::getMaxIters(){return mMaxIters;}
 void FractalExspressionEvaluator::setMaxIters(unsigned int MaxIters){mMaxIters=MaxIters;}
 
-int FractalExspressionEvaluator::GetRefSize(){return mRefSize;}
+unsigned int FractalExspressionEvaluator::GetRefSize(){return mRefSize;}
 void FractalExspressionEvaluator::setRefSize(unsigned int RefSize){mRefSize=RefSize;}
 
 std::complex<double> FractalExspressionEvaluator::getJuliaValue(){return mJuliaValue;}
