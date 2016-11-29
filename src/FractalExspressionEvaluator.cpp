@@ -41,9 +41,10 @@ int FractalExspressionEvaluator::getValue(double x,double y)
     std::complex<double> z = c;
 
     unsigned int i(0);
-    for(i = 0; i<mMaxIters || std::norm(z)>=mEscape;i++)
+    while(i < mMaxIters && std::norm(z)<=mEscape)
     {
         z=pow(M_E,pow(z,3))+mJuliaValue;
+        i+=1;
     }
     return i;
 }

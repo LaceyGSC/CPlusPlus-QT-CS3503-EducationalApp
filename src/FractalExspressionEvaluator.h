@@ -33,6 +33,7 @@ public:
     void setRefPoit2(std::complex<double>);
 
 
+
     int getValue(double x,double y);
 
 private:

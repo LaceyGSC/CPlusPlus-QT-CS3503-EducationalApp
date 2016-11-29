@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "QSFMLWidget.h"
+#include "FractalExspressionEvaluator.h"
 #include "State.h"
 
 class World : public QSFMLWidget
@@ -23,6 +24,11 @@ public :
 
 private:
     sf::Sprite      mSprite;
+    QPoint    mWorldLocation;
+    FractalExspressionEvaluator map;
+    int worldNum;
+    int* landcount;
+    void WorldLoader(int);
 };
 
 #endif // WORLD_H
