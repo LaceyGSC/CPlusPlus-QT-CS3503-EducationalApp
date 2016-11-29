@@ -19,7 +19,9 @@ SOURCES += \
     src/Application.cpp \
     src/State.cpp \
     src/StateStack.cpp \
-    src/GameState.cpp
+    src/GameState.cpp \
+    loginstate.cpp \
+    src/LoginState.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -30,11 +32,15 @@ HEADERS += \
     src/State.h \
     src/StateStack.h \
     src/StateIdentifiers.h \
-    src/GameState.h
+    src/GameState.h \
+    loginstate.h \
+    src/LoginState.h
 
 FORMS += \
     src/Application.ui \
-    src/GameState.ui
+    src/GameState.ui \
+    loginstate.ui \
+    src/LoginState.ui
 
 RESOURCES += \
     src/Textures.qrc
