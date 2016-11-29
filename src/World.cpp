@@ -44,13 +44,13 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
         mSprite.move(1,0);
        //  mSprite.setPosition(mSprite.getPosition().x+1,mSprite.getPosition().y);
     }
-    if(Keyboard::isKeyPressed(Keyboard::Left)){
+    else if(Keyboard::isKeyPressed(Keyboard::Left)){
          mSprite.setPosition(mSprite.getPosition().x-1,mSprite.getPosition().y);
     }
-    if(Keyboard::isKeyPressed(Keyboard::Up)){
+    else if(Keyboard::isKeyPressed(Keyboard::Up)){
          mSprite.setPosition(mSprite.getPosition().x,mSprite.getPosition().y-1);
     }
-    if(Keyboard::isKeyPressed(Keyboard::Down)){
+    else if(Keyboard::isKeyPressed(Keyboard::Down)){
          mSprite.setPosition(mSprite.getPosition().x,mSprite.getPosition().y+1);
     }
 }
