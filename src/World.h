@@ -27,8 +27,9 @@ private:
     QPoint    mWorldLocation;
     FractalExspressionEvaluator map;
     int worldNum;
-    int* landcount;
+    int landcount;
     void WorldLoader(int);
+    void DrawMap(sf::RenderTarget& target, sf::RenderStates states);
 };
 
 #endif // WORLD_H
