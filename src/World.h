@@ -30,6 +30,7 @@ private:
     int landcount;
     void WorldLoader(int);
     void DrawMap(sf::RenderTarget& target, sf::RenderStates states);
+    bool moveValid(QPoint next);
 };
 
 #endif // WORLD_H

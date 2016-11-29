@@ -38,8 +38,25 @@ void World::onInit()
 
 void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 {
+    QPoint temp = mWorldLocation;
 
-    DrawMap(target,states);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        temp.rx()+=1;
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        temp.rx()-=1;
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        temp.ry()-=1;
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        temp.ry()+=1;
+    }
+
+    if(moveValid(temp)){
+        mWorldLocation = temp;
+        DrawMap(target,states);
+    }
 }
 
 void World::WorldLoader(int worldtype)
@@ -96,4 +113,9 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
             target.draw(mSprite, states);
         }
     }
+}
+
+bool World::moveValid(QPoint next)
+{
+    return true;
 }
