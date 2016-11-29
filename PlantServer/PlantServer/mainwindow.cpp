@@ -1,5 +1,6 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
+#include <sstream>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -56,8 +57,9 @@ void MainWindow::getPackets()
         std::cout << "Msg received: " << msg << std::endl;
         recievedQuery = QString::fromStdString(msg);
 
-
-        queryDatabase();
+        //Starts query to database for plant data
+        //Will use switch statement for different query types later
+        queryDatabasePlant();
     }
 
 
@@ -68,6 +70,7 @@ void MainWindow::getPackets()
 
 void MainWindow::connectToDatabase()
 {
+    //Connects to the plant database
     db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("plantquestdb.ck8fat1uoilr.us-west-2.rds.amazonaws.com");
     db.setPort(3306);
@@ -78,19 +81,57 @@ void MainWindow::connectToDatabase()
 
 }
 
-void MainWindow::queryDatabase()
+void MainWindow::queryDatabasePlant()
 {
-    qDebug() << db.open();
+    sf::Packet packet;
+    std::stringstream packetStream;
+    const char* returnChars;
     QSqlQuery query(db);
 
+    //Executes the query recieved from the client for plant data
     query.exec(recievedQuery);
 
     while (query.next())
     {
+        //Gets plant index, name
         int plantIndex = query.value(0).toInt();
         QString name = query.value(1).toString();
-        qDebug() << plantIndex << name;
+
+        //Adds all plant info to stringstream
+        packetStream << plantIndex <<": " << name.toStdString() << "\n";
     }
+
+    //Creates string from stringstream, needed to get const char*
+    std::string returnString(packetStream.str());
+    //Creates const char* to add into returning packet
+    returnChars = returnString.c_str();
+
+    packet << returnChars;
+    client.send(packet);
+
+}
+
+void MainWindow::queryDatabaseUser()
+{
+    sf::Packet packet;
+    std::stringstream packetStream;
+    const char* returnChars;
+    QSqlQuery query(db);
+
+    //Executes the query recieved from the client for user data
+    query.exec(recievedQuery);
+
+    while (query.next())
+    {
+        //build query for user information to match against
+    }
+
+//    std::string returnString(packetStream.str());
+//    returnChars = returnString.c_str();
+
+//    packet << returnChars;
+
+//    client.send(packet);
 
 }
 

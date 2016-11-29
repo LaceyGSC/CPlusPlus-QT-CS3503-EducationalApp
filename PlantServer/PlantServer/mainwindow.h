@@ -39,7 +39,8 @@ private:
     QSqlDatabase db;
 
     void connectToDatabase();
-    void queryDatabase();
+    void queryDatabasePlant();
+    void queryDatabaseUser();
 };
 
 #endif // MAINWINDOW_H
