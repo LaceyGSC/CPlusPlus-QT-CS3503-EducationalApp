@@ -19,22 +19,17 @@
 
 using namespace sf;
 World::World(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent)
-    : QSFMLWidget(pos, size, context, parent),characterRelativePos(std::complex<double>(9,9))
+    : QSFMLWidget(pos, size, context, parent),characterRelativePos(std::complex<double>(9,9)),velocity(0.02)
 {
                 map.setRefSize(512);;
 }
 
 void World::onInit()
 {
-    // Load texture and initialize sprite with texture.
-    getContext().textures.load(static_cast<int>(Textures::ID::Default), "qrc:/../media/Textures/default.png");
-    getContext().textures.get(static_cast<int>(Textures::ID::Default)).setSmooth(true);
+    WorldLoader(1);
 
-    WorldLoader(0);
-
-    mSprite.setTexture(getContext().textures.get(static_cast<int>(Textures::ID::Default)));
-    mSprite.setPosition(0.f, 0.f);
-    mSprite.scale(0.5f, 0.5f);
+    getContext().textures.load(0, "qrc:/../media/Textures/meme.png");
+    getContext().textures.get(0).setSmooth(true);
 }
 
 void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
@@ -53,7 +48,6 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         temp +=std::complex<double>(0,1)*velocity;
     }
-
 
     if(moveValid(temp)){  
         mWorldLocation = temp;   
@@ -120,6 +114,7 @@ void World::WorldLoader(int worldtype)
     }
     else {
 
+
     }
 }
 void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
@@ -131,11 +126,21 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
     {
         for(int y = 0;y<576*scale;y+=jumpgap)
         {
-            int type = (map.getValue(static_cast<int>(mWorldLocation.real())+x/jumpgap+0,static_cast<int>(mWorldLocation.imag())+y/jumpgap+0)%landcount )+1;
+            int type = (map.getValue(static_cast<int>(mWorldLocation.real()+x/jumpgap+0),static_cast<int>(mWorldLocation.imag()+y/jumpgap))%landcount )+1;
             mSprite.setTexture(getContext().textures.get(type));
             mSprite.setPosition(x,y);
             mSprite.setScale(scale,scale);
             target.draw(mSprite, states);
+            bool atCharectorX =  characterRelativePos.real() == x/jumpgap;
+            bool atCharectorY = characterRelativePos.imag() == y/jumpgap;
+            if(atCharectorX&&atCharectorY)
+            {
+                mCharacter.setTexture(getContext().textures.get(0));
+                mCharacter.setPosition(x,y-16);
+                mCharacter.setScale(1,1);
+                mCharacter.setOrigin(0,.25);
+                target.draw(mCharacter,states);
+            }
         }
     }
 }
@@ -154,12 +159,12 @@ std::string World::pickPlant()
 bool World::moveValid(std::complex<double> next)
 {
     next = next + characterRelativePos;
-    if(unMoveableTerrain.contains((map.getValue(static_cast<int>(mWorldLocation.real()),static_cast<int>(mWorldLocation.imag()))%landcount+1)))
+    if(unMoveableTerrain.contains((map.getValue(static_cast<int>(next.real()),static_cast<int>(next.imag()))%landcount+1)))
     {
-        if(unMoveableTerrain.contains((map.getValue(static_cast<int>(next.real()),static_cast<int>(next.imag()))%landcount +1)))
-        {
-            return true;
-        }
+//        if(unMoveableTerrain.contains((map.getValue(static_cast<int>(mWorldLocation.real()),static_cast<int>(mWorldLocation.imag()))%landcount +1)))
+//        {
+//            return true;
+//        }
         return false;
     }
     return true;

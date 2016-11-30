@@ -41,4 +41,8 @@
     <qresource prefix="/">
         <file>../media/Textures/ShallowSaltWater.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>../media/Textures/meme.png</file>
+    </qresource>
 </RCC>
+

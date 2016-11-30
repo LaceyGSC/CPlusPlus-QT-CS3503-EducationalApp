@@ -35,13 +35,15 @@ public :
 
 private:
     sf::Sprite      mSprite;
+    sf::Sprite      mCharacter;
+
     std::complex<double>    mWorldLocation;
     std::complex<double> characterRelativePos;
     FractalExspressionEvaluator map;
 
     int worldNum;
     int landcount;
-    double velocity = 0.2f;
+    double velocity;
 
     QList<int> unMoveableTerrain;
     QQueue<std::complex<int>> pickedPlants;
