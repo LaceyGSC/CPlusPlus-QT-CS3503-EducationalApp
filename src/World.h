@@ -23,6 +23,7 @@ public :
 
 private:
     sf::Sprite      mSprite;
+    sf::Sprite      mCharacter;
 };
 
 #endif // WORLD_H

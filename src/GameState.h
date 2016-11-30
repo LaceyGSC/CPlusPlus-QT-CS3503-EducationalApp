@@ -12,7 +12,7 @@
 
 #include "State.h"
 #include "StateStack.h"
-
+#include "Character.h"
 #include "World.h"
 
 namespace Ui {
@@ -37,6 +37,7 @@ private:
 
     // SFML sprites should be declared in the World class and drawn there
     World           mWorld;
+  //  Character       mCharacter;
 };
 
 #endif // GAMESTATE_H

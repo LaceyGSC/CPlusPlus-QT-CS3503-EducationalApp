@@ -10,7 +10,7 @@
 class Character : public QSFMLWidget
 {
 public :
-    explicit        Character(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent = 0);
+    explicit        Character(const QPoint &pos, const QSize &size, State::Context context, QWidget *parent = 0);
 
     virtual void    onInit();
     virtual void    onDraw(sf::RenderTarget& target, sf::RenderStates states);

@@ -33,24 +33,30 @@ void World::onInit()
     mSprite.scale(0.5f, 0.5f);
 
 
+    getContext().textures.load(static_cast<int>(Textures::ID::Character), "qrc:/../media/Textures/meme.png");
+    getContext().textures.get(static_cast<int>(Textures::ID::Character)).setSmooth(true);
+
+    mCharacter.setTexture(getContext().textures.get(static_cast<int>(Textures::ID::Character)));
+    mCharacter.setPosition(0.f, 0.f);
+    mCharacter.scale(0.5f, 0.5f);
+
 }
 
 void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 {
     // Draw sprite
     target.draw(mSprite, states);
-
+    target.draw(mCharacter, states);
     if(Keyboard::isKeyPressed(Keyboard::Right)){
-        mSprite.move(1,0);
-       //  mSprite.setPosition(mSprite.getPosition().x+1,mSprite.getPosition().y);
+        mCharacter.move(0.1,0);
     }
     else if(Keyboard::isKeyPressed(Keyboard::Left)){
-         mSprite.setPosition(mSprite.getPosition().x-1,mSprite.getPosition().y);
+        mCharacter.move(-0.1,0);
     }
     else if(Keyboard::isKeyPressed(Keyboard::Up)){
-         mSprite.setPosition(mSprite.getPosition().x,mSprite.getPosition().y-1);
+          mCharacter.move(0,-0.1);
     }
     else if(Keyboard::isKeyPressed(Keyboard::Down)){
-         mSprite.setPosition(mSprite.getPosition().x,mSprite.getPosition().y+1);
+         mCharacter.move(0,0.1);
     }
 }

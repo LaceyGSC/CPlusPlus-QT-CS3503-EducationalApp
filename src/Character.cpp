@@ -8,8 +8,8 @@
 
 #include <iostream>
 using namespace sf;
-Character::Character(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent)
-    : QSFMLWidget(pos, size, context, parent)
+Character::Character(const QPoint &pos, const QSize &size, State::Context context, QWidget *parent)
+    : QSFMLWidget(pos, size, &context, parent)
 {
 }
 
@@ -29,18 +29,17 @@ void World::onInit()
 void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 {
     // Draw sprite
-    target.draw(mSprite, states);
-
+    target.draw(mSprite, states);  
     if(Keyboard::isKeyPressed(Keyboard::Right)){
-         mSprite.setPosition(mSprite.getPosition().x+1,mSprite.getPosition().y);
+        mSprite.move(0.1,0);
     }
-    if(Keyboard::isKeyPressed(Keyboard::Left)){
-         mSprite.setPosition(mSprite.getPosition().x-1,mSprite.getPosition().y);
+    else if(Keyboard::isKeyPressed(Keyboard::Left)){
+        mSprite.move(-0.1,0);
     }
-    if(Keyboard::isKeyPressed(Keyboard::Up)){
-         mSprite.setPosition(mSprite.getPosition().x,mSprite.getPosition().y-1);
+    else if(Keyboard::isKeyPressed(Keyboard::Up)){
+          mSprite.move(0,-0.1);
     }
-    if(Keyboard::isKeyPressed(Keyboard::Down)){
-         mSprite.setPosition(mSprite.getPosition().x,mSprite.getPosition().y+1);
+    else if(Keyboard::isKeyPressed(Keyboard::Down)){
+         mSprite.move(0,0.1);
     }
 }

@@ -27,12 +27,12 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     this->show();
 
     // Sets the column ratio for World : charStats to 3 : 1
+
     mUi->gameContainer->setColumnStretch(0, 3);
     mUi->gameContainer->setColumnStretch(1, 1);
 
     // Set parent to allow the canvas to be displayed with reference to its container
     mWorld.setParent(mUi->worldBox);
-
     QObject::connect(mUi->pushButton, SIGNAL(pressed()), this, SLOT(start()));
     mWorld.hide();
 }
@@ -53,6 +53,7 @@ void GameState::start()
     if (mWorld.isHidden())
     {
         mUi->worldContainer->addWidget(&mWorld);
+      //  mUi->worldContainer->addWidget(&mCharacter);
         mWorld.show();
     }
     else

@@ -53,7 +53,7 @@ Application::~Application()
 void Application::registerStates()
 {
     // A grid layout is used as the main layout because it centers its elements
-    mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
+    mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout ,mUi->mainContainer);
 }
 
 void Application::gameLoop()
