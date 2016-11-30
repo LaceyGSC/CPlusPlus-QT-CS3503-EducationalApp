@@ -40,19 +40,19 @@ void World::onInit()
 
 void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 {
-    std::complex<float> temp = mWorldLocation;
+    std::complex<double> temp = mWorldLocation;
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        temp +=std::complex<float>(0.2,0);
+        temp +=std::complex<double>(1,0)*velocity;
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        temp +=std::complex<float>(-0.2,0);
+        temp +=std::complex<double>(-1,0)*velocity;
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        temp +=std::complex<float>(0,-0.2);
+        temp +=std::complex<double>(0,-1)*velocity;
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        temp +=std::complex<float>(0,0.2);
+        temp +=std::complex<double>(0,1)*velocity;
     }
 
 
@@ -83,6 +83,7 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(12, "qrc:/../media/Textures/ShallowSaltWater.png");
         getContext().textures.load(13, "qrc:/../media/Textures/Tree.png");
         landcount = 12;
+        unMoveableTerrain = {2,3,5,7,8};
     }
     else if(worldtype==1)
     {
@@ -94,10 +95,11 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(5, "qrc:/../media/Textures/Mountain.png");
         getContext().textures.load(6, "qrc:/../media/Textures/Sand.png");
         getContext().textures.load(7, "qrc:/../media/Textures/ShallowFreshWater.png");
-        getContext().textures.load(8, "qrc:/../media/Textures/ShallowSaltWater.png");
-        getContext().textures.load(9, "qrc:/../media/Textures/Tree.png");
+        getContext().textures.load(8, "qrc:/../media/Textures/Tree.png");
+        getContext().textures.load(9, "qrc:/../media/Textures/ShallowSaltWater.png");
         getContext().textures.load(10, "qrc:/../media/Textures/Tree.png");
         landcount = 9;
+        unMoveableTerrain = {3};
     }
     else if(worldtype==2){
         map.setJuliaValue(std::complex<double>(-.5,-.002));
@@ -114,6 +116,7 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(11, "qrc:/../media/Textures/ShallowFreshWater.png");
         getContext().textures.load(12, "qrc:/../media/Textures/Tree.png");
         landcount = 11;
+        unMoveableTerrain = {2,4};
     }
     else {
 
@@ -137,7 +140,15 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
     }
 }
 
-bool World::moveValid(std::complex<float> next)
+bool World::moveValid(std::complex<double> next)
 {
+    if(unMoveableTerrain.contains((map.getValue(static_cast<int>(mWorldLocation.real()),static_cast<int>(mWorldLocation.imag()))%landcount+1)))
+    {
+        if(unMoveableTerrain.contains((map.getValue(static_cast<int>(next.real()),static_cast<int>(next.imag()))%landcount +1)))
+        {
+            return true;
+        }
+        return false;
+    }
     return true;
 }
