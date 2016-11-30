@@ -1,9 +1,10 @@
 #ifndef FRACTALEXSPRESSIONEVALUATOR_H
 #define FRACTALEXSPRESSIONEVALUATOR_H
 
-
-#include <complex>
+#define _USE_MATH_DEFINES
 #include <cmath>
+#include <complex>
+
 
 class FractalExspressionEvaluator
 {
