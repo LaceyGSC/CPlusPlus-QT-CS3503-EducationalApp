@@ -9,6 +9,7 @@
 #define WORLD_H
 
 #include <SFML/Graphics.hpp>
+#include <QQueue>
 
 #include "QSFMLWidget.h"
 #include "FractalExspressionEvaluator.h"
@@ -22,17 +23,33 @@ public :
     virtual void    onInit();
     virtual void    onDraw(sf::RenderTarget& target, sf::RenderStates states);
 
+
+    std::string pickPlant();
+    void WorldLoader(int);
+
+    int getVelocity();
+    void setVelocity(int);
+    int getWorldNum();
+    std::complex<int> getCharectorLocation();
+    std::complex<int> setCharectorLocation(std::complex<int>);
+
 private:
     sf::Sprite      mSprite;
     std::complex<double>    mWorldLocation;
+    std::complex<double> characterRelativePos;
     FractalExspressionEvaluator map;
+
     int worldNum;
     int landcount;
-    void WorldLoader(int);
-    QList<int> unMoveableTerrain;
     double velocity = 0.2f;
+
+    QList<int> unMoveableTerrain;
+    QQueue<std::complex<int>> pickedPlants;
+
     void DrawMap(sf::RenderTarget& target, sf::RenderStates states);
     bool moveValid(std::complex<double> next);
+
+
 };
 
 #endif // WORLD_H
