@@ -120,7 +120,7 @@ void World::WorldLoader(int worldtype)
 void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
 {
     target.clear();
-    float scale = 2;
+    float scale = 1;
     int jumpgap = 32*scale;
     for(int x = 0;x<576*scale;x+=jumpgap)
     {
@@ -137,7 +137,7 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
             {
                 mCharacter.setTexture(getContext().textures.get(0));
                 mCharacter.setPosition(x,y-16);
-                mCharacter.setScale(1,1);
+                mCharacter.setScale(scale/2,scale/2);
                 mCharacter.setOrigin(0,.25);
                 target.draw(mCharacter,states);
             }
