@@ -29,7 +29,7 @@ void World::onInit()
     getContext().textures.load(static_cast<int>(Textures::ID::Default), "qrc:/../media/Textures/default.png");
     getContext().textures.get(static_cast<int>(Textures::ID::Default)).setSmooth(true);
 
-    WorldLoader(1);
+    WorldLoader(0);
 
     mSprite.setTexture(getContext().textures.get(static_cast<int>(Textures::ID::Default)));
     mSprite.setPosition(0.f, 0.f);
@@ -40,20 +40,21 @@ void World::onInit()
 
 void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 {
-    QPoint temp = mWorldLocation;
+    std::complex<float> temp = mWorldLocation;
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        temp.rx()+=1;
+        temp +=std::complex<float>(0.2,0);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        temp.rx()-=1;
+        temp +=std::complex<float>(-0.2,0);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        temp.ry()-=1;
+        temp +=std::complex<float>(0,-0.2);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        temp.ry()+=1;
+        temp +=std::complex<float>(0,0.2);
     }
+
 
     if(moveValid(temp)){
         clear();
@@ -127,7 +128,7 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
     {
         for(int y = 0;y<640*scale;y+=jumpgap)
         {
-            int type = (map.getValue(mWorldLocation.x()+x/jumpgap+0,mWorldLocation.y()+y/jumpgap+0)%landcount )+1;
+            int type = (map.getValue(static_cast<int>(mWorldLocation.real())+x/jumpgap+0,static_cast<int>(mWorldLocation.imag())+y/jumpgap+0)%landcount )+1;
             mSprite.setTexture(getContext().textures.get(type));
             mSprite.setPosition(x,y);
             mSprite.setScale(scale,scale);
@@ -136,7 +137,7 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
     }
 }
 
-bool World::moveValid(QPoint next)
+bool World::moveValid(std::complex<float> next)
 {
     return true;
 }

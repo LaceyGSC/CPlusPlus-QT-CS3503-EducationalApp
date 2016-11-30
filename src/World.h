@@ -24,13 +24,13 @@ public :
 
 private:
     sf::Sprite      mSprite;
-    QPoint    mWorldLocation;
+    std::complex<float>    mWorldLocation;
     FractalExspressionEvaluator map;
     int worldNum;
     int landcount;
     void WorldLoader(int);
     void DrawMap(sf::RenderTarget& target, sf::RenderStates states);
-    bool moveValid(QPoint next);
+    bool moveValid(std::complex<float> next);
 };
 
 #endif // WORLD_H
