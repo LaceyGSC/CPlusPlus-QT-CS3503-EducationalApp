@@ -41,7 +41,7 @@ QString ServerConnection::getPacket()
         packet >> data;
 
         //Outputs and converts to QString, which QApplication likes better
-        qDebug() << "Client return data: \n" << data <<"\n";
+        qDebug() << "Client return data: \n" << data.c_str();
         recievedData = QString::fromStdString(data);
     }
 
