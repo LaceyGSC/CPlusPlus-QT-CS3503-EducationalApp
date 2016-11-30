@@ -16,6 +16,7 @@
 #include "StateIdentifiers.h"
 #include "State.h"
 #include "GameState.h"
+#include "LoginState.h"
 
 // 60 FPS
 const sf::Time Application::TIME_PER_FRAME = sf::seconds(1.f/60.f);
@@ -35,7 +36,8 @@ Application::Application(QWidget *parent)
 
     // Setup the states and push the first state
     registerStates();
-    mStateStack.pushState(States::ID::GameState);
+
+    mStateStack.pushState(States::ID::LoginState);
 
     // Starts the game loop
     QObject::connect(&mLoopTimer, SIGNAL(timeout()), this, SLOT(gameLoop()));
@@ -53,7 +55,9 @@ Application::~Application()
 void Application::registerStates()
 {
     // A grid layout is used as the main layout because it centers its elements
+    mStateStack.registerState<LoginState>(States::ID::LoginState, mUi->mainLayout, mUi->mainContainer);
     mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
+
 }
 
 void Application::gameLoop()

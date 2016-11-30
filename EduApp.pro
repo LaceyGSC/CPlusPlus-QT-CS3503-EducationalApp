@@ -20,7 +20,6 @@ SOURCES += \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
-    loginstate.cpp \
     src/LoginState.cpp
 
 HEADERS += \
@@ -33,13 +32,11 @@ HEADERS += \
     src/StateStack.h \
     src/StateIdentifiers.h \
     src/GameState.h \
-    loginstate.h \
     src/LoginState.h
 
 FORMS += \
     src/Application.ui \
     src/GameState.ui \
-    loginstate.ui \
     src/LoginState.ui
 
 RESOURCES += \
@@ -89,6 +86,7 @@ DEPENDPATH += $$PWD/ext/Box2D
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 }
 
+macx{
 QMAKE_POST_LINK="install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
-
+}
 
