@@ -174,4 +174,4 @@ int World::getVelocity(){return velocity;}
 void World::setVelocity(int velocity){this->velocity=velocity;}
 int World::getWorldNum(){return worldNum;}
 std::complex<int> World::getCharectorLocation(){return mWorldLocation;}
-std::complex<int> World::setCharectorLocation(std::complex<int> pos){mWorldLocation=pos;}
+void World::setCharectorLocation(std::complex<int> pos){mWorldLocation=pos;}

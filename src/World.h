@@ -31,7 +31,7 @@ public :
     void setVelocity(int);
     int getWorldNum();
     std::complex<int> getCharectorLocation();
-    std::complex<int> setCharectorLocation(std::complex<int>);
+    void setCharectorLocation(std::complex<int>);
 
 private:
     sf::Sprite      mSprite;
