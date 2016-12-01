@@ -14,6 +14,7 @@
 #include "StateStack.h"
 //#include "Character.h"
 #include "World.h"
+#include "Plantodex.h"
 
 namespace Ui {
     class GameState;
@@ -32,11 +33,15 @@ public:
 private slots:
     void            start();
 
+    void on_plantodexButton_clicked();
+
 private:
     Ui::GameState  *mUi;
 
     // SFML sprites should be declared in the World class and drawn there
     World           mWorld;
+
+    Plantodex       mPlantodex;
   //  Character       mCharacter;
 };
 

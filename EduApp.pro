@@ -22,7 +22,8 @@ SOURCES += \
     src/StateStack.cpp \
     src/GameState.cpp \
     src/FractalExspressionEvaluator.cpp \
-    src/MySQLConnection.cpp
+    src/MySQLConnection.cpp \
+    src/Plantodex.cpp
 #    src/Character.cpp \
 
 HEADERS += \
@@ -36,12 +37,14 @@ HEADERS += \
     src/StateIdentifiers.h \
     src/GameState.h \
     src/FractalExspressionEvaluator.h \
-    src/MySQLConnection.h
+    src/MySQLConnection.h \
+    src/Plantodex.h
 #    src/Character.h \
 
 FORMS += \
     src/Application.ui \
-    src/GameState.ui
+    src/GameState.ui \
+    src/Plantodex.ui
 
 RESOURCES += \
     src/Textures.qrc
@@ -88,10 +91,11 @@ INCLUDEPATH += $$PWD/ext/Box2D
 DEPENDPATH += $$PWD/ext/Box2D
 
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
+
 }
-
+mac{
 QMAKE_POST_LINK="install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
-
+}
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../mysql-5.7.16-winx64/lib/ -llibmysql

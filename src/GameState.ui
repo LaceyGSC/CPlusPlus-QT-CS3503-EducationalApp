@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>219</width>
+    <width>251</width>
     <height>96</height>
    </rect>
   </property>
@@ -104,6 +104,13 @@
           </property>
           <property name="text">
            <string>Test</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="plantodexButton">
+          <property name="text">
+           <string>Plantodex</string>
           </property>
          </widget>
         </item>
