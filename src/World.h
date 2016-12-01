@@ -37,7 +37,6 @@ public :
 
 private:
 
-    void DrawMap(sf::RenderTarget& target, sf::RenderStates states);
     bool moveValid(std::complex<double> next);
 
     sf::Sprite  mSprite;

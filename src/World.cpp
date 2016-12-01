@@ -58,7 +58,30 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 {
 
     clear();
-    DrawMap(target,states);
+    target.clear();
+    float scale = 1;
+    int jumpgap = 32*scale;
+    for(int x = 0;x<576*scale;x+=jumpgap)
+    {
+        for(int y = 0;y<576*scale;y+=jumpgap)
+        {
+            int type = (map.getValue(static_cast<int>(mWorldLocation.real()+x/jumpgap+0),static_cast<int>(mWorldLocation.imag()+y/jumpgap))%mLandCount )+1;
+            mSprite.setTexture(getContext().textures.get(type));
+            mSprite.setPosition(x,y);
+            mSprite.setScale(scale,scale);
+            target.draw(mSprite, states);
+            bool atCharectorX =  mCharacterRelativePos.real() == x/jumpgap;
+            bool atCharectorY = mCharacterRelativePos.imag() == y/jumpgap;
+            if(atCharectorX&&atCharectorY)
+            {
+                mCharacter.setTexture(getContext().textures.get(0));
+                mCharacter.setPosition(x,y-16);
+                mCharacter.setScale(scale/2,scale/2);
+                mCharacter.setOrigin(0,.25);
+                target.draw(mCharacter,states);
+            }
+        }
+    }
 }
 
 void World::WorldLoader(int worldtype)
@@ -121,33 +144,6 @@ void World::WorldLoader(int worldtype)
 
     }
 }
-void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
-{
-    target.clear();
-    float scale = 1;
-    int jumpgap = 32*scale;
-    for(int x = 0;x<576*scale;x+=jumpgap)
-    {
-        for(int y = 0;y<576*scale;y+=jumpgap)
-        {
-            int type = (map.getValue(static_cast<int>(mWorldLocation.real()+x/jumpgap+0),static_cast<int>(mWorldLocation.imag()+y/jumpgap))%mLandCount )+1;
-            mSprite.setTexture(getContext().textures.get(type));
-            mSprite.setPosition(x,y);
-            mSprite.setScale(scale,scale);
-            target.draw(mSprite, states);
-            bool atCharectorX =  mCharacterRelativePos.real() == x/jumpgap;
-            bool atCharectorY = mCharacterRelativePos.imag() == y/jumpgap;
-            if(atCharectorX&&atCharectorY)
-            {
-                mCharacter.setTexture(getContext().textures.get(0));
-                mCharacter.setPosition(x,y-16);
-                mCharacter.setScale(scale/2,scale/2);
-                mCharacter.setOrigin(0,.25);
-                target.draw(mCharacter,states);
-            }
-        }
-    }
-}
 
 std::string World::pickPlant()
 {
@@ -174,8 +170,26 @@ bool World::moveValid(std::complex<double> next)
     return true;
 }
 
-int World::getVelocity(){return mVelocity;}
-void World::setVelocity(int velocity){this->mVelocity=velocity;}
-int World::getWorldNum(){return mWorldNum;}
-std::complex<double> World::getCharectorLocation(){return mWorldLocation+mCharacterRelativePos;}
-void World::setCharectorLocation(std::complex<double> pos){mWorldLocation=pos-mCharacterRelativePos;}
+int World::getVelocity()
+{
+    return mVelocity;
+}
+
+void World::setVelocity(int velocity)
+{
+    this->mVelocity=velocity;
+}
+int World::getWorldNum()
+{
+    return mWorldNum;
+}
+
+std::complex<double> World::getCharectorLocation()
+{
+    return mWorldLocation+mCharacterRelativePos;
+}
+
+void World::setCharectorLocation(std::complex<double> pos)
+{
+    mWorldLocation=pos-mCharacterRelativePos;
+}
