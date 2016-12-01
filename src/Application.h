@@ -18,6 +18,7 @@
 #include "StateStack.h"
 #include "ResourceIdentifiers.h"
 #include "ResourceManager.h"
+#include "mysqlconnection.h"
 
 // Forward declaration
 namespace Ui

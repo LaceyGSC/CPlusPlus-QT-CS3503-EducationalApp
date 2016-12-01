@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,7 +22,8 @@ SOURCES += \
     src/StateStack.cpp \
     src/GameState.cpp \
     src/FractalExspressionEvaluator.cpp \
-    src/Character.cpp
+#    src/Character.cpp \
+    src/mysqlconnection.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -34,7 +36,8 @@ HEADERS += \
     src/StateIdentifiers.h \
     src/GameState.h \
     src/FractalExspressionEvaluator.h \
-    src/Character.h
+#    src/Character.h \
+    src/mysqlconnection.h
 
 FORMS += \
     src/Application.ui \
@@ -90,3 +93,9 @@ PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 QMAKE_POST_LINK="install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
 
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../mysql-5.7.16-winx64/lib/ -llibmysql
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../mysql-5.7.16-winx64/lib/ -llibmysqld
+
+INCLUDEPATH += $$PWD/../mysql-5.7.16-winx64/include
+DEPENDPATH += $$PWD/../mysql-5.7.16-winx64/include

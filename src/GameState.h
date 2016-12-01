@@ -12,7 +12,7 @@
 
 #include "State.h"
 #include "StateStack.h"
-#include "Character.h"
+//#include "Character.h"
 #include "World.h"
 
 namespace Ui {
