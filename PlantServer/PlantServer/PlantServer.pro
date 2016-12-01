@@ -31,10 +31,9 @@ DEPENDPATH += ../../ext/SFML/include
 }
 
 macx{
-    LIBS += -L../../SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system
+    LIBS += -L"/usr/local/lib" -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window
 
-    INCLUDEPATH += ../../ext/SFML-2.4.1-osx-clang/include
-    DEPENDPATH += ../../ext/SFML-2.4.1-osx-clang/include
+    INCLUDEPATH += "/usr/local/include"
+    DEPENDPATH += "/usr/local/include"
 
-    QMAKE_+= ../../ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window
 }
