@@ -9,12 +9,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <QWidget>
+#include <QDebug>
 
 #include "State.h"
 #include "StateStack.h"
 #include "ResourceIdentifiers.h"
 #include "ResourceManager.h"
 #include "World.h"
+
 
 GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
@@ -25,6 +27,9 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
 
     // Display the game state widget
     this->show();
+
+    // Start the MySQL connection
+    connection.sendPacket("Select * from PlantDatabase");
 
     // Sets the column ratio for World : charStats to 3 : 1
 
@@ -55,6 +60,7 @@ void GameState::start()
         mUi->worldContainer->addWidget(&mWorld);
       //  mUi->worldContainer->addWidget(&mCharacter);
         mWorld.show();
+        qDebug().noquote() << connection.getPacket();
     }
     else
     {

@@ -12,8 +12,10 @@
 
 #include "State.h"
 #include "StateStack.h"
-//#include "Character.h"
+
 #include "World.h"
+
+#include "ServerConnection.h"
 
 namespace Ui {
     class GameState;
@@ -37,7 +39,8 @@ private:
 
     // SFML sprites should be declared in the World class and drawn there
     World           mWorld;
-  //  Character       mCharacter;
+
+    ServerConnection connection;
 };
 
 #endif // GAMESTATE_H

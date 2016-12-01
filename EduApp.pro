@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += sql
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,9 +20,8 @@ SOURCES += \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
-    src/MySQLConnection.cpp \
-    src/FractalExpressionEvaluator.cpp
-#    src/Character.cpp \
+    src/FractalExpressionEvaluator.cpp \
+    src/ServerConnection.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -35,9 +33,9 @@ HEADERS += \
     src/StateStack.h \
     src/StateIdentifiers.h \
     src/GameState.h \
-    src/MySQLConnection.h \
-    src/FractalExpressionEvaluator.h
+    src/FractalExpressionEvaluator.h \
 #    src/Character.h \
+    src/ServerConnection.h
 
 FORMS += \
     src/Application.ui \
@@ -79,6 +77,7 @@ CONFIG(release, debug|release): LIBS += -L$$PWD/ext/Box2D/release -lBox2D
 
 INCLUDEPATH += $$PWD/ext/Box2D
 DEPENDPATH += $$PWD/ext/Box2D
+
 }
 
 macx{
@@ -90,12 +89,16 @@ DEPENDPATH += $$PWD/ext/Box2D
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 }
 
+mac{
 QMAKE_POST_LINK="install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
+}
 
 
+!mac{
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../mysql-5.7.16-winx64/lib/ -llibmysql
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../mysql-5.7.16-winx64/lib/ -llibmysqld
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ext/MySQL/ -llibmysql
 
-INCLUDEPATH += $$PWD/../mysql-5.7.16-winx64/include
-DEPENDPATH += $$PWD/../mysql-5.7.16-winx64/include
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ext/MySQL/ -llibmysql
+
+}
+

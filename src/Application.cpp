@@ -16,6 +16,7 @@
 #include "StateIdentifiers.h"
 #include "State.h"
 #include "GameState.h"
+#include "ServerConnection.h"
 
 // 60 FPS
 const sf::Time Application::TIME_PER_FRAME = sf::seconds(1.f/60.f);
@@ -36,9 +37,6 @@ Application::Application(QWidget *parent)
     // Setup the states and push the first state
     registerStates();
     mStateStack.pushState(States::ID::GameState);
-
-    // Start the MySQL connection
-    MySQLConnection connection;
 
     // Starts the game loop
     QObject::connect(&mLoopTimer, SIGNAL(timeout()), this, SLOT(gameLoop()));
