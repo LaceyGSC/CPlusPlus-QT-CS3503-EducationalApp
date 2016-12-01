@@ -38,3 +38,10 @@ macx{
 
     QMAKE_+= ../../ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window
 }
+
+!macx
+{
+win32:CONFIG(release, debug|release): LIBS += -L../../ext/MySQL/ -llibmysql
+
+else:win32:CONFIG(debug, debug|release): LIBS += -L../../ext/MySQL/ -llibmysql
+}
