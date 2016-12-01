@@ -1,3 +1,8 @@
+/*
+ * Author: Erik Martin
+ * Description: Connects to the MySQL database with plant information.
+ */
+
 #include "MySQLConnection.h"
 
 #include <iostream>
