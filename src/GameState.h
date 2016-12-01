@@ -14,7 +14,7 @@
 #include "StateStack.h"
 
 #include "World.h"
-
+#include "Plantodex.h"
 #include "ServerConnection.h"
 
 namespace Ui {
@@ -34,6 +34,8 @@ public:
 private slots:
     void            start();
 
+    void on_plantodexButton_clicked();
+
 private:
     Ui::GameState  *mUi;
 
@@ -41,6 +43,8 @@ private:
     World           mWorld;
 
     ServerConnection connection;
+    Plantodex       mPlantodex;
+  //  Character       mCharacter;
 };
 
 #endif // GAMESTATE_H

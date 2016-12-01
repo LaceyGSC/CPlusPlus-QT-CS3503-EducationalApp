@@ -22,7 +22,8 @@ SOURCES += \
     src/GameState.cpp \
     src/LoginState.cpp \
     src/FractalExspressionEvaluator.cpp \
-    src/ServerConnection.cpp
+    src/ServerConnection.cpp \
+    src/Plantodex.cpp
 #    src/Character.cpp \
 
 HEADERS += \
@@ -37,6 +38,7 @@ HEADERS += \
     src/GameState.h \
     src/FractalExspressionEvaluator.h \
     src/ServerConnection.h \
+    src/Plantodex.h
 #    src/Character.h \
     src/ServerConnection.h \
     src/LoginState.h
@@ -44,7 +46,8 @@ HEADERS += \
 FORMS += \
     src/Application.ui \
     src/GameState.ui \
-    src/LoginState.ui
+    src/LoginState.ui \
+    src/Plantodex.ui
 
 RESOURCES += \
     src/Textures.qrc
@@ -92,6 +95,7 @@ INCLUDEPATH += $$PWD/ext/Box2D
 DEPENDPATH += $$PWD/ext/Box2D
 
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
+
 }
 
 macx{
