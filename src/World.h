@@ -26,13 +26,17 @@ public :
 
 
     std::string pickPlant();
+
+    //changes which stage you are on
     void WorldLoader(int);
 
 
-    int getVelocity();
+    int getVelocity() const;
     void setVelocity(int);
-    int getWorldNum();
-    std::complex<double> getCharectorLocation();
+    int getworldNum() const;
+
+    //location on the map
+    std::complex<double> getCharecterLocation() const;
     void setCharectorLocation(std::complex<double>);
 
 private:
@@ -42,10 +46,11 @@ private:
     sf::Sprite  mSprite;
     sf::Sprite  mCharacter;
 
-    std::complex<double>    mWorldLocation;
+    std::complex<double> mWorldLocation;
     std::complex<double> mCharacterRelativePos;
 
-    QList<int> mUnmoveableTerrain;
+    //q containers chosen for their contains method.
+    QList<int> mUnmoveableTerrain; //terrain types that cannot be moved on
     QQueue<std::complex<int>> mPickedPlants;
 
     FractalExpressionEvaluator map;
@@ -54,9 +59,8 @@ private:
     int mLandCount;
     double mVelocity;
 
+    //intended for future use so when generating landscape I don't have to work around non-landscape textures in the resourcemanager
     std::vector<sf::Texture> mLandTextures;
-    std::vector<sf::Texture> mCharecterTextures;
-    std::vector<sf::Texture> mPlantTextures;
 
 };
 

@@ -170,7 +170,7 @@ bool World::moveValid(std::complex<double> next)
     return true;
 }
 
-int World::getVelocity()
+int World::getVelocity() const
 {
     return mVelocity;
 }
@@ -179,12 +179,12 @@ void World::setVelocity(int velocity)
 {
     this->mVelocity=velocity;
 }
-int World::getWorldNum()
+int World::getworldNum() const
 {
     return mWorldNum;
 }
 
-std::complex<double> World::getCharectorLocation()
+std::complex<double> World::getCharecterLocation() const
 {
     return mWorldLocation+mCharacterRelativePos;
 }
