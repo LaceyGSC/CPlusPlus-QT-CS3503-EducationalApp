@@ -1,3 +1,6 @@
+/*
+ * Author: Warren Schweigert
+ */
 #include "FractalExpressionEvaluator.h"
 
 FractalExpressionEvaluator::FractalExpressionEvaluator():

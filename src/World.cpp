@@ -1,5 +1,5 @@
 /*
- * Author: King Hoe Wong
+ * Author: King Hoe Wong, Warren Schweigert
  * Desc: Implementation for World class.
  * Courtesy of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
  *
@@ -19,7 +19,7 @@
 
 using namespace sf;
 World::World(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent)
-    : QSFMLWidget(pos, size, context, parent),mCharacterRelativePos(std::complex<double>(9,9)),mVelocity(1)
+    : QSFMLWidget(pos, size, context, parent),mCharacterRelativePos(std::complex<int>(9,9))
 {
                 map.setRefSize(512);;
 }
@@ -34,19 +34,19 @@ void World::onInit()
 
 void World::keyPressEvent(QKeyEvent* event)
 {
-    std::complex<double> temp = mWorldLocation;
+    std::complex<int> temp = mWorldLocation;
 
     if(event->key() ==Qt::Key_Right){
-        temp +=std::complex<double>(1,0)*mVelocity;
+        temp +=std::complex<int>(1,0);
     }
     else if(event->key() ==Qt::Key_Left){
-        temp +=std::complex<double>(-1,0)*mVelocity;
+        temp +=std::complex<int>(-1,0);
     }
     else if(event->key() ==Qt::Key_Up){
-        temp +=std::complex<double>(0,-1)*mVelocity;
+        temp +=std::complex<int>(0,-1);
     }
     else if(event->key() ==Qt::Key_Down){
-        temp +=std::complex<double>(0,1)*mVelocity;
+        temp +=std::complex<int>(0,1);
     }
 
     if(moveValid(temp)){
@@ -65,11 +65,16 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
     {
         for(int y = 0;y<576*scale;y+=jumpgap)
         {
-            int type = (map.getValue(static_cast<int>(mWorldLocation.real()+x/jumpgap+0),static_cast<int>(mWorldLocation.imag()+y/jumpgap))%mLandCount )+1;
+            //get land type  and display it
+            std::complex<int> tempLocation = mWorldLocation + std::complex<int>(x/jumpgap,y/jumpgap);
+            int type = getLandValue(tempLocation);
+
             mSprite.setTexture(getContext().textures.get(type));
             mSprite.setPosition(x,y);
             mSprite.setScale(scale,scale);
             target.draw(mSprite, states);
+
+            //if the main charector is here
             bool atCharectorX =  mCharacterRelativePos.real() == x/jumpgap;
             bool atCharectorY = mCharacterRelativePos.imag() == y/jumpgap;
             if(atCharectorX&&atCharectorY)
@@ -120,7 +125,7 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(9, "qrc:/../media/Textures/ShallowSaltWater.png");
         getContext().textures.load(10, "qrc:/../media/Textures/Tree.png");
         mLandCount = 9;
-        mUnmoveableTerrain = {3};
+        mUnmoveableTerrain = {3,5};
     }
     else if(worldtype==2){
         map.setJuliaValue(std::complex<double>(-.5,-.002));
@@ -156,40 +161,37 @@ std::string World::pickPlant()
     return "";
 }
 
-bool World::moveValid(std::complex<double> next)
+bool World::moveValid(std::complex<int> next)
 {
     next = next + mCharacterRelativePos;
-    if(mUnmoveableTerrain.contains((map.getValue(static_cast<int>(next.real()),static_cast<int>(next.imag()))%mLandCount+1)))
+    std::complex<int> current = mWorldLocation+mCharacterRelativePos;
+    if(mUnmoveableTerrain.contains(getLandValue(next)))
     {
-//        if(unMoveableTerrain.contains((map.getValue(static_cast<int>(mWorldLocation.real()),static_cast<int>(mWorldLocation.imag()))%landcount +1)))
-//        {
-//            return true;
-//        }
+        if(mUnmoveableTerrain.contains(getLandValue(current))) //this is so we can escape if we end up in an unmoveable block
+        {
+            return true;
+        }
         return false;
     }
     return true;
 }
 
-int World::getVelocity() const
+int World::getLandValue(std::complex<int> pos)
 {
-    return mVelocity;
+    return map.getValue(pos.real(),pos.imag())%mLandCount+1;
 }
 
-void World::setVelocity(int velocity)
-{
-    this->mVelocity=velocity;
-}
 int World::getworldNum() const
 {
     return mWorldNum;
 }
 
-std::complex<double> World::getCharecterLocation() const
+std::complex<int> World::getCharecterLocation() const
 {
     return mWorldLocation+mCharacterRelativePos;
 }
 
-void World::setCharectorLocation(std::complex<double> pos)
+void World::setCharectorLocation(std::complex<int> pos)
 {
     mWorldLocation=pos-mCharacterRelativePos;
 }

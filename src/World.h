@@ -1,5 +1,5 @@
 /*
- * Author: King Hoe Wong
+ * Author: King Hoe Wong, Warren Schweigert
  * Desc: Represents a World. All world data should be contained and drawn in here.
  * Courtesy of: http://becomingindiedev.blogspot.com/2013/10/qt-5-and-sfml-20-integration.html
  *
@@ -14,6 +14,7 @@
 #include "QSFMLWidget.h"
 #include "FractalExpressionEvaluator.h"
 #include "State.h"
+#include "land.h"
 
 class World : public QSFMLWidget
 {
@@ -29,25 +30,21 @@ public :
 
     //changes which stage you are on
     void WorldLoader(int);
-
-
-    int getVelocity() const;
-    void setVelocity(int);
     int getworldNum() const;
 
     //location on the map
-    std::complex<double> getCharecterLocation() const;
-    void setCharectorLocation(std::complex<double>);
+    std::complex<int> getCharecterLocation() const;
+    void setCharectorLocation(std::complex<int>);
 
 private:
 
-    bool moveValid(std::complex<double> next);
+    bool moveValid(std::complex<int> next);
 
     sf::Sprite  mSprite;
     sf::Sprite  mCharacter;
 
-    std::complex<double> mWorldLocation;
-    std::complex<double> mCharacterRelativePos;
+    std::complex<int> mWorldLocation;
+    std::complex<int> mCharacterRelativePos;
 
     //q containers chosen for their contains method.
     QList<int> mUnmoveableTerrain; //terrain types that cannot be moved on
@@ -55,13 +52,13 @@ private:
 
     FractalExpressionEvaluator map;
 
+    int getLandValue(std::complex<int>);
+
     int mWorldNum;
     int mLandCount;
-    double mVelocity;
 
     //intended for future use so when generating landscape I don't have to work around non-landscape textures in the resourcemanager
     std::vector<sf::Texture> mLandTextures;
-
 };
 
 #endif // WORLD_H

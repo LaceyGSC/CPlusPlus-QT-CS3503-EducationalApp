@@ -35,7 +35,8 @@ HEADERS += \
     src/GameState.h \
     src/FractalExpressionEvaluator.h \
 #    src/Character.h \
-    src/ServerConnection.h
+    src/ServerConnection.h \
+    src/Land.h
 
 FORMS += \
     src/Application.ui \

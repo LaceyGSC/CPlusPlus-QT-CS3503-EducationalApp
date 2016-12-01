@@ -1,6 +1,6 @@
 /*
-author: Warren Schweigert
-*/
+ * Author: Warren Schweigert
+ */
 #ifndef FRACTALEXSPRESSIONEVALUATOR_H
 #define FRACTALEXSPRESSIONEVALUATOR_H
 
