@@ -6,12 +6,12 @@
 #include <complex>
 
 
-class FractalExspressionEvaluator
+class FractalExpressionEvaluator
 {
 
 public:
 
-    FractalExspressionEvaluator();
+    FractalExpressionEvaluator();
 
     void setPreset(unsigned int);
 
@@ -32,8 +32,6 @@ public:
 
     std::complex<double> getRefPoit2();
     void setRefPoit2(std::complex<double>);
-
-
 
     int getValue(double x,double y);
 

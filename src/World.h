@@ -12,7 +12,7 @@
 #include <QQueue>
 
 #include "QSFMLWidget.h"
-#include "FractalExspressionEvaluator.h"
+#include "FractalEspressionEvaluator.h"
 #include "State.h"
 
 class World : public QSFMLWidget
@@ -22,35 +22,42 @@ public :
 
     virtual void    onInit();
     virtual void    onDraw(sf::RenderTarget& target, sf::RenderStates states);
+    virtual void keyPressEvent(QKeyEvent* event);
 
 
     std::string pickPlant();
     void WorldLoader(int);
 
+
     int getVelocity();
     void setVelocity(int);
     int getWorldNum();
-    std::complex<int> getCharectorLocation();
-    void setCharectorLocation(std::complex<int>);
+    std::complex<double> getCharectorLocation();
+    void setCharectorLocation(std::complex<double>);
 
 private:
-    sf::Sprite      mSprite;
-    sf::Sprite      mCharacter;
-
-    std::complex<double>    mWorldLocation;
-    std::complex<double> characterRelativePos;
-    FractalExspressionEvaluator map;
-
-    int worldNum;
-    int landcount;
-    double velocity;
-
-    QList<int> unMoveableTerrain;
-    QQueue<std::complex<int>> pickedPlants;
 
     void DrawMap(sf::RenderTarget& target, sf::RenderStates states);
     bool moveValid(std::complex<double> next);
 
+    sf::Sprite  mSprite;
+    sf::Sprite  mCharacter;
+
+    std::complex<double>    mWorldLocation;
+    std::complex<double> mCharacterRelativePos;
+
+    QList<int> mUnmoveableTerrain;
+    QQueue<std::complex<int>> mPickedPlants;
+
+    FractalExpressionEvaluator map;
+
+    int mWorldNum;
+    int mLandCount;
+    double mVelocity;
+
+    std::vector<sf::Texture> mLandTextures;
+    std::vector<sf::Texture> mCharecterTextures;
+    std::vector<sf::Texture> mPlantTextures;
 
 };
 

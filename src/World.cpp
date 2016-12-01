@@ -19,7 +19,7 @@
 
 using namespace sf;
 World::World(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent)
-    : QSFMLWidget(pos, size, context, parent),characterRelativePos(std::complex<double>(9,9)),velocity(0.02)
+    : QSFMLWidget(pos, size, context, parent),mCharacterRelativePos(std::complex<double>(9,9)),mVelocity(1)
 {
                 map.setRefSize(512);;
 }
@@ -32,26 +32,30 @@ void World::onInit()
     getContext().textures.get(0).setSmooth(true);
 }
 
-void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
+void World::keyPressEvent(QKeyEvent* event)
 {
     std::complex<double> temp = mWorldLocation;
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        temp +=std::complex<double>(1,0)*velocity;
+    if(event->key() ==Qt::Key_Right){
+        temp +=std::complex<double>(1,0)*mVelocity;
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        temp +=std::complex<double>(-1,0)*velocity;
+    else if(event->key() ==Qt::Key_Left){
+        temp +=std::complex<double>(-1,0)*mVelocity;
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        temp +=std::complex<double>(0,-1)*velocity;
+    else if(event->key() ==Qt::Key_Up){
+        temp +=std::complex<double>(0,-1)*mVelocity;
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        temp +=std::complex<double>(0,1)*velocity;
+    else if(event->key() ==Qt::Key_Down){
+        temp +=std::complex<double>(0,1)*mVelocity;
     }
 
-    if(moveValid(temp)){  
-        mWorldLocation = temp;   
+    if(moveValid(temp)){
+        mWorldLocation = temp;
     }
+}
+
+void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
+{
 
     clear();
     DrawMap(target,states);
@@ -59,7 +63,7 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 
 void World::WorldLoader(int worldtype)
 {
-    worldNum = worldtype;
+    mWorldNum = worldtype;
     if(worldtype==0)
     {
         map.setJuliaValue(std::complex<double>(-.621,0));
@@ -76,8 +80,8 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(11, "qrc:/../media/Textures/ShallowFreshWater.png");
         getContext().textures.load(12, "qrc:/../media/Textures/ShallowSaltWater.png");
         getContext().textures.load(13, "qrc:/../media/Textures/Tree.png");
-        landcount = 12;
-        unMoveableTerrain = {2,3,5,7,8};
+        mLandCount = 12;
+        mUnmoveableTerrain = {2,3,5,7,8};
     }
     else if(worldtype==1)
     {
@@ -92,8 +96,8 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(8, "qrc:/../media/Textures/Tree.png");
         getContext().textures.load(9, "qrc:/../media/Textures/ShallowSaltWater.png");
         getContext().textures.load(10, "qrc:/../media/Textures/Tree.png");
-        landcount = 9;
-        unMoveableTerrain = {3};
+        mLandCount = 9;
+        mUnmoveableTerrain = {3};
     }
     else if(worldtype==2){
         map.setJuliaValue(std::complex<double>(-.5,-.002));
@@ -109,8 +113,8 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(10, "qrc:/../media/Textures/Sand.png");
         getContext().textures.load(11, "qrc:/../media/Textures/ShallowFreshWater.png");
         getContext().textures.load(12, "qrc:/../media/Textures/Tree.png");
-        landcount = 11;
-        unMoveableTerrain = {2,4};
+        mLandCount = 11;
+        mUnmoveableTerrain = {2,4};
     }
     else {
 
@@ -126,13 +130,13 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
     {
         for(int y = 0;y<576*scale;y+=jumpgap)
         {
-            int type = (map.getValue(static_cast<int>(mWorldLocation.real()+x/jumpgap+0),static_cast<int>(mWorldLocation.imag()+y/jumpgap))%landcount )+1;
+            int type = (map.getValue(static_cast<int>(mWorldLocation.real()+x/jumpgap+0),static_cast<int>(mWorldLocation.imag()+y/jumpgap))%mLandCount )+1;
             mSprite.setTexture(getContext().textures.get(type));
             mSprite.setPosition(x,y);
             mSprite.setScale(scale,scale);
             target.draw(mSprite, states);
-            bool atCharectorX =  characterRelativePos.real() == x/jumpgap;
-            bool atCharectorY = characterRelativePos.imag() == y/jumpgap;
+            bool atCharectorX =  mCharacterRelativePos.real() == x/jumpgap;
+            bool atCharectorY = mCharacterRelativePos.imag() == y/jumpgap;
             if(atCharectorX&&atCharectorY)
             {
                 mCharacter.setTexture(getContext().textures.get(0));
@@ -147,10 +151,10 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
 
 std::string World::pickPlant()
 {
-    pickedPlants.enqueue(mWorldLocation);
-    if(pickedPlants.size()>1000)
+    mPickedPlants.enqueue(mWorldLocation);
+    if(mPickedPlants.size()>1000)
         {
-            pickedPlants.dequeue();
+            mPickedPlants.dequeue();
         }
     //TODO return a plant;
     return "";
@@ -158,8 +162,8 @@ std::string World::pickPlant()
 
 bool World::moveValid(std::complex<double> next)
 {
-    next = next + characterRelativePos;
-    if(unMoveableTerrain.contains((map.getValue(static_cast<int>(next.real()),static_cast<int>(next.imag()))%landcount+1)))
+    next = next + mCharacterRelativePos;
+    if(mUnmoveableTerrain.contains((map.getValue(static_cast<int>(next.real()),static_cast<int>(next.imag()))%mLandCount+1)))
     {
 //        if(unMoveableTerrain.contains((map.getValue(static_cast<int>(mWorldLocation.real()),static_cast<int>(mWorldLocation.imag()))%landcount +1)))
 //        {
@@ -170,8 +174,8 @@ bool World::moveValid(std::complex<double> next)
     return true;
 }
 
-int World::getVelocity(){return velocity;}
-void World::setVelocity(int velocity){this->velocity=velocity;}
-int World::getWorldNum(){return worldNum;}
-std::complex<int> World::getCharectorLocation(){return mWorldLocation;}
-void World::setCharectorLocation(std::complex<int> pos){mWorldLocation=pos;}
+int World::getVelocity(){return mVelocity;}
+void World::setVelocity(int velocity){this->mVelocity=velocity;}
+int World::getWorldNum(){return mWorldNum;}
+std::complex<double> World::getCharectorLocation(){return mWorldLocation+mCharacterRelativePos;}
+void World::setCharectorLocation(std::complex<double> pos){mWorldLocation=pos-mCharacterRelativePos;}
