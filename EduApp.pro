@@ -20,11 +20,10 @@ SOURCES += \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
-    src/LoginState.cpp
+    src/LoginState.cpp \
     src/FractalExspressionEvaluator.cpp \
     src/ServerConnection.cpp
 #    src/Character.cpp \
-    src/ServerConnection.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -37,9 +36,9 @@ HEADERS += \
     src/StateIdentifiers.h \
     src/GameState.h \
     src/FractalExspressionEvaluator.h \
-    src/ServerConnection.h
+    src/ServerConnection.h \
 #    src/Character.h \
-    src/ServerConnection.h
+    src/ServerConnection.h \
     src/LoginState.h
 
 FORMS += \

@@ -16,6 +16,7 @@
 #include "StateIdentifiers.h"
 #include "State.h"
 #include "GameState.h"
+#include "LoginState.h"
 #include "ServerConnection.h"
 
 // 60 FPS
