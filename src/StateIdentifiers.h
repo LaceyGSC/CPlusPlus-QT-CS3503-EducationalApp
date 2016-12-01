@@ -12,7 +12,9 @@ namespace States
     enum ID
     {
         None,
-        GameState
+        GameState,
+        LoginState
+
     };
 }
 
