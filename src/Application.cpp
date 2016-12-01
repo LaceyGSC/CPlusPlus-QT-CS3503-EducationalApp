@@ -38,9 +38,6 @@ Application::Application(QWidget *parent)
     registerStates();
     mStateStack.pushState(States::ID::GameState);
 
-    // Start the MySQL connection
-    MySQLConnection connection;
-
     // Starts the game loop
     QObject::connect(&mLoopTimer, SIGNAL(timeout()), this, SLOT(gameLoop()));
     mLoopTimer.setInterval(0);

@@ -54,7 +54,7 @@ void MainWindow::getPackets()
         // The client has sent some data, we can receive it
         std::string msg;
         packet >> msg;
-        std::cout << "Msg received: " << msg << std::endl;
+        qDebug() << "Msg received: " << msg.c_str() << "\n";
         recievedQuery = QString::fromStdString(msg);
 
         //Starts query to database for plant data
@@ -93,12 +93,20 @@ void MainWindow::queryDatabasePlant()
 
     while (query.next())
     {
-        //Gets plant index, name
-        int plantIndex = query.value(0).toInt();
+        //Gets plant index info
         QString name = query.value(1).toString();
+        QString latinName = query.value(2).toString();
+        QString description = query.value(3).toString();
+        QString uses = query.value(4).toString();
+        QString location = query.value(5).toString();
 
         //Adds all plant info to stringstream
-        packetStream << plantIndex <<": " << name.toStdString() << "\n";
+        packetStream << name.toStdString() <<": " << latinName.toStdString() << "\n"
+                     << description.toStdString() << "\n"
+                     << uses.toStdString() << "\n"
+                     << location.toStdString() << "\n \n";
+
+//        packetStream.clear();
     }
 
     //Creates string from stringstream, needed to get const char*
@@ -108,6 +116,9 @@ void MainWindow::queryDatabasePlant()
 
     packet << returnChars;
     client.send(packet);
+
+//    packet << returnChars;
+//   client.send(packet);
 
 }
 
@@ -137,13 +148,16 @@ void MainWindow::queryDatabaseUser()
 
 void MainWindow::on_pushButton_clicked()
 {
-    if (!connected) {
+    if (!connected)
+    {
         setupConnection();
         ui->pushButton->setText("Close Connection");
     }
-    else {
+    else
+    {
         closeConnection();
         ui->pushButton->setText("Open Connection");
     }
+
     connected = !connected;
 }

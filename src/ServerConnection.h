@@ -9,7 +9,7 @@ class ServerConnection
 public:
     ServerConnection();
     void sendPacket(std::string query);
-    QString ServerConnection::getPacket();
+    QString getPacket();
 
 private:
     sf::TcpSocket socket;

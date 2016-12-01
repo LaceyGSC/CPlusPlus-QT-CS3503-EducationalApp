@@ -13,6 +13,7 @@ ServerConnection::ServerConnection()
 {
     //Connects to the server on the localhost at this port
     sf::Socket::Status status = socket.connect("localhost", 53001);
+    socket.setBlocking(false);
 
 }
 
@@ -26,7 +27,7 @@ void ServerConnection::sendPacket(std::string query)
 
     //Calls method to get returning data.
     //BUG: Needs to be set to non-blocking
-    getPacket();
+    //getPacket();
 }
 
 QString ServerConnection::getPacket()
@@ -39,9 +40,6 @@ QString ServerConnection::getPacket()
         //Socket is getting data back, changing to string
         std::string data;
         packet >> data;
-
-        //Outputs and converts to QString, which QApplication likes better
-        qDebug() << "Client return data: \n" << data.c_str();
         recievedData = QString::fromStdString(data);
     }
 
