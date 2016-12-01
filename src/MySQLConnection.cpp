@@ -1,4 +1,4 @@
-#include "mysqlconnection.h"
+#include "MySQLConnection.h"
 
 #include <iostream>
 

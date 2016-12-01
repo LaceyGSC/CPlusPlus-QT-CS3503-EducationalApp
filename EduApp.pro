@@ -22,8 +22,8 @@ SOURCES += \
     src/StateStack.cpp \
     src/GameState.cpp \
     src/FractalExspressionEvaluator.cpp \
+    src/MySQLConnection.cpp
 #    src/Character.cpp \
-    src/mysqlconnection.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -36,8 +36,8 @@ HEADERS += \
     src/StateIdentifiers.h \
     src/GameState.h \
     src/FractalExspressionEvaluator.h \
+    src/MySQLConnection.h
 #    src/Character.h \
-    src/mysqlconnection.h
 
 FORMS += \
     src/Application.ui \
