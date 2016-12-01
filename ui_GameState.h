@@ -32,13 +32,14 @@ public:
     QGroupBox *charStatsBox;
     QGridLayout *gridLayout_2;
     QPushButton *pushButton;
+    QPushButton *plantodexButton;
 
     void setupUi(QWidget *GameState)
     {
         if (GameState->objectName().isEmpty())
             GameState->setObjectName(QStringLiteral("GameState"));
         GameState->setEnabled(true);
-        GameState->resize(219, 96);
+        GameState->resize(251, 96);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -82,6 +83,11 @@ public:
 
         gridLayout_2->addWidget(pushButton, 0, 1, 1, 1);
 
+        plantodexButton = new QPushButton(charStatsBox);
+        plantodexButton->setObjectName(QStringLiteral("plantodexButton"));
+
+        gridLayout_2->addWidget(plantodexButton, 1, 1, 1, 1);
+
 
         gameContainer->addWidget(charStatsBox, 1, 1, 1, 1);
 
@@ -100,6 +106,7 @@ public:
         worldBox->setTitle(QApplication::translate("GameState", "World Display", 0));
         charStatsBox->setTitle(QApplication::translate("GameState", "Character Statistics", 0));
         pushButton->setText(QApplication::translate("GameState", "Test", 0));
+        plantodexButton->setText(QApplication::translate("GameState", "Plantodex", 0));
     } // retranslateUi
 
 };

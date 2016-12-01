@@ -24,7 +24,6 @@ SOURCES += \
     src/FractalExspressionEvaluator.cpp \
     src/ServerConnection.cpp \
     src/Plantodex.cpp
-#    src/Character.cpp \
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -38,8 +37,7 @@ HEADERS += \
     src/GameState.h \
     src/FractalExspressionEvaluator.h \
     src/ServerConnection.h \
-    src/Plantodex.h
-#    src/Character.h \
+    src/Plantodex.h \
     src/ServerConnection.h \
     src/LoginState.h
 
