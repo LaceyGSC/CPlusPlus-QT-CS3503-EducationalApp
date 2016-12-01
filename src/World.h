@@ -12,7 +12,7 @@
 #include <QQueue>
 
 #include "QSFMLWidget.h"
-#include "FractalEspressionEvaluator.h"
+#include "FractalExpressionEvaluator.h"
 #include "State.h"
 
 class World : public QSFMLWidget

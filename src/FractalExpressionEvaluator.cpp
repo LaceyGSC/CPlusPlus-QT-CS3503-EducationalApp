@@ -1,4 +1,4 @@
-#include "FractalEspressionEvaluator.h"
+#include "FractalExpressionEvaluator.h"
 
 FractalExpressionEvaluator::FractalExpressionEvaluator():
     mEscape(500),
