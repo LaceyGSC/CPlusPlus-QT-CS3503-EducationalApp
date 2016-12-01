@@ -57,6 +57,8 @@ private:
     int mWorldNum;
     int mLandCount;
 
+    double mScreenScale = 1;
+
     //intended for future use so when generating landscape I don't have to work around non-landscape textures in the resourcemanager
     std::vector<sf::Texture> mLandTextures;
 };

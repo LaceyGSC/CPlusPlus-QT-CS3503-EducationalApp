@@ -14,6 +14,7 @@
 #include "State.h"
 #include "ResourceIdentifiers.h"
 #include "ResourceManager.h"
+#include "qdebug.h"
 
 #include <iostream>
 
@@ -21,7 +22,11 @@ using namespace sf;
 World::World(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent)
     : QSFMLWidget(pos, size, context, parent),mCharacterRelativePos(std::complex<int>(9,9))
 {
-                map.setRefSize(512);;
+                map.setRefSize(512);
+
+                sf::VideoMode temp = sf::VideoMode::getDesktopMode();
+                double height = temp.height;
+                mScreenScale = height/1080;
 }
 
 void World::onInit()
@@ -59,11 +64,10 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 
     clear();
     target.clear();
-    float scale = 1;
-    int jumpgap = 32*scale;
-    for(int x = 0;x<576*scale;x+=jumpgap)
+    int jumpgap = 32*mScreenScale;
+    for(int x = 0;x<576*mScreenScale;x+=jumpgap)
     {
-        for(int y = 0;y<576*scale;y+=jumpgap)
+        for(int y = 0;y<576*mScreenScale;y+=jumpgap)
         {
             //get land type  and display it
             std::complex<int> tempLocation = mWorldLocation + std::complex<int>(x/jumpgap,y/jumpgap);
@@ -71,7 +75,7 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 
             mSprite.setTexture(getContext().textures.get(type));
             mSprite.setPosition(x,y);
-            mSprite.setScale(scale,scale);
+            mSprite.setScale(mScreenScale,mScreenScale);
             target.draw(mSprite, states);
 
             //if the main charector is here
@@ -81,7 +85,7 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
             {
                 mCharacter.setTexture(getContext().textures.get(0));
                 mCharacter.setPosition(x,y-16);
-                mCharacter.setScale(scale/2,scale/2);
+                mCharacter.setScale(mScreenScale/2,mScreenScale/2);
                 mCharacter.setOrigin(0,.25);
                 target.draw(mCharacter,states);
             }
