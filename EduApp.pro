@@ -20,6 +20,9 @@ SOURCES += \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
+    src/FractalExspressionEvaluator.cpp \
+    src/MySQLConnection.cpp
+#    src/Character.cpp \
     src/ServerConnection.cpp
 
 HEADERS += \
@@ -32,6 +35,9 @@ HEADERS += \
     src/StateStack.h \
     src/StateIdentifiers.h \
     src/GameState.h \
+    src/FractalExspressionEvaluator.h \
+    src/MySQLConnection.h
+#    src/Character.h \
     src/ServerConnection.h
 
 FORMS += \
@@ -53,12 +59,18 @@ DEPENDPATH += $$PWD/ext/SFML/include
 }
 
 macx{
-    LIBS += -L$$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system
+    #LIBS += -L$$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system
 
-    INCLUDEPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
-    DEPENDPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
+    #INCLUDEPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
+    #DEPENDPATH += $$PWD/ext/SFML-2.4.1-osx-clang/include
+QMAKE_MAC_SDK = macosx10.12
 
-    QMAKE_+= $$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window
+LIBS += -L"/usr/local/lib" -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window
+
+INCLUDEPATH += "/usr/local/include"
+DEPENDPATH += "/usr/local/include"
+
+    #QMAKE_+= $$PWD/ext/SFML-2.4.1-osx-clang/lib -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window
 }
 
 
@@ -80,4 +92,12 @@ DEPENDPATH += $$PWD/ext/Box2D
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
 }
 
-win32: LIBS += -L$$PWD/ext/MySQL/ -llibmysql
+QMAKE_POST_LINK="install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ext/MySQL/ -llibmysql
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../mysql-5.7.16-winx64/lib/ -llibmysqld
+
+#INCLUDEPATH += $$PWD/../mysql-5.7.16-winx64/include
+#DEPENDPATH += $$PWD/../mysql-5.7.16-winx64/include

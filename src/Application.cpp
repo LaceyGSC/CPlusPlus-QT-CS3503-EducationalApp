@@ -38,6 +38,9 @@ Application::Application(QWidget *parent)
     registerStates();
     mStateStack.pushState(States::ID::GameState);
 
+    // Start the MySQL connection
+    MySQLConnection connection;
+
     // Starts the game loop
     QObject::connect(&mLoopTimer, SIGNAL(timeout()), this, SLOT(gameLoop()));
     mLoopTimer.setInterval(0);
@@ -54,7 +57,7 @@ Application::~Application()
 void Application::registerStates()
 {
     // A grid layout is used as the main layout because it centers its elements
-    mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
+    mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout ,mUi->mainContainer);
 }
 
 void Application::gameLoop()

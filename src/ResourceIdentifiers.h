@@ -12,7 +12,8 @@ namespace Textures
 {
     enum class ID
     {
-        Default
+        Default,
+        Character
     };
 }
 
