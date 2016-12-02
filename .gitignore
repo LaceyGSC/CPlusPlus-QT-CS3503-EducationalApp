@@ -11,3 +11,4 @@
 *.autosave
 *.pro.user
 ui_*.h
+build-*
