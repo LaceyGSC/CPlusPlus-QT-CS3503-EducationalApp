@@ -10,3 +10,4 @@
 # Qt files
 *.autosave
 *.pro.user
+ui_*.h
