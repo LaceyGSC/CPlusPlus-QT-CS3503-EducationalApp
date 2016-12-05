@@ -36,7 +36,10 @@ public :
 private:
     sf::Sprite      mSprite;
     sf::Sprite      mCharacter;
-
+    bool leftPressed;
+      bool rightPressed;
+        bool upPressed;
+          bool downPressed;
     std::complex<double>    mWorldLocation;
     std::complex<double> characterRelativePos;
     FractalExspressionEvaluator map;

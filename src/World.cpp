@@ -21,6 +21,10 @@ using namespace sf;
 World::World(const QPoint &pos, const QSize &size, State::Context &context, QWidget *parent)
     : QSFMLWidget(pos, size, context, parent),characterRelativePos(std::complex<double>(9,9)),velocity(0.02)
 {
+                 leftPressed = false;
+                 rightPressed = false;
+                 upPressed = false;
+                 downPressed = false;
                 map.setRefSize(512);;
 }
 
@@ -30,6 +34,14 @@ void World::onInit()
 
     getContext().textures.load(0, "qrc:/../media/Textures/meme.png");
     getContext().textures.get(0).setSmooth(true);
+    getContext().textures.load(-1, "qrc:/../media/Textures/Fire.png");
+    getContext().textures.get(-1).setSmooth(true);
+    getContext().textures.load(-2, "qrc:/../media/Textures/Bridge.png");
+    getContext().textures.get(-2).setSmooth(true);
+    getContext().textures.load(-3, "qrc:/../media/Textures/Sand.png");
+    getContext().textures.get(-3).setSmooth(true);
+    getContext().textures.load(-4, "qrc:/../media/Textures/QuickSand.png");
+    getContext().textures.get(-4).setSmooth(true);
 }
 
 void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
@@ -38,14 +50,30 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         temp +=std::complex<double>(1,0)*velocity;
+        rightPressed = true;
+        leftPressed = false;
+        upPressed = false;
+        downPressed = false;
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        rightPressed = false;
+        leftPressed = true;
+        upPressed = false;
+        downPressed = false;
         temp +=std::complex<double>(-1,0)*velocity;
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        rightPressed = false;
+        leftPressed = false;
+        upPressed = true;
+        downPressed = false;
         temp +=std::complex<double>(0,-1)*velocity;
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        rightPressed = false;
+        leftPressed = false;
+        upPressed = false;
+        downPressed = true;
         temp +=std::complex<double>(0,1)*velocity;
     }
 
@@ -135,11 +163,27 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
             bool atCharectorY = characterRelativePos.imag() == y/jumpgap;
             if(atCharectorX&&atCharectorY)
             {
-                mCharacter.setTexture(getContext().textures.get(0));
+                int i = 0;
+                if(leftPressed){
+                    i = -1;
+                }
+                else if(rightPressed){
+                    i = -2;
+                }
+                else if(upPressed){
+                    i = -3;
+                }
+                else if(downPressed){
+                    i = -4;
+                }
+                mCharacter.setTexture(getContext().textures.get(i));
                 mCharacter.setPosition(x,y-16);
                 mCharacter.setScale(scale/2,scale/2);
                 mCharacter.setOrigin(0,.25);
                 target.draw(mCharacter,states);
+
+
+
             }
         }
     }
