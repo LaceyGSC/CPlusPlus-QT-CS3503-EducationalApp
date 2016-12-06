@@ -25,9 +25,6 @@ public :
     virtual void    onDraw(sf::RenderTarget& target, sf::RenderStates states);
     virtual void keyPressEvent(QKeyEvent* event);
 
-
-    std::string pickPlant();
-
     //changes which stage you are on
     void WorldLoader(int);
     int getworldNum() const;

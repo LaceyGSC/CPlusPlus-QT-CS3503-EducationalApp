@@ -158,11 +158,6 @@ void World::WorldLoader(int worldtype)
     mLandCount = mCurrentLandNameIndex.size();
 }
 
-std::string World::pickPlant()
-{
-
-}
-
 bool World::moveValid(std::complex<int> next)
 {
     next = next + mCharacterRelativePos;
