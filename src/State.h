@@ -29,9 +29,10 @@ public:
     // Context allows the states to get resources from the resource managers
     struct Context
     {
-                        Context(TextureManager &textures);
+                        Context(TextureManager &textures, FontManager &fonts);
 
         TextureManager  &textures;
+        FontManager     &fonts;
     };
 
 public:

@@ -12,11 +12,25 @@
 TitleState::TitleState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
     , mUi(new Ui::TitleState)
-    , mSplashScreen(QPoint(0, 0), QSize(400, 400), context)
-    , mTimer(sf::Time::Zero)
+    , mSplashScreen(QPoint(0, 0), QSize(parent->size()), context)
+    , mTime(sf::Time::Zero)
 {
+    qDebug() << parent->size().width();
     mUi->setupUi(this);
 
+    // Display the title state widget
+    this->show();
+
+    // Make the window active so that it can receive events
+    this->activateWindow();
+
+    // Enable keyboard events
+    setFocusPolicy(Qt::StrongFocus);
+
+    // mUi->gridLayout_3->addWidget(&mSplashScreen);
+
+    mSplashScreen.setParent(mUi->mainContainer);
+    mSplashScreen.show();
 }
 
 TitleState::~TitleState()
@@ -24,40 +38,38 @@ TitleState::~TitleState()
     delete mUi;
 }
 
-/*bool TitleState::event(QEvent *event)
+// To disallow any event handling while the window is not active
+bool TitleState::event(QEvent *event)
 {
     if (event->type() == QEvent::WindowDeactivate)
-    {
-        qDebug() << "Deac";
         setFocusPolicy(Qt::NoFocus);
-        return true;
-    }
     else if (event->type() == QEvent::WindowActivate)
-    {
-        qDebug() << "Ac";
         setFocusPolicy(Qt::StrongFocus);
-        return true;
-    }
-    return false;
-}*/
+
+    return QWidget::event(event);
+}
 
 void TitleState::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Down)
+    if (event->key() == Qt::Key_Escape)
     {
         requestStackPop();
         requestStackPush(States::ID::LoginState);
-        qDebug() << "Hi";
     }
+}
+
+void TitleState::resizeEvent(QResizeEvent *event)
+{
+    mSplashScreen.resize(event->size());
 }
 
 bool TitleState::update(const sf::Time &deltaTime)
 {
-    mTimer += deltaTime;
-    if (mTimer.asSeconds() > 10.)
+    mTime += deltaTime;
+    if (mTime.asSeconds() > 8.)
     {
-        //requestStackPop();
-        //requestStackPush(States::ID::LoginState);
+        requestStackPop();
+        requestStackPush(States::ID::LoginState);
     }
-    return true;
+    return mSplashScreen.update(deltaTime);
 }

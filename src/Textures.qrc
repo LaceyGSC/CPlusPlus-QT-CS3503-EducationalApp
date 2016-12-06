@@ -1,48 +1,24 @@
 <RCC>
     <qresource prefix="/">
         <file>../media/Textures/default.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Bridge.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/DeepFreshWater.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/DeepSaltWater.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Dirt.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Fire.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Grass.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Mountain.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Sand.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/QuickSand.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Tree.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/RedSand.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/ShallowFreshWater.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/ShallowSaltWater.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/meme.png</file>
+        <file>../media/Textures/Box2DLogo.png</file>
+        <file>../media/Textures/QtLogo.png</file>
+        <file>../media/Textures/SFMLLogo.png</file>
+        <file>../media/Textures/TitleLogo.png</file>
+        <file>../media/Fonts/ARHERMANN.ttf</file>
     </qresource>
 </RCC>
-

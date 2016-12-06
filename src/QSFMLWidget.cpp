@@ -91,6 +91,11 @@ void QSFMLWidget::resizeEvent(QResizeEvent*)
     resetCanvas();
 }
 
+bool QSFMLWidget::update(const sf::Time &deltaTime)
+{
+    return true;
+}
+
 State::Context QSFMLWidget::getContext() const
 {
     return mContext;

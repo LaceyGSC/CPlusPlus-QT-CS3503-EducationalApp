@@ -28,8 +28,11 @@ public:
                     ~TitleState();
 
     // To disallow any event handling while the window is not active
-    //virtual bool    event(QEvent *event);
+    virtual bool    event(QEvent *event);
     virtual void    keyPressEvent(QKeyEvent *event);
+
+    // Used to resize the splash screen every time the main window is resized
+    virtual void    resizeEvent(QResizeEvent *event);
 
     virtual bool    update(const sf::Time &deltaTime);
 
@@ -37,7 +40,7 @@ private:
     Ui::TitleState  *mUi;
 
     SplashScreen    mSplashScreen;
-    sf::Time        mTimer;
+    sf::Time        mTime;
 };
 
 #endif // TITLESTATE_H
