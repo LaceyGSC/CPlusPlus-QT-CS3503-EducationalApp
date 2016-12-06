@@ -13,6 +13,8 @@ namespace Textures
     enum class ID
     {
         Default,
+        Land,
+        Plant,
         Character
     };
 }

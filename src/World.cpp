@@ -122,16 +122,6 @@ void World::WorldLoader(int worldtype)
     {
         map.setJuliaValue(std::complex<double>(-.5,.002));
         mCurrentLandNameIndex = {"Dirt","Grass","Mountain","Grass","Mountain","Sand","ShallowFreshWater","Tree","ShallowSaltWater","Tree"};
-//        getContext().textures.load(1, "qrc:/../media/Textures/Dirt.png");
-//        getContext().textures.load(2, "qrc:/../media/Textures/Grass.png");
-//        getContext().textures.load(3, "qrc:/../media/Textures/Mountain.png");
-//        getContext().textures.load(4, "qrc:/../media/Textures/Grass.png");
-//        getContext().textures.load(5, "qrc:/../media/Textures/Mountain.png");
-//        getContext().textures.load(6, "qrc:/../media/Textures/Sand.png");
-//        getContext().textures.load(7, "qrc:/../media/Textures/ShallowFreshWater.png");
-//        getContext().textures.load(8, "qrc:/../media/Textures/Tree.png");
-//        getContext().textures.load(9, "qrc:/../media/Textures/ShallowSaltWater.png");
-//        getContext().textures.load(10, "qrc:/../media/Textures/Tree.png");
         mUnmoveableTerrain = {2,4};
     }
     else if(worldtype==2){
@@ -148,8 +138,7 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(10, "qrc:/../media/Textures/Sand.png");
         getContext().textures.load(11, "qrc:/../media/Textures/ShallowFreshWater.png");
         getContext().textures.load(12, "qrc:/../media/Textures/Tree.png");
-        mLandCount = 11;
-        mUnmoveableTerrain = {1,3};
+        mUnmoveableTerrain = {0,2};
     }
     else {
 
@@ -206,7 +195,11 @@ int World::getLandValue(std::complex<int> pos)
 
 unsigned int World::complexHash(std::complex<int> input)
 {
-    return std::hash<int>{}(std::norm(input)) + std::hash<int>{}(input.real()) + std::hash<int>{}(input.imag());
+
+    std::hash<double> k{};
+    std::complex<double> temp = std::pow(std::complex<double>(input.real(),input.imag()),2.3);
+
+    return k(temp.real())+k(temp.imag())+k(std::abs(temp)) + k(std::arg(temp));
 }
 
 int World::getworldNum() const
