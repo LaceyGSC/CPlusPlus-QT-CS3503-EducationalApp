@@ -12,6 +12,7 @@ namespace States
     enum ID
     {
         None,
+        TitleState,
         GameState,
         LoginState
 

@@ -23,7 +23,9 @@ SOURCES += \
     src/LoginState.cpp \
     src/FractalExspressionEvaluator.cpp \
     src/ServerConnection.cpp \
-    src/Plantodex.cpp
+    src/Plantodex.cpp \
+    src/TitleState.cpp \
+    src/SplashScreen.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -39,13 +41,16 @@ HEADERS += \
     src/ServerConnection.h \
     src/Plantodex.h \
     src/ServerConnection.h \
-    src/LoginState.h
+    src/LoginState.h \
+    src/TitleState.h \
+    src/SplashScreen.h
 
 FORMS += \
     src/Application.ui \
     src/GameState.ui \
     src/LoginState.ui \
-    src/Plantodex.ui
+    src/Plantodex.ui \
+    src/TitleState.ui
 
 RESOURCES += \
     src/Textures.qrc

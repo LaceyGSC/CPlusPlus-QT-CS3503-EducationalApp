@@ -15,6 +15,7 @@
 
 #include "StateIdentifiers.h"
 #include "State.h"
+#include "TitleState.h"
 #include "GameState.h"
 #include "LoginState.h"
 #include "ServerConnection.h"
@@ -38,7 +39,7 @@ Application::Application(QWidget *parent)
     // Setup the states and push the first state
     registerStates();
 
-    mStateStack.pushState(States::ID::LoginState);
+    mStateStack.pushState(States::ID::TitleState);
 
     // Starts the game loop
     QObject::connect(&mLoopTimer, SIGNAL(timeout()), this, SLOT(gameLoop()));
@@ -56,6 +57,7 @@ Application::~Application()
 void Application::registerStates()
 {
     // A grid layout is used as the main layout because it centers its elements
+    mStateStack.registerState<TitleState>(States::ID::TitleState, mUi->mainLayout, mUi->mainContainer);
     mStateStack.registerState<LoginState>(States::ID::LoginState, mUi->mainLayout, mUi->mainContainer);
     mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
 
