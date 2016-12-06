@@ -10,6 +10,7 @@
 #include <QResizeEvent>
 #include <QSize>
 #include <QQueue>
+#include <QString>
 #include <SFML/Graphics.hpp>
 #include "State.h"
 #include "ResourceIdentifiers.h"
@@ -56,6 +57,10 @@ void World::keyPressEvent(QKeyEvent* event)
 
     if(moveValid(temp)){
         mWorldLocation = temp;
+        if(plantAtSpot(temp))
+        {
+        emit plantPicked();
+        }
     }
 }
 
@@ -73,7 +78,7 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
             std::complex<int> tempLocation = mWorldLocation + std::complex<int>(x/jumpgap,y/jumpgap);
             int type = getLandValue(tempLocation);
 
-            mSprite.setTexture(getContext().textures.get(type));
+            mSprite.setTexture(mLandTextures[type]);
             mSprite.setPosition(x,y);
             mSprite.setScale(mScreenScale,mScreenScale);
             target.draw(mSprite, states);
@@ -82,6 +87,15 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
             bool atCharectorX =  mCharacterRelativePos.real() == x/jumpgap;
             bool atCharectorY = mCharacterRelativePos.imag() == y/jumpgap;
             if(atCharectorX&&atCharectorY)
+            {
+                mCharacter.setTexture(getContext().textures.get(0));
+                mCharacter.setPosition(x,y-16);
+                mCharacter.setScale(mScreenScale/2,mScreenScale/2);
+                mCharacter.setOrigin(0,.25);
+                target.draw(mCharacter,states);
+            }
+
+            if(plantAtSpot(tempLocation))
             {
                 mCharacter.setTexture(getContext().textures.get(0));
                 mCharacter.setPosition(x,y-16);
@@ -98,38 +112,27 @@ void World::WorldLoader(int worldtype)
     mWorldNum = worldtype;
     if(worldtype==0)
     {
+        //*
+        mCurrentLandNameIndex = {"Bridge","DeepFreshWater","DeepSaltWater","Dirt","Fire","Grass","Mountain","QuickSand","RedSand",
+                                "Sand","ShallowFreshWater", "ShallowSaltWater","Tree"};
         map.setJuliaValue(std::complex<double>(-.621,0));
-        getContext().textures.load(1, "qrc:/../media/Textures/Bridge.png");
-        getContext().textures.load(2, "qrc:/../media/Textures/DeepFreshWater.png");
-        getContext().textures.load(3, "qrc:/../media/Textures/DeepSaltWater.png");
-        getContext().textures.load(4, "qrc:/../media/Textures/Dirt.png");
-        getContext().textures.load(5, "qrc:/../media/Textures/Fire.png");
-        getContext().textures.load(6, "qrc:/../media/Textures/Grass.png");
-        getContext().textures.load(7, "qrc:/../media/Textures/Mountain.png");
-        getContext().textures.load(8, "qrc:/../media/Textures/QuickSand.png");
-        getContext().textures.load(9, "qrc:/../media/Textures/RedSand.png");
-        getContext().textures.load(10, "qrc:/../media/Textures/Sand.png");
-        getContext().textures.load(11, "qrc:/../media/Textures/ShallowFreshWater.png");
-        getContext().textures.load(12, "qrc:/../media/Textures/ShallowSaltWater.png");
-        getContext().textures.load(13, "qrc:/../media/Textures/Tree.png");
-        mLandCount = 12;
-        mUnmoveableTerrain = {2,3,5,7,8};
+        mUnmoveableTerrain = {1,2,4,6,7};
     }
     else if(worldtype==1)
     {
         map.setJuliaValue(std::complex<double>(-.5,.002));
-        getContext().textures.load(1, "qrc:/../media/Textures/Dirt.png");
-        getContext().textures.load(2, "qrc:/../media/Textures/Grass.png");
-        getContext().textures.load(3, "qrc:/../media/Textures/Mountain.png");
-        getContext().textures.load(4, "qrc:/../media/Textures/Grass.png");
-        getContext().textures.load(5, "qrc:/../media/Textures/Mountain.png");
-        getContext().textures.load(6, "qrc:/../media/Textures/Sand.png");
-        getContext().textures.load(7, "qrc:/../media/Textures/ShallowFreshWater.png");
-        getContext().textures.load(8, "qrc:/../media/Textures/Tree.png");
-        getContext().textures.load(9, "qrc:/../media/Textures/ShallowSaltWater.png");
-        getContext().textures.load(10, "qrc:/../media/Textures/Tree.png");
-        mLandCount = 9;
-        mUnmoveableTerrain = {3,5};
+        mCurrentLandNameIndex = {"Dirt","Grass","Mountain","Grass","Mountain","Sand","ShallowFreshWater","Tree","ShallowSaltWater","Tree"};
+//        getContext().textures.load(1, "qrc:/../media/Textures/Dirt.png");
+//        getContext().textures.load(2, "qrc:/../media/Textures/Grass.png");
+//        getContext().textures.load(3, "qrc:/../media/Textures/Mountain.png");
+//        getContext().textures.load(4, "qrc:/../media/Textures/Grass.png");
+//        getContext().textures.load(5, "qrc:/../media/Textures/Mountain.png");
+//        getContext().textures.load(6, "qrc:/../media/Textures/Sand.png");
+//        getContext().textures.load(7, "qrc:/../media/Textures/ShallowFreshWater.png");
+//        getContext().textures.load(8, "qrc:/../media/Textures/Tree.png");
+//        getContext().textures.load(9, "qrc:/../media/Textures/ShallowSaltWater.png");
+//        getContext().textures.load(10, "qrc:/../media/Textures/Tree.png");
+        mUnmoveableTerrain = {2,4};
     }
     else if(worldtype==2){
         map.setJuliaValue(std::complex<double>(-.5,-.002));
@@ -146,23 +149,29 @@ void World::WorldLoader(int worldtype)
         getContext().textures.load(11, "qrc:/../media/Textures/ShallowFreshWater.png");
         getContext().textures.load(12, "qrc:/../media/Textures/Tree.png");
         mLandCount = 11;
-        mUnmoveableTerrain = {2,4};
+        mUnmoveableTerrain = {1,3};
     }
     else {
 
 
+
     }
+
+    mLandTextures.clear();
+    for(int i = 1; i< mCurrentLandNameIndex.size()+1;i++)
+    {
+        QString tempstr = "qrc:/../media/Textures/"+mCurrentLandNameIndex[i-1]+".png";
+        std::cout<<tempstr.toStdString()<<std::endl;
+        getContext().textures.load(i, tempstr.toStdString());
+
+        mLandTextures.push_back(getContext().textures.get(i));
+    }
+    mLandCount = mCurrentLandNameIndex.size();
 }
 
 std::string World::pickPlant()
 {
-    mPickedPlants.enqueue(mWorldLocation);
-    if(mPickedPlants.size()>1000)
-        {
-            mPickedPlants.dequeue();
-        }
-    //TODO return a plant;
-    return "";
+
 }
 
 bool World::moveValid(std::complex<int> next)
@@ -180,9 +189,24 @@ bool World::moveValid(std::complex<int> next)
     return true;
 }
 
+QString World::plantPicked()
+{
+    mPickedPlants.enqueue(mWorldLocation+mCharacterRelativePos);
+    if(mPickedPlants.size()>1000)
+        {
+            mPickedPlants.dequeue();
+        }
+    return mCurrentLandNameIndex[getLandValue(mWorldLocation+mCharacterRelativePos)];
+}
+
 int World::getLandValue(std::complex<int> pos)
 {
-    return map.getValue(pos.real(),pos.imag())%mLandCount+1;
+    return map.getValue(pos.real(),pos.imag())%mLandCount;
+}
+
+unsigned int World::complexHash(std::complex<int> input)
+{
+    return std::hash<int>{}(std::norm(input)) + std::hash<int>{}(input.real()) + std::hash<int>{}(input.imag());
 }
 
 int World::getworldNum() const
@@ -193,6 +217,20 @@ int World::getworldNum() const
 std::complex<int> World::getCharecterLocation() const
 {
     return mWorldLocation+mCharacterRelativePos;
+}
+
+bool World::plantAtSpot(std::complex<int> pos)
+{
+    unsigned int temp =complexHash(pos);
+
+    if(0==temp%10)
+    {
+        if(!mPickedPlants.contains(pos))
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void World::setCharectorLocation(std::complex<int> pos)

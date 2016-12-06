@@ -50,17 +50,23 @@ private:
     QList<int> mUnmoveableTerrain; //terrain types that cannot be moved on
     QQueue<std::complex<int>> mPickedPlants;
 
+    std::vector<QString> mCurrentLandNameIndex;
+    std::vector<sf::Texture> mLandTextures;
+
     FractalExpressionEvaluator map;
 
     int getLandValue(std::complex<int>);
+    unsigned int complexHash(std::complex<int>);
+    bool plantAtSpot(std::complex<int>);
 
     int mWorldNum;
     int mLandCount;
 
     double mScreenScale = 1;
 
-    //intended for future use so when generating landscape I don't have to work around non-landscape textures in the resourcemanager
-    std::vector<sf::Texture> mLandTextures;
+public :
+signals:
+    QString plantPicked();
 };
 
 #endif // WORLD_H
