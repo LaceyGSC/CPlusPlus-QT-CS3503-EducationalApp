@@ -16,6 +16,9 @@
 #include "World.h"
 #include "Plantodex.h"
 #include "ServerConnection.h"
+#include "Level.h"
+
+#include <vector>
 
 namespace Ui {
     class GameState;
@@ -31,6 +34,9 @@ public:
 
     virtual bool    update(const sf::Time &deltaTime);
 
+private:
+    void            createLevels();
+
 private slots:
     void            start();
 
@@ -44,6 +50,8 @@ private:
 
     ServerConnection connection;
     Plantodex       mPlantodex;
+
+    std::vector<std::unique_ptr<Level>>  mLevels;
   //  Character       mCharacter;
 };
 

@@ -23,7 +23,11 @@ SOURCES += \
     src/LoginState.cpp \
     src/FractalExspressionEvaluator.cpp \
     src/ServerConnection.cpp \
-    src/Plantodex.cpp
+    src/Plantodex.cpp \
+    src/Level.cpp \
+    src/Quest.cpp \
+    src/CollectionQ.cpp \
+    src/Commands.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -39,13 +43,22 @@ HEADERS += \
     src/ServerConnection.h \
     src/Plantodex.h \
     src/ServerConnection.h \
-    src/LoginState.h
+    src/LoginState.h \
+    src/Level.h \
+    src/Quest.h \
+    src/CollectionQ.h \
+    src/CommandTypeIdentifiers.h \
+    src/PlantIdentifiers.h \
+    src/MovementIdentifiers.h \
+    src/Commands.h
 
 FORMS += \
     src/Application.ui \
     src/GameState.ui \
     src/LoginState.ui \
-    src/Plantodex.ui
+    src/Plantodex.ui \
+    src/Level.ui \
+    src/Quest.ui
 
 RESOURCES += \
     src/Textures.qrc
