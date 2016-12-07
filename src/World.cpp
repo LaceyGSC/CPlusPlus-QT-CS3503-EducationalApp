@@ -38,7 +38,7 @@ World::World(const QPoint &pos, const QSize &size, State::Context &context, QWid
 
 void World::onInit()
 {
-    WorldLoader(1);
+    WorldLoader(2);
 
     getContext().textures.load(0, "qrc:/../media/Textures/meme.png");
     getContext().textures.get(0).setSmooth(true);
@@ -145,19 +145,8 @@ void World::WorldLoader(int worldtype)
     }
     else if(worldtype==2){
         map.setJuliaValue(std::complex<double>(-.5,-.002));
-        getContext().textures.load(1, "qrc:/../media/Textures/Dirt.png");
-        getContext().textures.load(2, "qrc:/../media/Textures/Fire.png");
-        getContext().textures.load(3, "qrc:/../media/Textures/Grass.png");
-        getContext().textures.load(4, "qrc:/../media/Textures/Mountain.png");
-        getContext().textures.load(5, "qrc:/../media/Textures/QuickSand.png");
-        getContext().textures.load(6, "qrc:/../media/Textures/RedSand.png");
-        getContext().textures.load(7, "qrc:/../media/Textures/Sand.png");
-        getContext().textures.load(8, "qrc:/../media/Textures/QuickSand.png");
-        getContext().textures.load(9, "qrc:/../media/Textures/RedSand.png");
-        getContext().textures.load(10, "qrc:/../media/Textures/Sand.png");
-        getContext().textures.load(11, "qrc:/../media/Textures/ShallowFreshWater.png");
-        getContext().textures.load(12, "qrc:/../media/Textures/Tree.png");
-        mUnmoveableTerrain = {0,2};
+        mCurrentLandNameIndex = {"Dirt","Grass","Dirt","Mountain","QuickSand","RedSand","Sand","QuickSand","RedSand","Sand","ShallowFreshWater","Tree"};
+        mUnmoveableTerrain = {4,7};
     }
     else {
 
