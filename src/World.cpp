@@ -57,9 +57,9 @@ void World::keyPressEvent(QKeyEvent* event)
 
     if(moveValid(temp)){
         mWorldLocation = temp;
-        if(plantAtSpot(temp))
+        if(plantAtSpot(mWorldLocation +mCharacterRelativePos))
         {
-        emit plantPicked();
+            emit plantPicked();
         }
     }
 }
@@ -147,7 +147,7 @@ void World::WorldLoader(int worldtype)
     }
 
     mLandTextures.clear();
-    for(int i = 1; i< mCurrentLandNameIndex.size()+1;i++)
+    for(int i = 1; i < mCurrentLandNameIndex.size()+1;i++)
     {
         QString tempstr = "qrc:/../media/Textures/"+mCurrentLandNameIndex[i-1]+".png";
         std::cout<<tempstr.toStdString()<<std::endl;
