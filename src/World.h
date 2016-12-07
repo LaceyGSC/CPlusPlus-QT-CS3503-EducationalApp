@@ -36,19 +36,25 @@ public :
 
 private:
 
+    //returns the validity of a move
     bool moveValid(std::complex<int> next);
 
+    //gets an int for a land type from the map
+    int getLandValue(std::complex<int>);
+
+    //low quality hashe for complex integers
+    unsigned int complexHash(std::complex<int>);
+
+    //returns wether a location has a plant
+    bool plantAtSpot(std::complex<int>);
+
+    //drawingData
     sf::Sprite  mSprite;
     sf::Sprite  mCharacter;
 
+    //directional and locational data
     std::complex<int> mWorldLocation;
     std::complex<int> mCharacterRelativePos;
-
-    bool leftPressed;
-    bool rightPressed;
-    bool upPressed;
-    bool downPressed;
-
     characterDirection mCharacterDirection;
 
 
@@ -56,16 +62,17 @@ private:
     QList<int> mUnmoveableTerrain; //terrain types that cannot be moved on
     QQueue<std::complex<int>> mPickedPlants;
 
+
     std::vector<QString> mCurrentLandNameIndex;
     std::vector<sf::Texture> mLandTextures;
 
+    //used for calculating the map
     FractalExpressionEvaluator map;
 
-    int getLandValue(std::complex<int>);
-    unsigned int complexHash(std::complex<int>);
-    bool plantAtSpot(std::complex<int>);
-
+    //which world we are in
     int mWorldNum;
+
+    //how many land in the world
     int mLandCount;
 
     double mScreenScale = 1;

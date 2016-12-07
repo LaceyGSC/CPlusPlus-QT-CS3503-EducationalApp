@@ -29,11 +29,7 @@ World::World(const QPoint &pos, const QSize &size, State::Context &context, QWid
                 double height = temp.height;
                 mScreenScale = height/1080;
 
-                 leftPressed = false;
-                 rightPressed = false;
-                 upPressed = false;
-                 downPressed = false;
-                 mCharacterDirection = characterDirection::U;
+                mCharacterDirection = characterDirection::U;
 }
 
 void World::onInit()
@@ -41,15 +37,10 @@ void World::onInit()
     WorldLoader(2);
 
     getContext().textures.load(0, "qrc:/../media/Textures/meme.png");
-    getContext().textures.get(0).setSmooth(true);
     getContext().textures.load(-1, "qrc:/../media/Textures/Fire.png");
-    getContext().textures.get(-1).setSmooth(true);
     getContext().textures.load(-2, "qrc:/../media/Textures/Bridge.png");
-    getContext().textures.get(-2).setSmooth(true);
     getContext().textures.load(-3, "qrc:/../media/Textures/Sand.png");
-    getContext().textures.get(-3).setSmooth(true);
     getContext().textures.load(-4, "qrc:/../media/Textures/QuickSand.png");
-    getContext().textures.get(-4).setSmooth(true);
 }
 
 void World::keyPressEvent(QKeyEvent* event)
