@@ -21,7 +21,9 @@ SOURCES += \
     src/StateStack.cpp \
     src/GameState.cpp \
     src/FractalExpressionEvaluator.cpp \
-    src/ServerConnection.cpp
+    src/LoginState.cpp \
+    src/ServerConnection.cpp \
+    src/Plantodex.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -35,12 +37,18 @@ HEADERS += \
     src/GameState.h \
     src/FractalExpressionEvaluator.h \
 #    src/Character.h \
+    src/Land.h \
     src/ServerConnection.h \
-    src/Land.h
+    src/Plantodex.h \
+    src/ServerConnection.h \
+    src/LoginState.h \
+    src/charecterdirection.h
 
 FORMS += \
     src/Application.ui \
-    src/GameState.ui
+    src/GameState.ui \
+    src/LoginState.ui \
+    src/Plantodex.ui
 
 RESOURCES += \
     src/Textures.qrc
@@ -88,9 +96,10 @@ INCLUDEPATH += $$PWD/ext/Box2D
 DEPENDPATH += $$PWD/ext/Box2D
 
 PRE_TARGETDEPS += $$PWD/ext/Box2D/debug/libBox2D.a
+
 }
 
-mac{
+macx{
 QMAKE_POST_LINK="install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $$PWD/ext/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
 }
 

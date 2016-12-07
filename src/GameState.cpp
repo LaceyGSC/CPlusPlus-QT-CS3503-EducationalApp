@@ -22,6 +22,7 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
     , mUi(new Ui::GameState)
     , mWorld(QPoint(0, 0), QSize(400, 400), context)
+    , mPlantodex()
 {
     mUi->setupUi(this);
 
@@ -67,4 +68,9 @@ void GameState::start()
         mUi->worldContainer->removeWidget(&mWorld);
         mWorld.hide();
     }
+}
+
+void GameState::on_plantodexButton_clicked()
+{
+    mPlantodex.show();
 }

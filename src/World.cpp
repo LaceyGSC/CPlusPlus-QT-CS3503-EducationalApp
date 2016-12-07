@@ -28,6 +28,12 @@ World::World(const QPoint &pos, const QSize &size, State::Context &context, QWid
                 sf::VideoMode temp = sf::VideoMode::getDesktopMode();
                 double height = temp.height;
                 mScreenScale = height/1080;
+
+                 leftPressed = false;
+                 rightPressed = false;
+                 upPressed = false;
+                 downPressed = false;
+                 mCharacterDirection = characterDirection::U;
 }
 
 void World::onInit()
@@ -36,22 +42,35 @@ void World::onInit()
 
     getContext().textures.load(0, "qrc:/../media/Textures/meme.png");
     getContext().textures.get(0).setSmooth(true);
+    getContext().textures.load(-1, "qrc:/../media/Textures/Fire.png");
+    getContext().textures.get(-1).setSmooth(true);
+    getContext().textures.load(-2, "qrc:/../media/Textures/Bridge.png");
+    getContext().textures.get(-2).setSmooth(true);
+    getContext().textures.load(-3, "qrc:/../media/Textures/Sand.png");
+    getContext().textures.get(-3).setSmooth(true);
+    getContext().textures.load(-4, "qrc:/../media/Textures/QuickSand.png");
+    getContext().textures.get(-4).setSmooth(true);
 }
 
 void World::keyPressEvent(QKeyEvent* event)
 {
     std::complex<int> temp = mWorldLocation;
 
+
     if(event->key() ==Qt::Key_Right){
+        mCharacterDirection =characterDirection::R;
         temp +=std::complex<int>(1,0);
     }
     else if(event->key() ==Qt::Key_Left){
+        mCharacterDirection =characterDirection::L;
         temp +=std::complex<int>(-1,0);
     }
     else if(event->key() ==Qt::Key_Up){
+        mCharacterDirection =characterDirection::U;
         temp +=std::complex<int>(0,-1);
     }
     else if(event->key() ==Qt::Key_Down){
+        mCharacterDirection =characterDirection::D;
         temp +=std::complex<int>(0,1);
     }
 
@@ -88,7 +107,7 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
             bool atCharectorY = mCharacterRelativePos.imag() == y/jumpgap;
             if(atCharectorX&&atCharectorY)
             {
-                mCharacter.setTexture(getContext().textures.get(0));
+                mCharacter.setTexture(getContext().textures.get(-static_cast<int>(mCharacterDirection)));
                 mCharacter.setPosition(x,y-16);
                 mCharacter.setScale(mScreenScale/2,mScreenScale/2);
                 mCharacter.setOrigin(0,.25);

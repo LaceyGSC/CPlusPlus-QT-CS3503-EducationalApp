@@ -13,6 +13,7 @@
 
 #include "QSFMLWidget.h"
 #include "FractalExpressionEvaluator.h"
+#include "charecterdirection.h"
 #include "State.h"
 #include "land.h"
 
@@ -42,6 +43,14 @@ private:
 
     std::complex<int> mWorldLocation;
     std::complex<int> mCharacterRelativePos;
+
+    bool leftPressed;
+    bool rightPressed;
+    bool upPressed;
+    bool downPressed;
+
+    characterDirection mCharacterDirection;
+
 
     //q containers chosen for their contains method.
     QList<int> mUnmoveableTerrain; //terrain types that cannot be moved on
