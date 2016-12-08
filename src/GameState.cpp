@@ -29,9 +29,6 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     // Display the game state widget
     this->show();
 
-    // Start the MySQL connection
-    connection.sendPacket("Select * from PlantDatabase");
-
     // Sets the column ratio for World : charStats to 3 : 1
 
     mUi->gameContainer->setColumnStretch(0, 3);
@@ -61,7 +58,6 @@ void GameState::start()
         mUi->worldContainer->addWidget(&mWorld);
       //  mUi->worldContainer->addWidget(&mCharacter);
         mWorld.show();
-        qDebug().noquote() << connection.getPacket();
     }
     else
     {

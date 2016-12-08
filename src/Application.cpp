@@ -17,6 +17,7 @@
 #include "State.h"
 #include "GameState.h"
 #include "LoginState.h"
+#include "AdminState.h"
 #include "ServerConnection.h"
 
 // 60 FPS
@@ -57,6 +58,7 @@ void Application::registerStates()
 {
     // A grid layout is used as the main layout because it centers its elements
     mStateStack.registerState<LoginState>(States::ID::LoginState, mUi->mainLayout, mUi->mainContainer);
+    mStateStack.registerState<AdminState>(States::ID::AdminState, mUi->mainLayout, mUi->mainContainer);
     mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
 
 }

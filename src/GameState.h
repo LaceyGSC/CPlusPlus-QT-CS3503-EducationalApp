@@ -42,7 +42,6 @@ private:
     // SFML sprites should be declared in the World class and drawn there
     World           mWorld;
 
-    ServerConnection connection;
     Plantodex       mPlantodex;
   //  Character       mCharacter;
 };

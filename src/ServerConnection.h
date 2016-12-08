@@ -8,10 +8,13 @@ class ServerConnection
 {
 public:
     ServerConnection();
+    void setupConnection();
     void sendPacket(std::string query);
     QString getPacket();
 
 private:
+    std::string host;
+    int port;
     sf::TcpSocket socket;
 
 };

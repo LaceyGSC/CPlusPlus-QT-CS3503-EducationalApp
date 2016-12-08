@@ -13,7 +13,8 @@ namespace States
     {
         None,
         GameState,
-        LoginState
+        LoginState,
+        AdminState
 
     };
 }

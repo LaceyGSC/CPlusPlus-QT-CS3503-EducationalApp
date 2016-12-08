@@ -5,6 +5,7 @@
 
 #include "State.h"
 #include "StateStack.h"
+#include "ServerConnection.h"
 
 namespace Ui {
 class LoginState;
@@ -22,6 +23,7 @@ public:
 
 private:
     Ui::LoginState *ui;
+    ServerConnection connection;
 
 private slots:
     void createSlot();

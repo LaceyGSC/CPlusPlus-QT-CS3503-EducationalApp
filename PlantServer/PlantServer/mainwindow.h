@@ -40,7 +40,10 @@ private:
 
     void connectToDatabase();
     void queryDatabasePlant();
-    void queryDatabaseUser();
+    void queryDatabaseUserLogin(QString name, QString password);
+    void queryDatabaseUserCreate(QString name, QString password);
+    void queryDatabaseUserDelete(QString name);
+    void createWebPage();
 };
 
 #endif // MAINWINDOW_H

@@ -12,9 +12,15 @@
 ServerConnection::ServerConnection()
 {
     //Connects to the server on the localhost at this port
-    sf::Socket::Status status = socket.connect("localhost", 53001);
-    socket.setBlocking(false);
+    host = "localhost";
+    port = 53001;
 
+}
+
+void ServerConnection::setupConnection()
+{
+    sf::Socket::Status status = socket.connect(host, port);
+    socket.setBlocking(false);
 }
 
 void ServerConnection::sendPacket(std::string query)
@@ -22,7 +28,7 @@ void ServerConnection::sendPacket(std::string query)
     sf::Packet outPacket;
 
     //Adds a const char* to packet to be sent. must convert to const char* to use
-    outPacket << "Select * from PlantTable";
+    outPacket << query;
     socket.send(outPacket);
 
     //Calls method to get returning data.
