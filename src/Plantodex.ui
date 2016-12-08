@@ -28,32 +28,13 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QFrame" name="plantImageFrame">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>130</y>
-      <width>241</width>
-      <height>171</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
    <widget class="QLabel" name="commonNameLabel">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>30</y>
-      <width>151</width>
-      <height>21</height>
+      <x>20</x>
+      <y>10</y>
+      <width>341</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -71,10 +52,10 @@
    <widget class="QLabel" name="scietificNameLabel">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>70</y>
-      <width>151</width>
-      <height>21</height>
+      <x>20</x>
+      <y>60</y>
+      <width>341</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -92,8 +73,8 @@
    <widget class="QLabel" name="Type">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>310</y>
+      <x>70</x>
+      <y>290</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -116,7 +97,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>380</y>
+      <y>320</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -135,38 +116,12 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QScrollArea" name="descriptionScrollBox">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>400</y>
-      <width>351</width>
-      <height>221</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>347</width>
-       <height>217</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
    <widget class="QLabel" name="typeLabel">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>310</y>
-      <width>91</width>
+      <x>140</x>
+      <y>290</y>
+      <width>121</width>
       <height>21</height>
      </rect>
     </property>
@@ -178,10 +133,75 @@
      </font>
     </property>
     <property name="text">
-     <string>Grass</string>
+     <string>Type</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="usesLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>470</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Uses:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="descriptionText">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>340</y>
+      <width>351</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="usesText">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>490</y>
+      <width>351</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="plantPicture">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>100</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -200,29 +220,35 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QListView" name="plantList">
+   <widget class="QListView" name="plantListView">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>160</y>
-      <width>351</width>
-      <height>481</height>
+      <x>10</x>
+      <y>170</y>
+      <width>321</width>
+      <height>461</height>
      </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
     </property>
    </widget>
    <widget class="QLabel" name="plantodexLabel">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>40</y>
-      <width>271</width>
-      <height>51</height>
+      <x>20</x>
+      <y>20</y>
+      <width>321</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Niagara Solid</family>
-      <pointsize>42</pointsize>
+      <pointsize>53</pointsize>
       <weight>75</weight>
       <bold>true</bold>
       <underline>false</underline>
@@ -235,11 +261,11 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="scietificNameLabel_4">
+   <widget class="QLabel" name="plantListLabel">
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>140</y>
+      <y>150</y>
       <width>101</width>
       <height>21</height>
      </rect>

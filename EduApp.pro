@@ -23,7 +23,16 @@ SOURCES += \
     src/FractalExpressionEvaluator.cpp \
     src/LoginState.cpp \
     src/ServerConnection.cpp \
-    src/Plantodex.cpp
+    src/Plantodex.cpp \
+    src/Level.cpp \
+    src/Quest.cpp \
+    src/Commands.cpp \
+    src/SubQuest.cpp \
+    src/SQCollectProperties.cpp \
+    src/SQCollectSpecific.cpp \
+    src/SQCollectType.cpp \
+    src/LevelManager.cpp \
+    src/Reward.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -41,13 +50,28 @@ HEADERS += \
     src/ServerConnection.h \
     src/Plantodex.h \
     src/ServerConnection.h \
-    src/LoginState.h
+    src/LoginState.h \
+    src/Level.h \
+    src/Quest.h \
+    src/CommandTypeIdentifiers.h \
+    src/PlantIdentifiers.h \
+    src/MovementIdentifiers.h \
+    src/Commands.h \
+    src/SubQuest.h \
+    src/SQCollectProperties.h \
+    src/SQCollectSpecific.h \
+    src/SQCollectType.h \
+    src/LevelManager.h \
+    src/Reward.h
 
 FORMS += \
     src/Application.ui \
     src/GameState.ui \
     src/LoginState.ui \
-    src/Plantodex.ui
+    src/Plantodex.ui \
+    src/Level.ui \
+    src/Quest.ui \
+    src/Reward.ui
 
 RESOURCES += \
     src/Textures.qrc

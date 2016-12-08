@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>251</width>
-    <height>96</height>
+    <width>417</width>
+    <height>132</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -80,21 +80,24 @@
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <property name="leftMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="rightMargin">
-         <number>0</number>
+         <number>3</number>
         </property>
         <property name="bottomMargin">
          <number>0</number>
         </property>
-        <property name="spacing">
+        <property name="horizontalSpacing">
          <number>0</number>
         </property>
-        <item row="0" column="1">
+        <property name="verticalSpacing">
+         <number>3</number>
+        </property>
+        <item row="2" column="1">
          <widget class="QPushButton" name="pushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -107,11 +110,44 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="3" column="1">
          <widget class="QPushButton" name="plantodexButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Plantodex</string>
           </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QGroupBox" name="levelContainer">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>309</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Quests</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout">
+           <property name="verticalSpacing">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>3</number>
+           </property>
+          </layout>
          </widget>
         </item>
        </layout>

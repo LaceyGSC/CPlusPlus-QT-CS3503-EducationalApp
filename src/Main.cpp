@@ -8,6 +8,7 @@
 #include <QFrame>
 
 #include "Application.h"
+#include "Plantodex.h"
 
 #include <exception>
 #include <iostream>

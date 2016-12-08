@@ -56,5 +56,32 @@
     <qresource prefix="/">
         <file>../media/Textures/Up.png</file>
     </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/up.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/down.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/left.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/right.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/sprite_catnip-01.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/sprite_cattail-01.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/sprite_lavender-01.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/sprite_sage-01.png</file>
+    </qresource>
+	<qresource prefix="/">
+        <file>../media/Textures/sprite_teaTree-01.png</file>
+    </qresource>
 </RCC>
 

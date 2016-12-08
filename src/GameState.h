@@ -16,6 +16,7 @@
 #include "World.h"
 #include "Plantodex.h"
 #include "ServerConnection.h"
+#include "LevelManager.h"
 
 namespace Ui {
     class GameState;
@@ -31,6 +32,9 @@ public:
 
     virtual bool    update(const sf::Time &deltaTime);
 
+private:
+    void            createLevels();
+
 private slots:
     void            start();
 
@@ -44,6 +48,10 @@ private:
 
     ServerConnection connection;
     Plantodex       mPlantodex;
+
+    LevelManager mLevelManager;
+
+    QString         packetData;
   //  Character       mCharacter;
 };
 
