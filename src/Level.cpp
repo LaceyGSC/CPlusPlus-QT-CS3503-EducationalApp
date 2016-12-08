@@ -8,7 +8,6 @@
 
 Level::Level(const QString &name, LevelManager& parentManager, QWidget *parent)
     : QWidget(parent)
-    , mLevelName(name)
     , mParentManager(&parentManager)
     , mUi(new Ui::Level)
     , mMainQuests()
@@ -32,17 +31,11 @@ Level::~Level()
     delete mUi;
 }
 
-const QString& Level::getName() const
-{
-    return mLevelName;
-}
-
 void Level::addMainQuest(Level::QuestPtr quest)
 {
     mUi->formLayout_2->addWidget(&*quest);
     quest->setHashId(mMainQuests.size());
 
-    //mMainQuests.insert(std::make_pair(std::move(quest), std::move(reward)));
     mMainQuests.push_back(std::move(quest));
 }
 
@@ -51,7 +44,6 @@ void Level::addOptionalQuest(Level::QuestPtr quest)
     mUi->formLayout_3->addWidget(&*quest);
     quest->setHashId(mOptionalQuests.size());
 
-    //mMainQuests.insert(std::make_pair(std::move(quest), std::move(reward)));
     mOptionalQuests.push_back(std::move(quest));
 }
 

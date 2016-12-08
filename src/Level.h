@@ -28,8 +28,6 @@ public:
     explicit Level(const QString &name, LevelManager& parentManager, QWidget *parent = 0);
     ~Level();
 
-    const QString& getName() const;
-
     void addMainQuest(QuestPtr quest);
     void addOptionalQuest(QuestPtr quest);
 
@@ -48,12 +46,7 @@ public slots:
 private:
     Ui::Level *mUi;
 
-    QString mLevelName;
-
     LevelManager *mParentManager;
-
-    //std::map<QuestPtr, RewardPtr> mMainQuests;
-    //std::map<QuestPtr, RewardPtr> mOptionalQuests;
 
     std::vector<QuestPtr> mMainQuests;
     std::vector<QuestPtr> mOptionalQuests;
