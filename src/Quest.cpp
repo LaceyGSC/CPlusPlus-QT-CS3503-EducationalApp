@@ -3,36 +3,21 @@
 
 #include "Level.h"
 
-Quest::Quest(const QString &title, const QString &description, QWidget *parent)
+#include <utility>
+
+Quest::Quest(const QString &title, QWidget *parent)
     : QWidget(parent)
     , mUi(new Ui::Quest)
 {
     mUi->setupUi(this);
 
+    // Setup columns for quest description (column 0) and bar (column 1)
+    mUi->gridLayout->setColumnStretch(0, 1);
+    mUi->gridLayout->setColumnStretch(1, 1);
+
     mUi->title->setText(title);
-    mUi->description->setText(description);
 
     show();
-
-
-    /*progressBar = new QProgressBar(Quest);
-    progressBar->setObjectName(QStringLiteral("progressBar"));
-    progressBar->setMinimumSize(QSize(80, 21));
-    progressBar->setMaximumSize(QSize(80, 21));
-    progressBar->setValue(0);
-    progressBar->setAlignment(Qt::AlignCenter);
-
-    gridLayout->addWidget(progressBar, 0, 1, 1, 1);
-
-    progressBar->setFormat(QApplication::translate("Quest", "%p%", 0));
-
-        description = new QLabel(Quest);
-        description->setObjectName(QStringLiteral("description"));
-        description->setFrameShape(QFrame::Box);
-        description->setFrameShadow(QFrame::Sunken);
-        description->setWordWrap(true);
-
-        gridLayout->addWidget(description, 1, 0, 1, 2);*/
 }
 
 Quest::~Quest()
@@ -40,15 +25,32 @@ Quest::~Quest()
     delete mUi;
 }
 
+void Quest::addSubQuest(SubQuestPtr subQuest)
+{
+    mSubQuests.push_back(std::move(subQuest));
+}
+
+void Quest::update(Command *command)
+{
+    for (auto &it : mSubQuests)
+        it->update(command);
+}
+
 void Quest::setCompletion(int val)
 {
-    mUi->progressBar->setValue(val);
+    //mUi->progressBar->setValue(val);
 
-    if (mUi->progressBar->value() >= 100)
-        static_cast<Level*>(parent())->addCompletedQuest();
+    //if (mUi->progressBar->value() >= 100)
+    //    static_cast<Level*>(parent())->addCompletedQuest();
 }
 
 int Quest::getCompletion() const
 {
-    return mUi->progressBar->value();
+    //return mUi->progressBar->value();
+    return 0;
+}
+
+QGridLayout* Quest::getLayout() const
+{
+    return mUi->gridLayout;
 }

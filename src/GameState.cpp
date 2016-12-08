@@ -16,7 +16,11 @@
 #include "ResourceIdentifiers.h"
 #include "ResourceManager.h"
 #include "World.h"
-#include "CollectionQ.h"
+#include "Quest.h"
+#include "Commands.h"
+#include "SQCollectSpecific.h"
+#include "SQCollectProperties.h"
+#include "SQCollectType.h"
 
 
 GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
@@ -64,18 +68,73 @@ void GameState::createLevels()
     std::unique_ptr<Level> level1(new Level(mUi->levelContainer));
     mUi->formLayout->addWidget(&(*level1));
 
-    /*std::unique_ptr<Quest> quest(new CollectionQ("So, you want to be a plant expert?",
-                                                 "Mosquitos are pesky little creatures. Gather 15 plants to fend them off.", &(*(level1))));
 
-    std::unique_ptr<CollectionQ::Ptr> data(new CollectionQ::Ptr(20, ))
 
-    quest->addData(Plant::ID::Lavender, )*/
+    std::unique_ptr<Quest> quest(new Quest("So, you want to be a plant expert?", &*level1));
 
-    level1->addQuest(std::unique_ptr<Quest>(new CollectionQ("So, you want to be a plant expert?",
-                                                      "Mosquitos are pesky little creatures. Gather 15 plants to fend them off.", &(*(level1)))));
+    SQCollectProperties::DataPtr data1(new SQCollectProperties::Data("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
+                                                                     Plant::Properties::InsectRepellent, 15));
 
-    level1->addQuest(std::unique_ptr<Quest>(new CollectionQ("Knowledge is power",
-                                                      "Gather at least 8 different species of plants.", &(*(level1)))));
+    Quest::SubQuestPtr subQ(new SQCollectProperties(std::move(data1), &*quest));
+
+    quest->addSubQuest(std::move(subQ));
+
+
+
+
+    level1->addQuest(std::move(quest));
+
+
+
+
+    quest.reset(new Quest("The Harvester", &*level1));
+
+    SQCollectSpecific::DataPtr data2(new SQCollectSpecific::Data("Gather at 8 lavenders.",
+                                                                 Plant::ID::Lavender, 8));
+
+    subQ.reset(new SQCollectSpecific(std::move(data2), &*quest));
+
+    quest->addSubQuest(std::move(subQ));
+
+    data2.reset(new SQCollectSpecific::Data("Gather at 15 cattails.",
+                                                                 Plant::ID::Cattail, 15));
+
+    subQ.reset(new SQCollectSpecific(std::move(data2), &*quest));
+
+    quest->addSubQuest(std::move(subQ));
+
+    data2.reset(new SQCollectSpecific::Data("Gather at 8 catnips.",
+                                                                 Plant::ID::Catnip, 7));
+
+    subQ.reset(new SQCollectSpecific(std::move(data2), &*quest));
+
+    quest->addSubQuest(std::move(subQ));
+
+
+
+
+    level1->addQuest(std::move(quest));
+
+
+
+
+
+    quest.reset(new Quest("Knowledge is power", &*level1));
+
+    SQCollectType::DataPtr data3(new SQCollectType::Data("Gather at least 8 different species of plants.", 8));
+
+    subQ.reset(new SQCollectType(std::move(data3), &*quest));
+
+    quest->addSubQuest(std::move(subQ));
+
+
+
+
+    level1->addQuest(std::move(quest));
+
+
+
+
 
     mLevels.push_back(std::move(level1));
 
@@ -90,6 +149,17 @@ void GameState::start()
       //  mUi->worldContainer->addWidget(&mCharacter);
         mWorld.show();
         //qDebug().noquote() << connection.getPacket();
+
+        //PickUp c(Plant::ID::Catnip, 1);
+
+
+        //    qDebug() << c.amount;
+
+        for (auto &it : mLevels)
+        {
+            it->update(&PickUp(Plant::ID::Catnip, Plant::Properties::None, 1));
+        }
+
         mLevels.back()->mQuests.back()->setCompletion(mLevels.back()->mQuests.back()->getCompletion() + 5);
     }
     else
@@ -97,6 +167,12 @@ void GameState::start()
         mUi->worldContainer->removeWidget(&mWorld);
         mWorld.hide();
         mLevels.back()->mQuests.front()->setCompletion(mLevels.back()->mQuests.front()->getCompletion() + 5);
+
+        for (auto &it : mLevels)
+        {
+            it->update(&PickUp(Plant::ID::Lavender, Plant::Properties::InsectRepellent, 1));
+        }
+
     }
 
     if (mLevels.back()->isCompleted())

@@ -37,7 +37,7 @@ bool Level::isCompleted() const
     return mCompletedQuests == mQuests.size();
 }
 
-void Level::update(Command command)
+void Level::update(Command *command)
 {
     for (auto &it : mQuests)
         it->update(command);

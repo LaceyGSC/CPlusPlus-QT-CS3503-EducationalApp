@@ -3,8 +3,13 @@
 
 #include <QWidget>
 #include <QString>
+#include <QGridLayout>
 
 #include "Commands.h"
+#include "SubQuest.h"
+
+#include <vector>
+#include <memory>
 
 namespace Ui {
 class Quest;
@@ -13,23 +18,31 @@ class Quest;
 class Quest : public QWidget
 {
     Q_OBJECT
+public:
+    typedef std::unique_ptr<SubQuest> SubQuestPtr;
 
 public:
     // The parent should be of type Level
-    explicit Quest(const QString &title, const QString &description, QWidget *parent = 0);
+    explicit Quest(const QString &title, QWidget *parent = 0);
     ~Quest();
 
-    virtual void update(Command command) = 0;
+    void addSubQuest(SubQuestPtr subQuest);
+
+    void update(Command *command);
 
 //protected:
     // val goes from 0 to 100
     void setCompletion(int val);
     int getCompletion() const;
 
+    QGridLayout* getLayout() const;
+
     // void update(const Plant &pickedPlant);
 
-protected:
+private:
     Ui::Quest *mUi;
+
+    std::vector<Quest::SubQuestPtr> mSubQuests;
 };
 
 #endif // QUEST_H

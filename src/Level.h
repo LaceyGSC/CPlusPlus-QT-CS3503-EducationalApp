@@ -27,7 +27,7 @@ public:
 
     bool isCompleted() const;
 
-    void update(Command command);
+    void update(Command *command);
 
 public:
     Ui::Level *mUi;

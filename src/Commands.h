@@ -9,14 +9,19 @@ struct Command
 {
     Command(CommandType::ID id = CommandType::ID::None);
 
-    CommandType::ID commandId;
+    // Makes this class a polymorphic base so that we can use dynamic_cast
+    // to cast it to a derived struct
+    virtual ~Command();
+
+    CommandType::ID commandType;
 };
 
 struct PickUp : public Command
 {
-    PickUp(Plant::ID id, int amount);
+    PickUp(Plant::ID id, Plant::Properties prop, int amount);
 
     Plant::ID plantId;
+    Plant::Properties prop;
     int amount;
 };
 

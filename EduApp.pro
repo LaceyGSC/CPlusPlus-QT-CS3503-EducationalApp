@@ -26,8 +26,11 @@ SOURCES += \
     src/Plantodex.cpp \
     src/Level.cpp \
     src/Quest.cpp \
-    src/CollectionQ.cpp \
-    src/Commands.cpp
+    src/Commands.cpp \
+    src/SubQuest.cpp \
+    src/SQCollectProperties.cpp \
+    src/SQCollectSpecific.cpp \
+    src/SQCollectType.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -46,11 +49,14 @@ HEADERS += \
     src/LoginState.h \
     src/Level.h \
     src/Quest.h \
-    src/CollectionQ.h \
     src/CommandTypeIdentifiers.h \
     src/PlantIdentifiers.h \
     src/MovementIdentifiers.h \
-    src/Commands.h
+    src/Commands.h \
+    src/SubQuest.h \
+    src/SQCollectProperties.h \
+    src/SQCollectSpecific.h \
+    src/SQCollectType.h
 
 FORMS += \
     src/Application.ui \

@@ -1,12 +1,18 @@
 #include "Commands.h"
 
 Command::Command(CommandType::ID id)
+    : commandType(id)
 {
 }
 
-PickUp::PickUp(Plant::ID id, int amount)
+Command::~Command()
+{
+}
+
+PickUp::PickUp(Plant::ID id, Plant::Properties prop, int amount)
     : Command(CommandType::ID::PickUp)
     , plantId(id)
+    , prop(prop)
     , amount(amount)
 {
 }

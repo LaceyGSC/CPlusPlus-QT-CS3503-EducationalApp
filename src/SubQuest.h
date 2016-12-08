@@ -1,0 +1,25 @@
+#ifndef SUBQUEST_H
+#define SUBQUEST_H
+
+#include <QWidget>
+#include <QGridLayout>
+
+#include "Commands.h"
+
+class Quest;
+
+// This is a type of quest (collection quest)
+class SubQuest : public QWidget
+{
+public:
+    // Parent should be of type Quest
+    SubQuest(QWidget *parent = 0);
+
+    //void addData(SubQuest::Ptr data);
+
+    QGridLayout* getLayout() const;
+
+    virtual void update(Command *command) = 0;
+};
+
+#endif // SUBQUEST_H
