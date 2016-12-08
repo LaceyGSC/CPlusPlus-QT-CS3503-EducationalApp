@@ -13,7 +13,6 @@
 
 #include "QSFMLWidget.h"
 #include "FractalExpressionEvaluator.h"
-#include "charecterdirection.h"
 #include "State.h"
 #include "land.h"
 
@@ -55,7 +54,6 @@ private:
     //directional and locational data
     std::complex<int> mWorldLocation;
     std::complex<int> mCharacterRelativePos;
-    characterDirection mCharacterDirection;
 
 
     //q containers chosen for their contains method.
@@ -73,6 +71,8 @@ private:
 
     //how many land in the world
     int mLandCount;
+
+    Textures::ID mCharacterDirection;
 
     double mScreenScale = 1;
 

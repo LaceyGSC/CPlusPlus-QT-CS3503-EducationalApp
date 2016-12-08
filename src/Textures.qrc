@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>../media/Textures/default.png</file>
+        <file>../media/Textures/Default.png</file>
     </qresource>
     <qresource prefix="/">
         <file>../media/Textures/Bridge.png</file>
@@ -42,7 +42,19 @@
         <file>../media/Textures/ShallowSaltWater.png</file>
     </qresource>
     <qresource prefix="/">
-        <file>../media/Textures/meme.png</file>
+        <file>../media/Textures/Meme.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>../media/Textures/Down.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>../media/Textures/Left.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>../media/Textures/Right.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>../media/Textures/Up.png</file>
     </qresource>
 </RCC>
 

@@ -41,8 +41,7 @@ HEADERS += \
     src/ServerConnection.h \
     src/Plantodex.h \
     src/ServerConnection.h \
-    src/LoginState.h \
-    src/charecterdirection.h
+    src/LoginState.h
 
 FORMS += \
     src/Application.ui \
