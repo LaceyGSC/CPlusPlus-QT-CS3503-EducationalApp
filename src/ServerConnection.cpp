@@ -41,6 +41,7 @@ QString ServerConnection::getPacket()
         std::string data;
         packet >> data;
         recievedData = QString::fromStdString(data);
+
     }
 
     //Returns a QString with all of the data from the packet

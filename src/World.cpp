@@ -34,13 +34,13 @@ void World::onInit()
 
     getContext().textures.load(0, "qrc:/../media/Textures/meme.png");
     getContext().textures.get(0).setSmooth(true);
-    getContext().textures.load(-1, "qrc:/../media/Textures/Fire.png");
+    getContext().textures.load(-1, "qrc:/../media/Textures/left.png");
     getContext().textures.get(-1).setSmooth(true);
-    getContext().textures.load(-2, "qrc:/../media/Textures/Bridge.png");
+    getContext().textures.load(-2, "qrc:/../media/Textures/right.png");
     getContext().textures.get(-2).setSmooth(true);
-    getContext().textures.load(-3, "qrc:/../media/Textures/Sand.png");
+    getContext().textures.load(-3, "qrc:/../media/Textures/up.png");
     getContext().textures.get(-3).setSmooth(true);
-    getContext().textures.load(-4, "qrc:/../media/Textures/QuickSand.png");
+    getContext().textures.load(-4, "qrc:/../media/Textures/down.png");
     getContext().textures.get(-4).setSmooth(true);
 }
 
@@ -163,7 +163,7 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
             bool atCharectorY = characterRelativePos.imag() == y/jumpgap;
             if(atCharectorX&&atCharectorY)
             {
-                int i = 0;
+                int i = -4;
                 if(leftPressed){
                     i = -1;
                 }
@@ -178,7 +178,7 @@ void World::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
                 }
                 mCharacter.setTexture(getContext().textures.get(i));
                 mCharacter.setPosition(x,y-16);
-                mCharacter.setScale(scale/2,scale/2);
+                mCharacter.setScale(scale,scale);
                 mCharacter.setOrigin(0,.25);
                 target.draw(mCharacter,states);
 
