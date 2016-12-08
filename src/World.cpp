@@ -29,7 +29,7 @@ World::World(const QPoint &pos, const QSize &size, State::Context &context, QWid
                 double height = temp.height;
                 mScreenScale = height/1080;
 
-                mCharacterDirection = characterDirection::U;
+                mCharacterDirection = Textures::ID::Up;
 
                 setMinimumSize(576 , 576 );
                 setMaximumSize(576 , 576 );
@@ -38,12 +38,6 @@ World::World(const QPoint &pos, const QSize &size, State::Context &context, QWid
 void World::onInit()
 {
     WorldLoader(2);
-
-
-    getContext().textures.load(-1, "qrc:/../media/Textures/Fire.png");
-    getContext().textures.load(-2, "qrc:/../media/Textures/Bridge.png");
-    getContext().textures.load(-3, "qrc:/../media/Textures/Sand.png");
-    getContext().textures.load(-4, "qrc:/../media/Textures/QuickSand.png");
 }
 
 void World::keyPressEvent(QKeyEvent* event)
@@ -52,19 +46,19 @@ void World::keyPressEvent(QKeyEvent* event)
 
 
     if(event->key() ==Qt::Key_Right){
-        mCharacterDirection =characterDirection::R;
+        mCharacterDirection =Textures::ID::Right;
         temp +=std::complex<int>(1,0);
     }
     else if(event->key() ==Qt::Key_Left){
-        mCharacterDirection =characterDirection::L;
+        mCharacterDirection =Textures::ID::Left;
         temp +=std::complex<int>(-1,0);
     }
     else if(event->key() ==Qt::Key_Up){
-        mCharacterDirection =characterDirection::U;
+        mCharacterDirection =Textures::ID::Up;
         temp +=std::complex<int>(0,-1);
     }
     else if(event->key() ==Qt::Key_Down){
-        mCharacterDirection =characterDirection::D;
+        mCharacterDirection =Textures::ID::Down;
         temp +=std::complex<int>(0,1);
     }
 
@@ -101,16 +95,16 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
             bool atCharectorY = mCharacterRelativePos.imag() == y/jumpgap;
             if(atCharectorX&&atCharectorY)
             {
-                mCharacter.setTexture(getContext().textures.get(-static_cast<int>(mCharacterDirection)));
+                mCharacter.setTexture(getContext().textures.get(static_cast<int>(mCharacterDirection)));
                 mCharacter.setPosition(x,y-16);
-                mCharacter.setScale(mScreenScale/2,mScreenScale/2);
+                mCharacter.setScale(mScreenScale,mScreenScale);
                 mCharacter.setOrigin(0,.25);
                 target.draw(mCharacter,states);
             }
 
             if(plantAtSpot(tempLocation))
             {
-                mCharacter.setTexture(getContext().textures.get(0));
+                mCharacter.setTexture(getContext().textures.get(static_cast<int>(Textures::ID::Meme)));
                 mCharacter.setPosition(x,y-16);
                 mCharacter.setScale(mScreenScale/2,mScreenScale/2);
                 mCharacter.setOrigin(0,.25);

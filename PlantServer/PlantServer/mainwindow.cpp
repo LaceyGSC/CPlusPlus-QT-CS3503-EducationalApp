@@ -101,7 +101,7 @@ void MainWindow::queryDatabasePlant()
         QString location = query.value(5).toString();
 
         //Adds all plant info to stringstream
-        packetStream << name.toStdString() <<": " << latinName.toStdString() << "\n"
+        packetStream << name.toStdString() <<"\n" << latinName.toStdString() << "\n"
                      << description.toStdString() << "\n"
                      << uses.toStdString() << "\n"
                      << location.toStdString() << "\n \n";
