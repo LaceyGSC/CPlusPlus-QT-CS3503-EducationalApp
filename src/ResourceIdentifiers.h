@@ -17,7 +17,7 @@ class Textures : public QObject //easier maintainability: compatible with QMetaE
 public:
     enum class ID
     {
-        Default,
+        //Default,
         Bridge,
         DeepFreshWater,
         DeepSaltWater,
@@ -31,8 +31,8 @@ public:
         ShallowFreshWater,
         ShallowSaltWater,
         Tree,
-        Plant,
-        Character
+        //Plant,
+        meme
     };
     Q_ENUM(ID)  //information on using QMetaEnum derived from https://woboq.com/blog/q_enum.html
 };
