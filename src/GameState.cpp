@@ -27,11 +27,8 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
     , mUi(new Ui::GameState)
     , mWorld(QPoint(0, 0), QSize(400, 400), context)
-<<<<<<< HEAD
     , mPlantodex()
     , mLevelManager()
-=======
->>>>>>> 12736ae3efb994bcdc23deafc1d93152993f3066
 {
     mUi->setupUi(this);
 
@@ -199,7 +196,6 @@ void GameState::start()
         mUi->worldContainer->addWidget(&mWorld);
 
         mWorld.show();
-<<<<<<< HEAD
 
         //mLevelManager.prevLevel();
         //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
@@ -207,11 +203,9 @@ void GameState::start()
         mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Catnip, Plant::Properties::None, 1));
         mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Lavender, Plant::Properties::InsectRepellent, 1));
         mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Cattail, Plant::Properties::None, 3));
-=======
-        packetData =  connection.getPacket();
-        mPlantodex.setUpPlantodex(&packetData);
 
->>>>>>> 12736ae3efb994bcdc23deafc1d93152993f3066
+        //packetData =  connection.getPacket();
+        //mPlantodex.setUpPlantodex(&packetData);
     }
     else
     {

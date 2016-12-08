@@ -48,12 +48,10 @@ private:
 
     ServerConnection connection;
     Plantodex       mPlantodex;
-<<<<<<< HEAD
 
     LevelManager mLevelManager;
-=======
+
     QString         packetData;
->>>>>>> 12736ae3efb994bcdc23deafc1d93152993f3066
   //  Character       mCharacter;
 };
 
