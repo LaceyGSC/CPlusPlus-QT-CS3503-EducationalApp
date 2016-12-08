@@ -39,7 +39,7 @@ void World::onInit()
 {
     WorldLoader(2);
 
-    getContext().textures.load(0, "qrc:/../media/Textures/meme.png");
+
     getContext().textures.load(-1, "qrc:/../media/Textures/Fire.png");
     getContext().textures.load(-2, "qrc:/../media/Textures/Bridge.png");
     getContext().textures.load(-3, "qrc:/../media/Textures/Sand.png");
