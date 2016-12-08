@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>251</width>
-    <height>96</height>
+    <width>328</width>
+    <height>132</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -142,7 +142,7 @@
          <widget class="QGroupBox" name="levelContainer">
           <property name="minimumSize">
            <size>
-            <width>220</width>
+            <width>309</width>
             <height>0</height>
            </size>
           </property>
@@ -150,6 +150,9 @@
            <string>Quests</string>
           </property>
           <layout class="QFormLayout" name="formLayout">
+           <property name="verticalSpacing">
+            <number>0</number>
+           </property>
            <property name="topMargin">
             <number>3</number>
            </property>

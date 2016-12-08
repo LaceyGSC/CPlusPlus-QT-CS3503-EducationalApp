@@ -16,9 +16,7 @@
 #include "World.h"
 #include "Plantodex.h"
 #include "ServerConnection.h"
-#include "Level.h"
-
-#include <vector>
+#include "LevelManager.h"
 
 namespace Ui {
     class GameState;
@@ -51,7 +49,7 @@ private:
     ServerConnection connection;
     Plantodex       mPlantodex;
 
-    std::vector<std::unique_ptr<Level>>  mLevels;
+    LevelManager mLevelManager;
   //  Character       mCharacter;
 };
 

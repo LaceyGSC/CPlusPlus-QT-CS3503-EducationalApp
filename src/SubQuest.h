@@ -19,7 +19,12 @@ public:
 
     QGridLayout* getLayout() const;
 
+    bool isCompleted() const;
+
     virtual void update(Command *command) = 0;
+
+protected:
+    bool mCompleted;
 };
 
 #endif // SUBQUEST_H

@@ -30,14 +30,9 @@ public:
 
     void update(Command *command);
 
-//protected:
-    // val goes from 0 to 100
-    void setCompletion(int val);
-    int getCompletion() const;
-
     QGridLayout* getLayout() const;
 
-    // void update(const Plant &pickedPlant);
+    bool isCompleted() const;
 
 private:
     Ui::Quest *mUi;

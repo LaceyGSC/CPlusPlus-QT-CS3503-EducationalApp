@@ -36,21 +36,16 @@ void Quest::update(Command *command)
         it->update(command);
 }
 
-void Quest::setCompletion(int val)
-{
-    //mUi->progressBar->setValue(val);
-
-    //if (mUi->progressBar->value() >= 100)
-    //    static_cast<Level*>(parent())->addCompletedQuest();
-}
-
-int Quest::getCompletion() const
-{
-    //return mUi->progressBar->value();
-    return 0;
-}
-
 QGridLayout* Quest::getLayout() const
 {
     return mUi->gridLayout;
+}
+
+bool Quest::isCompleted() const
+{
+    for (auto &it : mSubQuests)
+        if (!it->isCompleted())
+            return false;
+
+    return true;
 }

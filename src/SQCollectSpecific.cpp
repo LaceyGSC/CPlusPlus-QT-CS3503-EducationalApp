@@ -66,5 +66,7 @@ void SQCollectSpecific::update(Command *command)
                 mData->bar.setValue(mData->collected);
             }
         }
+
+        mCompleted = (mData->collected == mData->actual);
     }
 }

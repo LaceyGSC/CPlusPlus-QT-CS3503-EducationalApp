@@ -41,6 +41,8 @@ void SQCollectType::update(Command *command)
 
         mData->collectedTypes.insert(derivedCommand->plantId);
         mData->bar.setValue(mData->collectedTypes.size());
+
+        mCompleted = (mData->collectedTypes.size() == mData->actualTypes);
     }
 }
 

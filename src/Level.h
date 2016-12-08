@@ -2,6 +2,7 @@
 #define LEVEL_H
 
 #include <QWidget>
+#include <Qstring>
 
 #include "Quest.h"
 #include "Commands.h"
@@ -18,23 +19,26 @@ class Level : public QWidget
     Q_OBJECT
 
 public:
-    explicit Level(QWidget *parent = 0);
+    explicit Level(const QString &name, QWidget *parent = 0);
     ~Level();
 
-    void addQuest(std::unique_ptr<Quest> quest);
+    const QString& getName() const;
 
-    void addCompletedQuest();
+    void addMainQuest(std::unique_ptr<Quest> quest);
+    void addOptionalQuest(std::unique_ptr<Quest> quest);
 
-    bool isCompleted() const;
+    bool isMainCompleted() const;
+    bool isOptionalCompleted() const;
 
     void update(Command *command);
 
 public:
     Ui::Level *mUi;
 
-    std::vector<std::unique_ptr<Quest>> mQuests;
+    QString mLevelName;
 
-    int mCompletedQuests;
+    std::vector<std::unique_ptr<Quest>> mMainQuests;
+    std::vector<std::unique_ptr<Quest>> mOptionalQuests;
 };
 
 #endif // LEVEL_H

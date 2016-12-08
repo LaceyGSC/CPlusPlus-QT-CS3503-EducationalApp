@@ -5,15 +5,14 @@
 
 #include <utility>
 
-Level::Level(QWidget *parent)
+Level::Level(const QString &name, QWidget *parent)
     : QWidget(parent)
+    , mLevelName(name)
     , mUi(new Ui::Level)
-    , mQuests()
-    , mCompletedQuests(0)
+    , mMainQuests()
+    , mOptionalQuests()
 {
     mUi->setupUi(this);
-
-    show();
 }
 
 Level::~Level()
@@ -21,24 +20,45 @@ Level::~Level()
     delete mUi;
 }
 
-void Level::addQuest(std::unique_ptr<Quest> quest)
+const QString& Level::getName() const
 {
-    mUi->formLayout->addWidget(&(*quest));
-    mQuests.push_back(std::move(quest));
+    return mLevelName;
 }
 
-void Level::addCompletedQuest()
+void Level::addMainQuest(std::unique_ptr<Quest> quest)
 {
-    ++mCompletedQuests;
+    mUi->formLayout_2->addWidget(&(*quest));
+    mMainQuests.push_back(std::move(quest));
 }
 
-bool Level::isCompleted() const
+void Level::addOptionalQuest(std::unique_ptr<Quest> quest)
 {
-    return mCompletedQuests == mQuests.size();
+    mUi->formLayout_3->addWidget(&(*quest));
+    mOptionalQuests.push_back(std::move(quest));
+}
+
+bool Level::isMainCompleted() const
+{
+    for (auto &it : mMainQuests)
+        if (!it->isCompleted())
+            return false;
+
+    return true;
+}
+
+bool Level::isOptionalCompleted() const
+{
+    for (auto &it : mOptionalQuests)
+        if (!it->isCompleted())
+            return false;
+
+    return true;
 }
 
 void Level::update(Command *command)
 {
-    for (auto &it : mQuests)
+    for (auto &it : mMainQuests)
+        it->update(command);
+    for (auto &it : mOptionalQuests)
         it->update(command);
 }

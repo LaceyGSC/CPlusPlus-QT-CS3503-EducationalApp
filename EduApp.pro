@@ -30,7 +30,8 @@ SOURCES += \
     src/SubQuest.cpp \
     src/SQCollectProperties.cpp \
     src/SQCollectSpecific.cpp \
-    src/SQCollectType.cpp
+    src/SQCollectType.cpp \
+    src/LevelManager.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -56,7 +57,8 @@ HEADERS += \
     src/SubQuest.h \
     src/SQCollectProperties.h \
     src/SQCollectSpecific.h \
-    src/SQCollectType.h
+    src/SQCollectType.h \
+    src/LevelManager.h
 
 FORMS += \
     src/Application.ui \

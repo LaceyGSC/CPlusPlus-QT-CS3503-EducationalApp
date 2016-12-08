@@ -55,7 +55,7 @@ void SQCollectProperties::update(Command *command)
         }
         else if (derivedCommand->amount < 0)
         {
-            if (mData->prop & derivedCommand->prop && mData->collected >= derivedCommand->amount)
+            if (mData->prop & derivedCommand->prop && mData->collected >= 0)
             {
                 if (mData->collected - derivedCommand->amount < 0)
                     // Clamp
@@ -66,6 +66,8 @@ void SQCollectProperties::update(Command *command)
                 mData->bar.setValue(mData->collected);
             }
         }
+
+        mCompleted = (mData->collected == mData->actual);
     }
 }
 

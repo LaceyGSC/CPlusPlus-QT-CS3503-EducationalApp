@@ -6,6 +6,7 @@
 
 SubQuest::SubQuest(QWidget *parent)
     : QWidget(parent)
+    , mCompleted(false)
 {
     show();
 }
@@ -13,4 +14,9 @@ SubQuest::SubQuest(QWidget *parent)
 QGridLayout* SubQuest::getLayout() const
 {
     return dynamic_cast<Quest*>(parent())->getLayout();
+}
+
+bool SubQuest::isCompleted() const
+{
+    return mCompleted;
 }
