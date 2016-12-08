@@ -22,7 +22,6 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
     , mUi(new Ui::GameState)
     , mWorld(QPoint(0, 0), QSize(400, 400), context)
-    , mPlantodex()
 {
     mUi->setupUi(this);
 
@@ -61,7 +60,9 @@ void GameState::start()
         mUi->worldContainer->addWidget(&mWorld);
       //  mUi->worldContainer->addWidget(&mCharacter);
         mWorld.show();
-        qDebug().noquote() << connection.getPacket();
+        packetData =  connection.getPacket();
+        mPlantodex.setUpPlantodex(&packetData);
+
     }
     else
     {

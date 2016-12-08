@@ -104,7 +104,7 @@ void MainWindow::queryDatabasePlant()
         packetStream << name.toStdString() <<"\n" << latinName.toStdString() << "\n"
                      << description.toStdString() << "\n"
                      << uses.toStdString() << "\n"
-                     << location.toStdString() << "\n \n";
+                     << location.toStdString() << "\n";
 
 //        packetStream.clear();
     }

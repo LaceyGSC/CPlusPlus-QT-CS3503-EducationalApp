@@ -44,6 +44,7 @@ private:
 
     ServerConnection connection;
     Plantodex       mPlantodex;
+    QString         packetData;
   //  Character       mCharacter;
 };
 
