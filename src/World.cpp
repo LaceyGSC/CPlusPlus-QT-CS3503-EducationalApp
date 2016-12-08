@@ -30,6 +30,9 @@ World::World(const QPoint &pos, const QSize &size, State::Context &context, QWid
                 mScreenScale = height/1080;
 
                 mCharacterDirection = characterDirection::U;
+
+                setMinimumSize(576 , 576 );
+                setMaximumSize(576 , 576 );
 }
 
 void World::onInit()
@@ -80,9 +83,9 @@ void World::onDraw(sf::RenderTarget& target, sf::RenderStates states)
     clear();
     target.clear();
     int jumpgap = 32*mScreenScale;
-    for(int x = 0;x<576*mScreenScale;x+=jumpgap)
+    for(double x = 0;x<576*mScreenScale;x+=jumpgap)
     {
-        for(int y = 0;y<576*mScreenScale;y+=jumpgap)
+        for(double y = 0;y<576*mScreenScale;y+=jumpgap)
         {
             //get land type  and display it
             std::complex<int> tempLocation = mWorldLocation + std::complex<int>(x/jumpgap,y/jumpgap);
@@ -123,20 +126,20 @@ void World::WorldLoader(int worldtype)
     if(worldtype==0)
     {
         //*
-        mCurrentLandNameIndex = {"Bridge","DeepFreshWater","DeepSaltWater","Dirt","Fire","Grass","Mountain","QuickSand","RedSand",
-                                "Sand","ShallowFreshWater", "ShallowSaltWater","Tree"};
+        mCurrentLandNameIndex = { Textures::ID::Bridge , Textures::ID::DeepFreshWater , Textures::ID::DeepSaltWater , Textures::ID::Dirt , Textures::ID::Fire , Textures::ID::Grass , Textures::ID::Mountain , Textures::ID::QuickSand , Textures::ID::RedSand ,
+                                 Textures::ID::Sand , Textures::ID::ShallowFreshWater ,  Textures::ID::ShallowSaltWater , Textures::ID::Tree };
         map.setJuliaValue(std::complex<double>(-.621,0));
         mUnmoveableTerrain = {1,2,4,6,7};
     }
     else if(worldtype==1)
     {
         map.setJuliaValue(std::complex<double>(-.5,.002));
-        mCurrentLandNameIndex = {"Dirt","Grass","Mountain","Grass","Mountain","Sand","ShallowFreshWater","Tree","ShallowSaltWater","Tree"};
+        mCurrentLandNameIndex = { Textures::ID::Dirt , Textures::ID::Grass , Textures::ID::Mountain , Textures::ID::Grass , Textures::ID::Mountain , Textures::ID::Sand , Textures::ID::ShallowFreshWater , Textures::ID::Tree , Textures::ID::ShallowSaltWater , Textures::ID::Tree };
         mUnmoveableTerrain = {2,4};
     }
     else if(worldtype==2){
         map.setJuliaValue(std::complex<double>(-.5,-.002));
-        mCurrentLandNameIndex = {"Dirt","Grass","Dirt","Mountain","QuickSand","RedSand","Sand","QuickSand","RedSand","Sand","ShallowFreshWater","Tree"};
+        mCurrentLandNameIndex = { Textures::ID::Dirt , Textures::ID::Grass , Textures::ID::Dirt , Textures::ID::Mountain , Textures::ID::QuickSand , Textures::ID::RedSand , Textures::ID::Sand , Textures::ID::QuickSand , Textures::ID::RedSand , Textures::ID::Sand , Textures::ID::ShallowFreshWater , Textures::ID::Tree };
         mUnmoveableTerrain = {4,7};
     }
     else {
@@ -146,13 +149,9 @@ void World::WorldLoader(int worldtype)
     }
 
     mLandTextures.clear();
-    for(int i = 1; i < mCurrentLandNameIndex.size()+1;i++)
+    for(int i = 0; i < mCurrentLandNameIndex.size();i++)
     {
-        QString tempstr = "qrc:/../media/Textures/"+mCurrentLandNameIndex[i-1]+".png";
-        std::cout<<tempstr.toStdString()<<std::endl;
-        getContext().textures.load(i, tempstr.toStdString());
-
-        mLandTextures.push_back(getContext().textures.get(i));
+        mLandTextures.push_back(getContext().textures.get(static_cast<int>(mCurrentLandNameIndex[i])));
     }
     mLandCount = mCurrentLandNameIndex.size();
 }
@@ -172,7 +171,7 @@ bool World::moveValid(std::complex<int> next)
     return true;
 }
 
-QString World::plantPicked()
+Textures::ID World::plantPicked()
 {
     mPickedPlants.enqueue(mWorldLocation+mCharacterRelativePos);
     if(mPickedPlants.size()>1000)

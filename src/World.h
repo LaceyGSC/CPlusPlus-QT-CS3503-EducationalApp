@@ -62,8 +62,7 @@ private:
     QList<int> mUnmoveableTerrain; //terrain types that cannot be moved on
     QQueue<std::complex<int>> mPickedPlants;
 
-
-    std::vector<QString> mCurrentLandNameIndex;
+    std::vector<Textures::ID> mCurrentLandNameIndex;
     std::vector<sf::Texture> mLandTextures;
 
     //used for calculating the map
@@ -79,7 +78,7 @@ private:
 
 public :
 signals:
-    QString plantPicked();
+    Textures::ID plantPicked();
 };
 
 #endif // WORLD_H

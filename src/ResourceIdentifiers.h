@@ -1,5 +1,5 @@
 /*
- * Author: King Hoe Wong
+ * Author: King Hoe Wong, Warren Schweigert
  * Desc: Lists the ids for resources.
  *
  */
@@ -7,17 +7,35 @@
 #ifndef RESOURCEIDENTIFIERS_H
 #define RESOURCEIDENTIFIERS_H
 
+#include<QMetaEnum>
+
 // Resource ids
-namespace Textures
-{
+class Textures : public QObject //easier maintainability: compatible with QMetaEnum which reduces complexity of updating textures
+{                               //also this will be used as a signal in some areas of the code, yes signals are slower then function calls
+                                //but these events are rare and need to be non-blocking.
+    Q_OBJECT
+public:
     enum class ID
     {
         Default,
-        Land,
+        Bridge,
+        DeepFreshWater,
+        DeepSaltWater,
+        Dirt,
+        Fire,
+        Grass,
+        Mountain,
+        QuickSand,
+        RedSand,
+        Sand,
+        ShallowFreshWater,
+        ShallowSaltWater,
+        Tree,
         Plant,
         Character
     };
-}
+    Q_ENUM(ID)  //information on using QMetaEnum derived from https://woboq.com/blog/q_enum.html
+};
 
 // Forward declarations
 namespace sf

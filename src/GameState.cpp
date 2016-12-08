@@ -10,6 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <QWidget>
 #include <QDebug>
+#include <QMetaEnum>
 
 #include "State.h"
 #include "StateStack.h"
@@ -36,6 +37,17 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
 
     mUi->gameContainer->setColumnStretch(0, 3);
     mUi->gameContainer->setColumnStretch(1, 1);
+
+    //load world textures
+    const QMetaObject &tempMeta =Textures::staticMetaObject; //enumeration over enums coutesy of: http://stackoverflow.com/questions/25393257/unable-to-iterate-over-a-qt-enumeration
+    QMetaEnum tempEnum = tempMeta.enumerator(0);
+    for(int i = 0; i < tempEnum.keyCount();i++)
+    {
+        std::string tempstr = "qrc:/../media/Textures/";
+        tempstr += tempEnum.key(i);
+        tempstr +=".png";
+        getContext().textures.load(i, tempstr);
+    }
 
     // Set parent to allow the canvas to be displayed with reference to its container
     mWorld.setParent(mUi->worldBox);
