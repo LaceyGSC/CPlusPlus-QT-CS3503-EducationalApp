@@ -1,3 +1,6 @@
+// Author: Mat Mason
+// Description: Implementation of Plantodex Class. Model for Plantodex Gui.
+
 #ifndef PLANTODEX_H
 #define PLANTODEX_H
 
