@@ -14,6 +14,7 @@
 
 #include "StateIdentifiers.h"
 #include "ResourceIdentifiers.h"
+#include "ServerConnection.h"
 
 #include <memory>
 
@@ -29,9 +30,10 @@ public:
     // Context allows the states to get resources from the resource managers
     struct Context
     {
-                        Context(TextureManager &textures);
+                        Context(TextureManager &textures, ServerConnection &connection);
 
         TextureManager  &textures;
+        ServerConnection &connection;
     };
 
 public:

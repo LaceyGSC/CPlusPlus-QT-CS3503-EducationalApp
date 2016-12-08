@@ -27,11 +27,6 @@ bool AdminState::update(const sf::Time &deltaTime)
 
 void AdminState::createArray()
 {
-    //Login prompt until connection can be passed from login state
-     std::string sendQuery = "login Admin pass";
-     connection.sendPacket(sendQuery);
-     connection.getPacket();
-
      //Gets mass packet of user, divides by newline
      QString allUsers = connection.getPacket();
      QStringList queryList = allUsers.split(QRegExp("\\n+"), QString::SkipEmptyParts);
@@ -95,7 +90,7 @@ void AdminState::deleteSlot()
     {
         std::string userID = characterVect.at(masterNum).userID.toStdString();
         std::string sendQuery = "delete " + userID;
-        connection.sendPacket(sendQuery);
+        getContext().connection.sendPacket(sendQuery);
 
         this->ui->idLine->setText("");
         this->ui->usernameLine->setText("");
@@ -113,14 +108,14 @@ void AdminState::viewSlot()
 {
     //Sends request to server to create stats page
     std::string sendQuery = "webpage";
-    connection.sendPacket(sendQuery);
+    getContext().connection.sendPacket(sendQuery);
 }
 
 void AdminState::logSlot()
 {
     //Currently sets up connection for testing, triggers create array to make local copy of data
     //Will be moved into main method when connection issue resolved
-    connection.setupConnection();
+    getContext().connection.setupConnection();
     createArray();
 
     //Actual work to be done by logout button

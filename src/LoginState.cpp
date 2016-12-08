@@ -43,11 +43,11 @@ void LoginState::createSlot()
 
         std::string sendQuery = "create " + name.toStdString() + " " + pass.toStdString();
 
-        connection.sendPacket(sendQuery);
+        getContext().connection.sendPacket(sendQuery);
 
         //Gets result from packet, 1 is success
         // empty string indicates issue with server
-        QString resultNum = connection.getPacket();
+        QString resultNum = getContext().connection.getPacket();
 
         if(resultNum == "0")
         {
@@ -80,11 +80,11 @@ void LoginState::loginSlot()
     {
         std::string sendQuery = "login " + name.toStdString() + " " + pass.toStdString();
 
-        connection.sendPacket(sendQuery);
+        getContext().connection.sendPacket(sendQuery);
 
         //Gets result from packet, 1 is success
         // empty string indicates issue with server
-        QString resultNum = connection.getPacket();
+        QString resultNum = getContext().connection.getPacket();
 
         if(resultNum == "0")
         {
@@ -94,7 +94,7 @@ void LoginState::loginSlot()
         {
             //Successful login to non admin account
             //Populate Character with info from second packet
-            QString characterResult = connection.getPacket();
+            QString characterResult = getContext().connection.getPacket();
 
             //Moves onto the World screen
             requestStackPop();
@@ -122,6 +122,6 @@ void LoginState::cancelSlot()
     //exit(0);
 
     //Connection setup for testing
-    connection.setupConnection();
+    getContext().connection.setupConnection();
 }
 

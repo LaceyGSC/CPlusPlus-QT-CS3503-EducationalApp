@@ -26,7 +26,7 @@ const sf::Time Application::TIME_PER_FRAME = sf::seconds(1.f/60.f);
 Application::Application(QWidget *parent)
     : QMainWindow(parent)
     , mUi(new Ui::Application)
-    , mStateStack(State::Context(mTextures))
+    , mStateStack(State::Context(mTextures,connection))
     , mLoopTimer(this)
     , mElapsedTime(sf::Time::Zero)
     , mClock()

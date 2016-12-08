@@ -60,6 +60,7 @@ private:
 
     // Resource managers
     TextureManager          mTextures;
+    ServerConnection        connection;
 };
 
 #endif // APPLICATION_H

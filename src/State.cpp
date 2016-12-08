@@ -9,8 +9,9 @@
 
 #include "ResourceIdentifiers.h"
 
-State::Context::Context(TextureManager &textures)
+State::Context::Context(TextureManager &textures, ServerConnection &connection)
     : textures(textures)
+    , connection(connection)
 {
 }
 

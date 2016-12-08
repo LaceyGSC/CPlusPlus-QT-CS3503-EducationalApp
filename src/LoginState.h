@@ -23,7 +23,6 @@ public:
 
 private:
     Ui::LoginState *ui;
-    ServerConnection connection;
 
 private slots:
     void createSlot();
