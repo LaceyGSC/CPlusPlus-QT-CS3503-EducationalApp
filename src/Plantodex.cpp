@@ -1,3 +1,6 @@
+// Author: Mat Mason
+// Description: Implementation of Plantodex Class. Model for Plantodex Gui.
+
 #include "Plantodex.h"
 #include "ui_Plantodex.h"
 #include <sstream>
@@ -49,6 +52,7 @@ void Plantodex::updatePlantodex(int index)
     ui->descriptionText->setText(book[index+2]);
     ui->usesText->setText(book[index+3]);
     ui->typeLabel->setText(book[index+4]);
+    //TODO: add image
 }
 
 void Plantodex::on_plantListView_clicked(const QModelIndex &index)

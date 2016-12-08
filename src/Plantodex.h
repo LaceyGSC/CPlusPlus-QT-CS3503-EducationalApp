@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <vector>
 #include <QtGui>
+#include <SFML/Graphics.hpp>
 #include "Application.h"
 
 namespace Ui {
@@ -31,6 +32,7 @@ private:
     std::vector<QString> book;
     QStringListModel *list = new QStringListModel();
     QString plantNames;
+    sf::Image image;
 
     void getPlantNames(std::vector<QString> book);
     void updatePlantodex(int index);
