@@ -212,9 +212,9 @@ void GameState::start()
         //mLevelManager.prevLevel();
         //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
 
-        mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Catnip, Plant::Properties::None, 1));
-        mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Lavender, Plant::Properties::InsectRepellent, 1));
-        mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Cattail, Plant::Properties::None, 3));
+        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Plant::ID::Catnip, Plant::Properties::None, 1)));
+        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Plant::ID::Lavender, Plant::Properties::InsectRepellent, 1)));
+        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Plant::ID::Cattail, Plant::Properties::None, 3)));
 
         //packetData =  connection.getPacket();
         //mPlantodex.setUpPlantodex(&packetData);

@@ -1,11 +1,13 @@
 #ifndef PLANTIDENTIFIERS_H
 #define PLANTIDENTIFIERS_H
 
+#include <functional>
+
 namespace Plant
 {
-    enum class ID
+    enum ID
     {
-        None,
+        //None,
         Catnip,
         Lavender,
         Cattail
@@ -38,5 +40,14 @@ namespace Plant
      *
      * */
 }
+
+template<>
+struct std::hash<Plant::ID>
+{
+    std::size_t operator()(Plant::ID const id) const noexcept
+    {
+        return std::hash<int>()(id);
+    }
+};
 
 #endif // PLANTIDENTIFIERS_H
