@@ -13,29 +13,16 @@
 class SQCollectSpecific : public SubQuest
 {
 public:
-    struct Data
-    {
-        Data(const QString &desc, Plant::ID id, int actual);
-
-        Plant::ID id;
-
-        int actual;
-        int collected;
-
-        QLabel desc;
-        QProgressBar bar;
-    };
-
-public:
-    typedef std::unique_ptr<SQCollectSpecific::Data> DataPtr;
-
-public:
-    SQCollectSpecific(SQCollectSpecific::DataPtr data, QWidget *parent = 0);
+    SQCollectSpecific(const QString &desc, Plant::ID id, int actual, QWidget *parent = 0);
 
     virtual void update(Command *command);
 
 private:
-    SQCollectSpecific::DataPtr mData;
+
+    Plant::ID mId;
+
+    int mActual;
+    int mCollected;
 };
 
 #endif // SQCOLLECTSPECIFIC_H

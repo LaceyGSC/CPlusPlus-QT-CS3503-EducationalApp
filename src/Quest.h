@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <memory>
+#include <functional>
 
 namespace Ui {
 class Quest;
@@ -34,10 +35,30 @@ public:
 
     bool isCompleted() const;
 
+    void setHashId(int value);
+    int getHashId() const;
+
 private:
     Ui::Quest *mUi;
 
     std::vector<Quest::SubQuestPtr> mSubQuests;
+
+    // Used for hashing
+    int mHashId;
+};
+
+// Defining custom std::hash for QuestPtr. This allows for the use of
+// stl containers that require a hash function (such as std::unordered_map,
+// which requires the key to have a hash function). Courtesy of :
+// http://stackoverflow.com/questions/18098178/how-do-i-use-unordered-set
+
+template<>
+struct std::hash<Quest*>
+{
+    std::size_t operator()(std::unique_ptr<Quest> const &questPtr) const noexcept
+    {
+        return std::hash<int>()(questPtr->getHashId());
+    }
 };
 
 #endif // QUEST_H

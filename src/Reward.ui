@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Quest</class>
- <widget class="QWidget" name="Quest">
+ <class>Reward</class>
+ <widget class="QWidget" name="Reward">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>198</width>
-    <height>73</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QFormLayout" name="formLayout">
+   <property name="horizontalSpacing">
+    <number>3</number>
+   </property>
+   <property name="verticalSpacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -26,27 +32,19 @@
    <property name="bottomMargin">
     <number>3</number>
    </property>
-   <property name="horizontalSpacing">
-    <number>3</number>
-   </property>
-   <property name="verticalSpacing">
-    <number>0</number>
-   </property>
-   <item row="1" column="0">
-    <widget class="QLabel" name="title">
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
+   <item row="0" column="0">
+    <widget class="QLabel" name="rewardLabel">
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QCheckBox" name="checkBox">
+     <property name="text">
+      <string/>
      </property>
-     <property name="wordWrap">
+     <property name="checkable">
       <bool>true</bool>
      </property>
     </widget>

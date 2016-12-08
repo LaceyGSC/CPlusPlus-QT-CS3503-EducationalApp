@@ -7,6 +7,8 @@
 SubQuest::SubQuest(QWidget *parent)
     : QWidget(parent)
     , mCompleted(false)
+    , mDesc(this)
+    , mBar(this)
 {
     show();
 }

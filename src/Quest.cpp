@@ -8,6 +8,7 @@
 Quest::Quest(const QString &title, QWidget *parent)
     : QWidget(parent)
     , mUi(new Ui::Quest)
+    , mHashId(0)
 {
     mUi->setupUi(this);
 
@@ -16,6 +17,7 @@ Quest::Quest(const QString &title, QWidget *parent)
     mUi->gridLayout->setColumnStretch(1, 1);
 
     mUi->title->setText(title);
+    mUi->title->setContentsMargins(0, 0, 0, 6);
 
     show();
 }
@@ -48,4 +50,14 @@ bool Quest::isCompleted() const
             return false;
 
     return true;
+}
+
+void Quest::setHashId(int value)
+{
+    mHashId = value;
+}
+
+int Quest::getHashId() const
+{
+    return mHashId;
 }

@@ -14,28 +14,14 @@
 class SQCollectType : public SubQuest
 {
 public:
-    struct Data
-    {
-        Data(const QString &desc, int actualTypes);
-
-        std::unordered_set<Plant::ID> collectedTypes;
-
-        int actualTypes;
-
-        QLabel desc;
-        QProgressBar bar;
-    };
-
-public:
-    typedef std::unique_ptr<SQCollectType::Data> DataPtr;
-
-public:
-    SQCollectType(SQCollectType::DataPtr data, QWidget *parent = 0);
+    SQCollectType(const QString &desc, int actualTypes, QWidget *parent = 0);
 
     virtual void update(Command *command);
 
 private:
-    SQCollectType::DataPtr mData;
+    std::unordered_set<Plant::ID> mCollectedTypes;
+
+    int mActualTypes;
 };
 
 #endif // SQCOLLECTTYPE_H

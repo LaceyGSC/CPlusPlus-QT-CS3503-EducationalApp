@@ -2,35 +2,26 @@
 
 #include "Quest.h"
 
-SQCollectType::Data::Data(const QString &desc, int actualTypes)
-    : collectedTypes()
-    , actualTypes(actualTypes)
-    , desc()
-    , bar()
-{
-    this->desc.setText(desc);
-}
-
-SQCollectType::SQCollectType(SQCollectType::DataPtr data, QWidget *parent)
+SQCollectType::SQCollectType(const QString &desc, int actualTypes, QWidget *parent)
     : SubQuest(parent)
-    , mData(std::move(data))
+    , mCollectedTypes()
+    , mActualTypes(actualTypes)
 {
-    mData->desc.setParent(this);
-    mData->bar.setParent(this);
+    mDesc.setText(desc);
 
-    mData->bar.setMinimumSize(QSize(80, 21));
-    mData->bar.setMaximumSize(QSize(80, 21));
-    mData->bar.setMaximum(mData->actualTypes);
-    mData->bar.setValue(mData->collectedTypes.size());
-    mData->bar.setAlignment(Qt::AlignCenter);
-    mData->bar.setFormat(QString("%v/") + QString::number(mData->actualTypes));
-    mData->bar.show();
+    mBar.setMinimumSize(QSize(80, 21));
+    mBar.setMaximumSize(QSize(80, 21));
+    mBar.setMaximum(mActualTypes);
+    mBar.setValue(mCollectedTypes.size());
+    mBar.setAlignment(Qt::AlignCenter);
+    mBar.setFormat(QString("%v/") + QString::number(mActualTypes));
+    mBar.show();
 
-    mData->desc.setWordWrap(true);
-    mData->desc.show();
+    mDesc.setWordWrap(true);
+    mDesc.show();
 
-    getLayout()->addWidget(&(mData->desc));
-    getLayout()->addWidget(&(mData->bar));
+    getLayout()->addWidget(&(mDesc));
+    getLayout()->addWidget(&(mBar));
 }
 
 void SQCollectType::update(Command *command)
@@ -39,10 +30,10 @@ void SQCollectType::update(Command *command)
     {
         auto derivedCommand = dynamic_cast<PickUp*>(command);
 
-        mData->collectedTypes.insert(derivedCommand->plantId);
-        mData->bar.setValue(mData->collectedTypes.size());
+        mCollectedTypes.insert(derivedCommand->plantId);
+        mBar.setValue(mCollectedTypes.size());
 
-        mCompleted = (mData->collectedTypes.size() == mData->actualTypes);
+        mCompleted = (mCollectedTypes.size() == mActualTypes);
     }
 }
 

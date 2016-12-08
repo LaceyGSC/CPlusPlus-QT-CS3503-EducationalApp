@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QLabel>
+#include <QProgressBar>
 
 #include "Commands.h"
 
@@ -25,6 +27,9 @@ public:
 
 protected:
     bool mCompleted;
+
+    QLabel mDesc;
+    QProgressBar mBar;
 };
 
 #endif // SUBQUEST_H

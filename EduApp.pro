@@ -31,7 +31,8 @@ SOURCES += \
     src/SQCollectProperties.cpp \
     src/SQCollectSpecific.cpp \
     src/SQCollectType.cpp \
-    src/LevelManager.cpp
+    src/LevelManager.cpp \
+    src/Reward.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -58,7 +59,8 @@ HEADERS += \
     src/SQCollectProperties.h \
     src/SQCollectSpecific.h \
     src/SQCollectType.h \
-    src/LevelManager.h
+    src/LevelManager.h \
+    src/Reward.h
 
 FORMS += \
     src/Application.ui \
@@ -66,7 +68,8 @@ FORMS += \
     src/LoginState.ui \
     src/Plantodex.ui \
     src/Level.ui \
-    src/Quest.ui
+    src/Quest.ui \
+    src/Reward.ui
 
 RESOURCES += \
     src/Textures.qrc

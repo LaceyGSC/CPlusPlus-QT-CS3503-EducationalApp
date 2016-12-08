@@ -34,7 +34,6 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
 
     createLevels();
     mLevelManager.nextLevel();
-    mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
 
     // Display the game state widget
     this->show();
@@ -67,20 +66,17 @@ bool GameState::update(const sf::Time &deltaTime)
 void GameState::createLevels()
 {
 
-    std::unique_ptr<Level> level1(new Level("Level 1: A New Seed", mUi->levelContainer));
+    LevelManager::LevelPtr level1(new Level("Level 1: A New Seed", mLevelManager, mUi->levelContainer));
     mUi->formLayout->addWidget(&(*level1));
 
 
 
-    std::unique_ptr<Quest> quest(new Quest("So, you want to be a plant expert?", &*level1));
+    Level::QuestPtr quest(new Quest("So, you want to be a plant expert?", &*level1));
 
-    SQCollectProperties::DataPtr data1(new SQCollectProperties::Data("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
-                                                                     Plant::Properties::InsectRepellent, 15));
-
-    Quest::SubQuestPtr subQ(new SQCollectProperties(std::move(data1), &*quest));
+    Quest::SubQuestPtr subQ(new SQCollectProperties("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
+                                                    Plant::Properties::InsectRepellent, 15, &*quest));
 
     quest->addSubQuest(std::move(subQ));
-
 
 
 
@@ -91,50 +87,60 @@ void GameState::createLevels()
 
     quest.reset(new Quest("The Harvester", &*level1));
 
-    SQCollectSpecific::DataPtr data2(new SQCollectSpecific::Data("Gather at 8 lavenders.",
-                                                                 Plant::ID::Lavender, 8));
 
-    subQ.reset(new SQCollectSpecific(std::move(data2), &*quest));
-
-    quest->addSubQuest(std::move(subQ));
-
-    data2.reset(new SQCollectSpecific::Data("Gather at 15 cattails.",
-                                                                 Plant::ID::Cattail, 15));
-
-    subQ.reset(new SQCollectSpecific(std::move(data2), &*quest));
+    subQ.reset(new SQCollectSpecific("Gather 8 lavenders.",
+                                     Plant::ID::Lavender, 8, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
-    data2.reset(new SQCollectSpecific::Data("Gather at 8 catnips.",
-                                                                 Plant::ID::Catnip, 7));
-
-    subQ.reset(new SQCollectSpecific(std::move(data2), &*quest));
+    subQ.reset(new SQCollectSpecific("Gather 15 cattails.",
+                                     Plant::ID::Cattail, 15, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
+    subQ.reset(new SQCollectSpecific("Gather 7 catnips.",
+                                     Plant::ID::Catnip, 7, &*quest));
 
+    quest->addSubQuest(std::move(subQ));
 
 
     level1->addMainQuest(std::move(quest));
 
 
 
+    Level::RewardPtr reward(new Reward("+ 150 points", &*level1));
+
+    reward->setOnActivate([&] ()
+    {
+        qDebug() << "Rewarded Main!";
+    });
+
+
+    level1->setRewardMain(std::move(reward));
+
+
 
 
     quest.reset(new Quest("Knowledge is power", &*level1));
 
-    SQCollectType::DataPtr data3(new SQCollectType::Data("Gather at least 3 different species of plants.", 3));
-
-    subQ.reset(new SQCollectType(std::move(data3), &*quest));
+    subQ.reset(new SQCollectType("Gather at least 3 different species of plants.", 3, &*quest));
 
     quest->addSubQuest(std::move(subQ));
-
 
 
 
     level1->addOptionalQuest(std::move(quest));
 
 
+    reward.reset(new Reward("+ Quick Plant Analyzer \n+ 50 points", &*level1));
+
+    reward->setOnActivate([&] ()
+    {
+        qDebug() << "Rewarded Optional!";
+    });
+
+
+    level1->setRewardOptional(std::move(reward));
 
 
 
@@ -149,17 +155,15 @@ void GameState::createLevels()
 
 
 
-    level1.reset(new Level("Level 2: Growing Sprout", mUi->levelContainer));
+    level1.reset(new Level("Level 2: Growing Sprout", mLevelManager, mUi->levelContainer));
     mUi->formLayout->addWidget(&(*level1));
 
 
 
     quest.reset(new Quest("So, you want to be a plant expert?", &*level1));
 
-    data1.reset(new SQCollectProperties::Data("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
-                                                                     Plant::Properties::InsectRepellent, 15));
-
-    subQ.reset(new SQCollectProperties(std::move(data1), &*quest));
+    subQ.reset(new SQCollectProperties("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
+                                       Plant::Properties::InsectRepellent, 15, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
@@ -167,6 +171,19 @@ void GameState::createLevels()
 
 
     level1->addMainQuest(std::move(quest));
+
+
+
+    reward.reset(new Reward("+ Quick Plant Analyzer \n+ 50 points", &*level1));
+
+    reward->setOnActivate([&] ()
+    {
+        qDebug() << "Rewarded Main!";
+    });
+
+
+    level1->setRewardMain(std::move(reward));
+
 
 
     mLevelManager.addLevel(std::move(level1));
@@ -177,37 +194,24 @@ void GameState::start()
     if (mWorld.isHidden())
     {
         mUi->worldContainer->addWidget(&mWorld);
-      //  mUi->worldContainer->addWidget(&mCharacter);
+
         mWorld.show();
-        //qDebug().noquote() << connection.getPacket();
 
-        //PickUp c(Plant::ID::Catnip, 1);
-
-
-        //    qDebug() << c.amount;
-
-        mLevelManager.prevLevel();
-        mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
+        //mLevelManager.prevLevel();
+        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
 
         mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Catnip, Plant::Properties::None, 1));
+        mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Lavender, Plant::Properties::InsectRepellent, 1));
+        mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Cattail, Plant::Properties::None, 3));
     }
     else
     {
         mUi->worldContainer->removeWidget(&mWorld);
         mWorld.hide();
 
-        mLevelManager.nextLevel();
-        mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
-
-        mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Lavender, Plant::Properties::InsectRepellent, 1));
-        mLevelManager.getCurrentLevel().update(&PickUp(Plant::ID::Cattail, Plant::Properties::None, 3));
+        //mLevelManager.nextLevel();
+        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
     }
-
-    if (mLevelManager.getCurrentLevel().isMainCompleted())
-        qDebug() << "Main Completed!";
-
-    if (mLevelManager.getCurrentLevel().isOptionalCompleted())
-        qDebug() << "Optional Completed!";
 }
 
 void GameState::on_plantodexButton_clicked()
