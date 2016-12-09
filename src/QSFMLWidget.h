@@ -11,6 +11,7 @@
 
 #include <QWidget>
 #include <QTimer>
+#include <QEvent>
 #include <SFML/Graphics.hpp>
 
 #include "State.h"
@@ -31,6 +32,8 @@ public:
     virtual void            paintEvent(QPaintEvent*);
     virtual void            resizeEvent(QResizeEvent*);
 
+    virtual bool            update(const sf::Time &deltaTime);
+
     virtual void            onInit() = 0;
     // Over here, we pass the SFML canvas (target) and the transforms (states) to allow the
     // derived classes to draw themselves. Passing transforms allow relative rather than
@@ -50,6 +53,8 @@ private:
     // Context allows the widget to get resources from the resource managers
     State::Context          mContext;
 
+// Gives the derived classes an option to set the size of the canvas depending on the resizing policy desired
+protected:
     // The SFML canvas is just an SFML window without the titlebar
     sf::RenderWindow        mCanvas;
 };

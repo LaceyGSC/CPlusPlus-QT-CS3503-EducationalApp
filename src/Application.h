@@ -63,6 +63,7 @@ private:
 
     // Resource managers
     TextureManager          mTextures;
+    FontManager             mFonts;
 };
 
 #endif // APPLICATION_H

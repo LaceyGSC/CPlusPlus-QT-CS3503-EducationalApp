@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <complex>
 
-// For fast enum lookup, search for: Tiles, Properties, States, Directions, CommandTypes
+// For fast enum lookup, search for: Tiles, Properties, States, Directions, CommandTypes, Fonts
 
 // Textures of all entities (plants, terrains, etc.)
 namespace Tiles
@@ -39,7 +39,12 @@ namespace Tiles
         FaceUp,
         FaceDown,
         FaceRight,
-        FaceLeft
+        FaceLeft,
+
+        SFMLLogo,
+        Box2DLogo,
+        QtLogo,
+        TitleLogo
     };
 }
 
@@ -77,7 +82,7 @@ namespace Properties
      * */
 }
 
-namespace States { enum class ID { None, GameState, LoginState }; }
+namespace States { enum class ID { None, TitleState, GameState, LoginState }; }
 
 namespace Directions { enum class ID { None, Up, Down, Left, Right }; }
 
@@ -88,6 +93,14 @@ namespace CommandTypes
         None,
         Move,
         PickUp
+    };
+}
+
+namespace Fonts
+{
+    enum class ID
+    {
+        SplashScreenFont
     };
 }
 
@@ -122,11 +135,13 @@ struct IntComplexHash
 namespace sf
 {
     class Texture;
+    class Font;
 }
 template <typename Resource, typename Identifier>
 class ResourceManager;
 
 // Typedefs for different types of resources
 typedef ResourceManager<sf::Texture, Tiles::ID>  TextureManager;
+typedef ResourceManager<sf::Font, Fonts::ID>  FontManager;
 
 #endif // IDENTIFIERS_H

@@ -36,7 +36,9 @@ SOURCES += \
     src/WorldCanvas.cpp \
     src/TileManager.cpp \
     src/Player.cpp \
-    src/SettingsUI.cpp
+    src/SettingsUI.cpp \
+    src/TitleState.cpp \
+    src/SplashScreen.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -46,7 +48,6 @@ HEADERS += \
     src/StateStack.h \
     src/GameState.h \
     src/FractalExpressionEvaluator.h \
-#    src/Character.h \
     src/ServerConnection.h \
     src/Plantodex.h \
     src/ServerConnection.h \
@@ -65,7 +66,9 @@ HEADERS += \
     src/WorldCanvas.h \
     src/TileManager.h \
     src/Player.h \
-    src/SettingsUI.h
+    src/SettingsUI.h \
+    src/TitleState.h \
+    src/SplashScreen.h
 
 FORMS += \
     src/Application.ui \
@@ -77,6 +80,7 @@ FORMS += \
     src/Reward.ui \
     src/QuickPlantAnalyzer.ui \
     src/SettingsUI.ui
+    src/TitleState.ui
 
 RESOURCES += \
     src/Textures.qrc
