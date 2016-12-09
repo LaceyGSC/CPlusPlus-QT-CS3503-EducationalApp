@@ -13,7 +13,7 @@
 class SQCollectProperties : public SubQuest
 {
 public:
-    SQCollectProperties(const QString &desc, Properties::ID prop, int actual, GameState::GameContext gameContext, QWidget *parent = 0);
+    SQCollectProperties(const QString &desc, Properties::ID prop, int collected, int actual, GameState::GameContext gameContext, QWidget *parent = 0);
 
     virtual void update(Command *command);
 

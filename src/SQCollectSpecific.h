@@ -13,7 +13,7 @@
 class SQCollectSpecific : public SubQuest
 {
 public:
-    SQCollectSpecific(const QString &desc, Tiles::ID id, int actual, GameState::GameContext gameContext, QWidget *parent = 0);
+    SQCollectSpecific(const QString &desc, Tiles::ID id, int collected, int actual, GameState::GameContext gameContext, QWidget *parent = 0);
 
     virtual void update(Command *command);
 

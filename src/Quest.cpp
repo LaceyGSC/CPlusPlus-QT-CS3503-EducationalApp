@@ -20,6 +20,10 @@ Quest::Quest(const QString &title, QWidget *parent)
     mUi->title->setText(title);
     mUi->title->setContentsMargins(0, 0, 0, 6);
 
+    // These dummy labels are used to make the grid think it has 2 columns
+    mUi->dummy1->hide();
+    mUi->dummy2->hide();
+
     show();
 }
 

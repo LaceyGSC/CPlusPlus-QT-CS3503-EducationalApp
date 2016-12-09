@@ -39,6 +39,9 @@ public:
     void setRewardMain(RewardPtr reward);
     void setRewardOptional(RewardPtr reward);
 
+    void giveRewardMain();
+    void giveRewardOptional();
+
     bool isMainCompleted() const;
     bool isOptionalCompleted() const;
 

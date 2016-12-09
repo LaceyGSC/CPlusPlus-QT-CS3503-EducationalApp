@@ -2,7 +2,7 @@
 
 #include "Quest.h"
 
-SQCollectSpecific::SQCollectSpecific(const QString &desc, Tiles::ID id, int actual, GameState::GameContext gameContext, QWidget *parent)
+SQCollectSpecific::SQCollectSpecific(const QString &desc, Tiles::ID id, int collected, int actual, GameState::GameContext gameContext, QWidget *parent)
     : SubQuest(gameContext, parent)
     , mId(id)
     , mActual(actual)
@@ -23,41 +23,56 @@ SQCollectSpecific::SQCollectSpecific(const QString &desc, Tiles::ID id, int actu
 
     getLayout()->addWidget(&(mDesc));
     getLayout()->addWidget(&(mBar));
+
+    if (collected > 0)
+    {
+        if (mCollected + collected > mActual)
+            // Clamp
+            mCollected = mActual;
+        else
+            mCollected = collected;
+
+        mBar.setValue(mCollected);
+        mCompleted = (mCollected == mActual);
+    }
 }
 
 void SQCollectSpecific::update(Command *command)
 {
-    if (command->commandType == CommandTypes::ID::PickUp)
+    if (!mCompleted)
     {
-        auto derivedCommand = dynamic_cast<PickUp*>(command);
-
-        if (derivedCommand->amount > 0)
+        if (command->commandType == CommandTypes::ID::PickUp)
         {
-            if (mId == derivedCommand->tileId && mCollected < mActual)
+            auto derivedCommand = dynamic_cast<PickUp*>(command);
+
+            if (derivedCommand->amount > 0)
             {
-                if (mCollected + derivedCommand->amount > mActual)
-                    // Clamp
-                    mCollected = mActual;
-                else
-                    mCollected += derivedCommand->amount;
+                if (mId == derivedCommand->tileId && mCollected < mActual)
+                {
+                    if (mCollected + derivedCommand->amount > mActual)
+                        // Clamp
+                        mCollected = mActual;
+                    else
+                        mCollected += derivedCommand->amount;
 
-                mBar.setValue(mCollected);
+                    mBar.setValue(mCollected);
+                }
             }
-        }
-        else if (derivedCommand->amount < 0)
-        {
-            if (mId == derivedCommand->tileId && mCollected >= 0)
+            else if (derivedCommand->amount < 0)
             {
-                if (mCollected - derivedCommand->amount < 0)
-                    // Clamp
-                    mCollected = 0;
-                else
-                    mCollected -= derivedCommand->amount;
+                if (mId == derivedCommand->tileId && mCollected >= 0)
+                {
+                    if (mCollected - derivedCommand->amount < 0)
+                        // Clamp
+                        mCollected = 0;
+                    else
+                        mCollected -= derivedCommand->amount;
 
-                mBar.setValue(mCollected);
+                    mBar.setValue(mCollected);
+                }
             }
-        }
 
-        mCompleted = (mCollected == mActual);
+            mCompleted = (mCollected == mActual);
+        }
     }
 }

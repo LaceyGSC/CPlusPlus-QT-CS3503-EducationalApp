@@ -89,6 +89,25 @@ void Level::setRewardOptional(RewardPtr reward)
     mOptionalReward = std::move(reward);
 }
 
+void Level::giveRewardMain()
+{
+    if (isMainCompleted())
+    {
+        if (mMainReward != nullptr)
+            mMainReward->activate();
+        mUi->nextLevel->show();
+    }
+}
+
+void Level::giveRewardOptional()
+{
+    if (isOptionalCompleted())
+    {
+        if (mOptionalReward != nullptr)
+            mOptionalReward->activate();
+    }
+}
+
 bool Level::isMainCompleted() const
 {
     if (mMainQuests.empty())
@@ -118,19 +137,12 @@ void Level::update(Command *command)
     for (auto &it : mMainQuests)
         it->update(command);
 
-    if (isMainCompleted())
-    {
-        if (mMainReward != nullptr)
-            mMainReward->activate();
-        mUi->nextLevel->show();
-    }
+    giveRewardMain();
 
     for (auto &it : mOptionalQuests)
         it->update(command);
 
-    if (isOptionalCompleted())
-        if (mOptionalReward != nullptr)
-            mOptionalReward->activate();
+    giveRewardOptional();
 }
 
 FractalExpressionEvaluator& Level::getMap()
