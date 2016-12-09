@@ -260,6 +260,7 @@ void WorldCanvas::movePlayer(const std::complex<int> &movement, Directions::ID d
                 level.update(&*std::unique_ptr<PickUp>(new PickUp(getPlantType(nextPosition), 1)));
             }
             level.movePlayer(movement);
+            level.update(&*std::unique_ptr<Move>(new Move(direction, 1)));
         }
     }
     else
@@ -275,6 +276,7 @@ void WorldCanvas::movePlayer(const std::complex<int> &movement, Directions::ID d
                     level.update(&*std::unique_ptr<PickUp>(new PickUp(getPlantType(nextPosition), 1)));
                 }
                 level.movePlayer(movement);
+                level.update(&*std::unique_ptr<Move>(new Move(direction, 1)));
             }
         }
     }

@@ -111,30 +111,12 @@ bool GameState::update(const sf::Time &deltaTime)
 
 void GameState::start()
 {
-    if (mWorldCanvas->isHidden())
-    {
-        mUi->gridLayout_3->addWidget(&*mWorldCanvas);
+    mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Catnip, 1)));
+    mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Lavender, 1)));
+    mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Cattail, 3)));
 
-        mWorldCanvas->show();
-
-        //mLevelManager.prevLevel();
-        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
-
-        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Catnip, 1)));
-        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Lavender, 1)));
-        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Cattail, 3)));
-
-        //packetData =  connection.getPacket();
-        //mPlantodex.setUpPlantodex(&packetData);
-    }
-    else
-    {
-        mUi->gridLayout_3->removeWidget(&*mWorldCanvas);
-        mWorldCanvas->hide();
-
-        //mLevelManager.nextLevel();
-        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
-    }
+    //packetData =  connection.getPacket();
+    //mPlantodex.setUpPlantodex(&packetData);
 }
 
 void GameState::showPlantodex()

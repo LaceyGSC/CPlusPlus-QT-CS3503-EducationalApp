@@ -4,49 +4,7 @@
 #include <cstdlib>
 #include <complex>
 
-// For fast enum lookup, search for: Plants, Terrains, Structures, Textures, Properties, States, Directions, CommandTypes
-
-/*namespace Plants
-{
-    enum class ID
-    {
-        None,
-        Cattail,
-        Catnip,
-        Lavender,
-        Tree,
-        Count
-    };
-}
-
-namespace Terrains
-{
-    enum class ID
-    {
-        DeepFreshWater,
-        DeepSaltWater,
-        Dirt,
-        Grass,
-        Mountain,
-        QuickSand,
-        RedSand,
-        Sand,
-        ShallowFreshWater,
-        ShallowSaltWater,
-        Meme,
-        Count
-    };
-}
-
-namespace Structures
-{
-    enum class ID
-    {
-        Bridge,
-        Fire,
-        Count
-    };
-}*/
+// For fast enum lookup, search for: Tiles, Properties, States, Directions, CommandTypes
 
 // Textures of all entities (plants, terrains, etc.)
 namespace Tiles
