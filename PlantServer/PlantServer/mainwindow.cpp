@@ -156,6 +156,8 @@ void MainWindow::queryDatabaseUserLogin(QString name, QString password)
      //Executes the query recieved from the client for user data
     query.exec(theQuery);
 
+   packet.clear();
+
     if(query.size() != 1)
     {
         //send back failure number
@@ -273,6 +275,7 @@ void MainWindow::queryDatabaseUserCreate(QString name, QString password)
             qDebug() << query.lastError();
             packet << "0";
         }
+
         client.send(packet);
     }
 }

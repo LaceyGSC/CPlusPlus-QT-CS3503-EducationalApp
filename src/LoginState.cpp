@@ -33,6 +33,7 @@ void LoginState::createSlot()
     QString name = ui->usernameLine->text();
     QString pass = ui->passwordLine->text();
 
+
     if(name == "" || pass == "")
     {
         ui->notifyLabel->setText("Fields cannot be empty");
@@ -103,6 +104,8 @@ void LoginState::loginSlot()
         else if (resultNum == "2")
         {
             //Successful login to Admin account
+            QString characterResult = getContext().connection.getPacket();
+
 
             requestStackPop();
             requestStackPush(States::ID::AdminState);

@@ -13,6 +13,8 @@ AdminState::AdminState(StateStack &stack, Context &context, QWidget *parent) :
     connect(ui->viewButton, SIGNAL(pressed()), this, SLOT(viewSlot()));
     connect(ui->logOutButton, SIGNAL(pressed()), this, SLOT(logSlot()));
     connect(ui->studentTable, SIGNAL(cellClicked(int,int)),this, SLOT(selectedSlot(int, int)));
+
+    createArray();
 }
 
 AdminState::~AdminState()
@@ -28,7 +30,7 @@ bool AdminState::update(const sf::Time &deltaTime)
 void AdminState::createArray()
 {
      //Gets mass packet of user, divides by newline
-     QString allUsers = connection.getPacket();
+     QString allUsers = getContext().connection.getPacket();
      QStringList queryList = allUsers.split(QRegExp("\\n+"), QString::SkipEmptyParts);
 
      QString userID;
@@ -113,14 +115,9 @@ void AdminState::viewSlot()
 
 void AdminState::logSlot()
 {
-    //Currently sets up connection for testing, triggers create array to make local copy of data
-    //Will be moved into main method when connection issue resolved
-    getContext().connection.setupConnection();
-    createArray();
-
     //Actual work to be done by logout button
-    //requestStackPop();
-    //requestStackPush(States::ID::LoginState);
+    requestStackPop();
+    requestStackPush(States::ID::LoginState);
 
 }
 
