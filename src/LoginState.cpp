@@ -104,7 +104,7 @@ void LoginState::loginSlot()
         else if (resultNum == "2")
         {
             //Successful login to Admin account
-            QString characterResult = getContext().connection.getPacket();
+            //QString characterResult = getContext().connection.getPacket();
 
 
             requestStackPop();

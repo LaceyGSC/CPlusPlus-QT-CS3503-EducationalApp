@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <QDesktopServices>
+#include <QUrl>
 #include <QStringList>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -340,6 +342,9 @@ void MainWindow::createWebPage()
                 "<td></td><td></td></tr></table><br/><br/><br/></body></html>";
 
     outFile << htmlpage.rdbuf();
+
+    QDesktopServices::openUrl(QUrl("..\..\webpage.html"));
+
     outFile.close();
 }
 
