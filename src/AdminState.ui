@@ -143,7 +143,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Current Progress: </string>
+    <string>Current Time: </string>
    </property>
   </widget>
   <widget class="QLineEdit" name="usernameLine">

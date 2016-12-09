@@ -38,7 +38,12 @@ void AdminState::createArray()
      QString password;
      int currentLevel;
      int currentQuest;
-     int currentProgress;
+     QString currentSubQuest;
+     QString currentProgress;
+     QString currentTime;
+
+     std::vector<int> cSQ;
+     std::vector<int> cSP;
 
      //Iterates through divided list of variables, stores in array of characters
      for(int i = 0; i < queryList.size(); i++)
@@ -53,9 +58,29 @@ void AdminState::createArray()
          i++;
          currentQuest = queryList.at(i).toInt();
          i++;
-         currentProgress = queryList.at(i).toInt();
+         currentSubQuest = queryList.at(i);
+         i++;
+         currentProgress = queryList.at(i);
+         i++;
+         currentTime = queryList.at(i);
 
-         characterVect.push_back(Character(userID,username,password,currentLevel,currentQuest,currentProgress));
+         QStringList subQuestList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+         QStringList subProgList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+         QStringList timeParts = currentTime.split(QRegExp(":+"), QString::SkipEmptyParts);
+
+         for(int j = 0; j < subQuestList.size(); j++)
+         {
+             cSQ.push_back(subQuestList.at(j).toInt());
+         }
+
+         for(int k = 0; k < subQuestList.size(); k++)
+         {
+             cSP.push_back(subProgList.at(k).toInt());
+         }
+
+         QTime totalTime(timeParts.at(0).toInt(),timeParts.at(1).toInt(),timeParts.at(2).toInt(),0);
+
+         characterVect.push_back(Character(userID,username,password,currentLevel,currentQuest,cSQ,cSP,totalTime));
      }
 
      //Populates the table with the list of characters
@@ -133,7 +158,7 @@ void AdminState::selectedSlot(int i, int c)
     this->ui->cLevelLine->setText(s);
     s = QString::number(characterVect.at(i).currentQuest);
     this->ui->cQuestLine->setText(s);
-    s = QString::number(characterVect.at(i).currentProgress);
+    s = characterVect.at(i).totalTime.toString();
     this->ui->cProgressLine->setText(s);
 
     //Sets the master number index for deletion

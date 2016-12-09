@@ -7,6 +7,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QStringList>
+#include <QTime>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -178,38 +179,6 @@ void MainWindow::queryDatabaseUserLogin(QString name, QString password)
 
             packet.clear();
 
-            //for admin, send back all user data for management
-
-            theQuery = "Select * from Users";
-
-            query.exec(theQuery);
-
-            while (query.next())
-            {
-                int userID = query.value(0).toInt();
-                QString username = query.value(1).toString();
-                QString pass = query.value(2).toString();
-                int currentLevel = query.value(3).toInt();
-                int currentQuest = query.value(4).toInt();
-                int currentProgress = query.value(6).toInt();
-
-                packetStream << userID <<"\n"
-                             << username.toStdString() << "\n"
-                             << pass.toStdString() << "\n"
-                             << currentLevel << "\n"
-                             << currentQuest << "\n"
-                             << currentProgress << "\n";
-
-            }
-
-            //Creates string from stringstream, needed to get const char*
-            std::string returnString(packetStream.str());
-            //Creates const char* to add into returning packet
-            returnChars = returnString.c_str();
-
-            packet << returnChars;
-            client.send(packet);
-
         }
         else
         {
@@ -219,30 +188,42 @@ void MainWindow::queryDatabaseUserLogin(QString name, QString password)
 
             packet.clear();
 
-            //send back user data
-            while (query.next())
-            {
-                int userID = query.value(0).toInt();
-                QString username = query.value(1).toString();
-                int currentLevel = query.value(3).toInt();
-                int currentQuest = query.value(4).toInt();
-                int currentProgress = query.value(6).toInt();
-
-                packetStream << userID <<"\n"
-                             << username.toStdString() << "\n"
-                             << currentLevel << "\n"
-                             << currentQuest << "\n"
-                             << currentProgress << "\n";
-            }
-
-            //Creates string from stringstream, needed to get const char*
-            std::string returnString(packetStream.str());
-            //Creates const char* to add into returning packet
-            returnChars = returnString.c_str();
-
-            packet << returnChars;
-            client.send(packet);
         }
+
+        theQuery = "Select * from Users";
+
+        query.exec(theQuery);
+
+        //send back user data
+        while (query.next())
+        {
+            int userID = query.value(0).toInt();
+            QString username = query.value(1).toString();
+            QString pass = query.value(2).toString();
+            int currentLevel = query.value(3).toInt();
+            int currentQuest = query.value(4).toInt();
+            QString currentSubQuest = query.value(5).toString();
+            QString currentProgress = query.value(6).toString();
+            QTime totalTime = query.value(7).toTime();
+
+            packetStream << userID <<"\n"
+                         << username.toStdString() << "\n"
+                         << pass.toStdString() << "\n"
+                         << currentLevel << "\n"
+                         << currentQuest << "\n"
+                         << currentSubQuest.toStdString() << "\n"
+                         << currentProgress.toStdString() << "\n"
+                         << totalTime.toString().toStdString() << "\n";
+
+        }
+
+        //Creates string from stringstream, needed to get const char*
+        std::string returnString(packetStream.str());
+        //Creates const char* to add into returning packet
+        returnChars = returnString.c_str();
+
+        packet << returnChars;
+        client.send(packet);
     }
 }
 
@@ -297,7 +278,7 @@ void MainWindow::queryDatabaseUserDelete(QString name)
 void MainWindow::createWebPage()
 {
     std::ofstream outFile;
-    outFile.open("..\..\webpage.html");
+    outFile.open("../../webpage.html");
 
     QString theQuery = "Select * from Users";
     QSqlQuery query(db);
@@ -343,7 +324,7 @@ void MainWindow::createWebPage()
 
     outFile << htmlpage.rdbuf();
 
-    QDesktopServices::openUrl(QUrl("..\..\webpage.html"));
+    QDesktopServices::openUrl(QUrl("../../webpage.html"));
 
     outFile.close();
 }

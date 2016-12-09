@@ -94,8 +94,6 @@ void LoginState::loginSlot()
         else if ( resultNum == "1")
         {
             //Successful login to non admin account
-            //Populate Character with info from second packet
-            QString characterResult = getContext().connection.getPacket();
 
             //Moves onto the World screen
             requestStackPop();
@@ -104,8 +102,6 @@ void LoginState::loginSlot()
         else if (resultNum == "2")
         {
             //Successful login to Admin account
-            //QString characterResult = getContext().connection.getPacket();
-
 
             requestStackPop();
             requestStackPush(States::ID::AdminState);
