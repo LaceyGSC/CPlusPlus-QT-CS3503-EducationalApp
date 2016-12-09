@@ -22,7 +22,7 @@ class ResourceManager
 {
 private:
     // This is one long ass declaration
-    typedef std::unordered_map<Identifier, std::unique_ptr<Resource>> ResourceMap;
+    typedef std::unordered_map<Identifier, std::unique_ptr<Resource>,EnumClassHash> ResourceMap;
 
 public:
     // Both load methods throw std::runtime_error if resource is not found

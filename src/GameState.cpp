@@ -43,9 +43,11 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     , mTileManager()
     , mLevelManager()
     , mSettings()
-    , mSettingsUI(std::unique_ptr<SettingsUI>(new SettingsUI(GameContext(mLevelManager, mTileManager, mSettings, mPlayer))))
     , mPlayer()
-    , mWorldCanvas(std::unique_ptr<WorldCanvas>(new WorldCanvas(QPoint(0, 0), QSize(400, 400), context, GameContext(mLevelManager, mTileManager, mSettings, mPlayer))))
+    , mGamecontext1(mLevelManager, mTileManager, mSettings, mPlayer)
+    , mGamecontext2(mLevelManager, mTileManager, mSettings, mPlayer)
+    , mSettingsUI(std::unique_ptr<SettingsUI>(new SettingsUI(mGamecontext1,this)))
+    , mWorldCanvas(std::unique_ptr<WorldCanvas>(new WorldCanvas(QPoint(0, 0), QSize(400, 400), context, mGamecontext2)))
     , mPlantodex()
 {   
     mUi->setupUi(this);

@@ -82,6 +82,8 @@ private:
 
     ServerConnection connection;
     Plantodex       mPlantodex;
+    GameContext mGamecontext1;
+    GameContext mGamecontext2;
 
     QString         packetData;
   //  Character       mCharacter;
