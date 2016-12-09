@@ -36,7 +36,7 @@ public:
     {
         Settings();
 
-        bool fastTurn;
+        bool quickTurn;
     };
 
     struct GameContext

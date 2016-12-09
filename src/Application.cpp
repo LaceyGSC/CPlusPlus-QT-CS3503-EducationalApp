@@ -26,6 +26,7 @@ const sf::Time Application::TIME_PER_FRAME = sf::seconds(1.f/60.f);
 Application::Application(QWidget *parent)
     : QMainWindow(parent)
     , mUi(new Ui::Application)
+    , mManual(new ManualDialog(this))
     , mStateStack(State::Context(mTextures, mFonts))
     , mLoopTimer(this)
     , mElapsedTime(sf::Time::Zero)
@@ -35,7 +36,11 @@ Application::Application(QWidget *parent)
 {
     mUi->setupUi(this);
 
-    QMainWindow::setWindowTitle("Edu App");
+    QMainWindow::setWindowTitle("PlantQuest");
+
+    mManual->setWindowFlags(mManual->windowFlags() &= ~Qt::WindowContextHelpButtonHint);
+    mManual->setWindowTitle("PlantQuest Manual");
+    mManual->hide();
 
     // Setup the states and push the first state
     registerStates();
@@ -49,6 +54,8 @@ Application::Application(QWidget *parent)
     mLoopTimer.setInterval(0);
     mLoopTimer.start();
     mClock.restart();
+
+    QObject::connect(mUi->actionManual, SIGNAL(triggered(bool)), this, SLOT(onManual()));
 }
 
 Application::~Application()
@@ -116,4 +123,9 @@ void Application::gameLoop()
     // The states should have been rendered (drawn) here. But, since drawing is handled by Qt's paint event,
     // the state stack doesn't have to explicitly call the states to draw themselves.
     // mStateStack.draw();
+}
+
+void Application::onManual()
+{
+    mManual->show();
 }

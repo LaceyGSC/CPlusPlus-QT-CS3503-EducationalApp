@@ -38,7 +38,8 @@ SOURCES += \
     src/Player.cpp \
     src/SettingsUI.cpp \
     src/TitleState.cpp \
-    src/SplashScreen.cpp
+    src/SplashScreen.cpp \
+    src/ManualDialog.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -68,7 +69,8 @@ HEADERS += \
     src/Player.h \
     src/SettingsUI.h \
     src/TitleState.h \
-    src/SplashScreen.h
+    src/SplashScreen.h \
+    src/ManualDialog.h
 
 FORMS += \
     src/Application.ui \
@@ -79,7 +81,9 @@ FORMS += \
     src/Quest.ui \
     src/Reward.ui \
     src/QuickPlantAnalyzer.ui \
-    src/SettingsUI.ui
+    src/SettingsUI.ui \
+    src/ManualDialog.ui \
+    src/TitleState.ui
     src/TitleState.ui
 
 RESOURCES += \

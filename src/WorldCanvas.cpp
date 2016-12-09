@@ -249,7 +249,7 @@ void WorldCanvas::movePlayer(const std::complex<int> &movement, Directions::ID d
 
     // If fast turned is off, the player will face the direction if it is a different direction
     // than the current player facing
-    if (settings.fastTurn)
+    if (settings.quickTurn)
     {
         if (isMoveValid(nextPosition))
         {

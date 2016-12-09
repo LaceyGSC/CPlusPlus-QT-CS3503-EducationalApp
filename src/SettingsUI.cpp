@@ -8,9 +8,9 @@ SettingsUI::SettingsUI(GameState::GameContext context, QWidget *parent)
 {
     mUi->setupUi(this);
 
-    connect(mUi->fastTurn, SIGNAL(toggled(bool)), this, SLOT(toggleFastTurn(bool)));
+    connect(mUi->quickTurn, SIGNAL(toggled(bool)), this, SLOT(toggleFastTurn(bool)));
 
-    mUi->fastTurn->setChecked(true);
+    mUi->quickTurn->setChecked(true);
 }
 
 SettingsUI::~SettingsUI()
@@ -20,5 +20,5 @@ SettingsUI::~SettingsUI()
 
 void SettingsUI::toggleFastTurn(bool toggle)
 {
-    mGameContext.settings.fastTurn = toggle;
+    mGameContext.settings.quickTurn = toggle;
 }

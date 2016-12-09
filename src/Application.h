@@ -18,6 +18,9 @@
 #include "StateStack.h"
 #include "Identifiers.h"
 #include "ResourceManager.h"
+#include "ManualDialog.h"
+
+#include <memory>
 
 // Forward declaration
 namespace Ui
@@ -44,12 +47,17 @@ private slots:
     // The main game loop. This is where events and game logic are handled
     void                    gameLoop();
 
+    void                    onManual();
+
 private:
     // Game FPS
     static const sf::Time   TIME_PER_FRAME;
 
     // Main window ui
     Ui::Application         *mUi;
+
+    // Manual dialog
+    std::unique_ptr<ManualDialog> mManual;
 
     // A stack of states eases the transition between game states.
     StateStack              mStateStack;

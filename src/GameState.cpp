@@ -25,7 +25,7 @@
 #include "SettingsUI.h"
 
 GameState::Settings::Settings()
-    : fastTurn(true)
+    : quickTurn(true)
 {
 }
 

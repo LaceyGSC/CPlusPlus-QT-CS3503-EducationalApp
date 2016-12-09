@@ -33,9 +33,9 @@
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QCheckBox" name="fastTurn">
+    <widget class="QCheckBox" name="quickTurn">
      <property name="text">
-      <string>Fast Turn</string>
+      <string>Quick Turn</string>
      </property>
     </widget>
    </item>
