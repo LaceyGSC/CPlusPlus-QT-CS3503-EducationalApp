@@ -9,6 +9,7 @@
 #define STATESTACK_H
 
 #include "State.h"
+#include "Identifiers.h"
 
 #include <QWidget>
 #include <QLayout>
@@ -23,7 +24,7 @@ class StateStack : private sf::NonCopyable
 {
 private:
     // This is one long ass declaration
-    typedef std::unordered_map<int, std::function<State::Ptr()>> FactoryMap;
+    typedef std::unordered_map<States::ID, std::function<State::Ptr()>, EnumClassHash> FactoryMap;
 
 public:
     explicit                    StateStack(State::Context context);

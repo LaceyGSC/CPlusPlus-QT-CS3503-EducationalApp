@@ -14,26 +14,47 @@
 
 #include "State.h"
 #include "StateStack.h"
-#include "ResourceIdentifiers.h"
+#include "Identifiers.h"
 #include "ResourceManager.h"
-#include "World.h"
+#include "WorldCanvas.h"
 #include "Quest.h"
 #include "Commands.h"
 #include "SQCollectSpecific.h"
 #include "SQCollectProperties.h"
 #include "SQCollectType.h"
+#include "SettingsUI.h"
 
+GameState::Settings::Settings()
+    : fastTurn(true)
+{
+}
+
+GameState::GameContext::GameContext(LevelManager &levelManager, TileManager &tileManager, Settings &settings, Player &player)
+    : levelManager(levelManager)
+    , tileManager(tileManager)
+    , settings(settings)
+    , player(player)
+{
+}
 
 GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     : State(stack, context, parent)
     , mUi(new Ui::GameState)
-    , mWorld(QPoint(0, 0), QSize(400, 400), context)
-    , mPlantodex()
+    , mTileManager()
     , mLevelManager()
-{
+    , mSettings()
+    , mSettingsUI(std::unique_ptr<SettingsUI>(new SettingsUI(GameContext(mLevelManager, mTileManager, mSettings, mPlayer))))
+    , mPlayer()
+    , mWorldCanvas(std::unique_ptr<WorldCanvas>(new WorldCanvas(QPoint(0, 0), QSize(400, 400), context, GameContext(mLevelManager, mTileManager, mSettings, mPlayer))))
+    , mPlantodex()
+{   
     mUi->setupUi(this);
 
-    createLevels();
+    registerTiles();
+
+    registerLevels();
+
+    // Start level
     mLevelManager.nextLevel();
 
     // Display the game state widget
@@ -42,13 +63,14 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     // Start the MySQL connection
     connection.sendPacket("Select * from PlantDatabase");
 
-    // Sets the column ratio for World : charStats to 3 : 1
+    // Sets the column ratio for Left : Mid : Right to 1 : 3 : 1
 
-    mUi->gameContainer->setColumnStretch(0, 3);
-    mUi->gameContainer->setColumnStretch(1, 1);
+    mUi->gameContainer->setColumnStretch(0, 1);
+    mUi->gameContainer->setColumnStretch(1, 3);
+    mUi->gameContainer->setColumnStretch(2, 1);
 
     //load world textures
-    const QMetaObject &tempMeta =Textures::staticMetaObject; //enumeration over enums coutesy of: http://stackoverflow.com/questions/25393257/unable-to-iterate-over-a-qt-enumeration
+    /*const QMetaObject &tempMeta =Textures::staticMetaObject; //enumeration over enums coutesy of: http://stackoverflow.com/questions/25393257/unable-to-iterate-over-a-qt-enumeration
     QMetaEnum tempEnum = tempMeta.enumerator(0);
     for(int i = 0; i < tempEnum.keyCount();i++)
     {
@@ -56,12 +78,24 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
         tempstr += tempEnum.key(i);
         tempstr +=".png";
         getContext().textures.load(i, tempstr);
-    }
+    }*/
 
-    // Set parent to allow the canvas to be displayed with reference to its container
-    mWorld.setParent(mUi->worldBox);
     QObject::connect(mUi->pushButton, SIGNAL(pressed()), this, SLOT(start()));
-    mWorld.hide();
+    QObject::connect(mUi->plantodexButton, SIGNAL(pressed()), this, SLOT(showPlantodex()));
+    QObject::connect(mUi->exit, SIGNAL(pressed()), this, SLOT(exit()));
+
+    // Make the world container the same size as the world
+    mUi->worldBox->setMinimumSize(mWorldCanvas->minimumSize());
+
+    // Allows the canvas to be displayed with reference to its container
+    mWorldCanvas->setParent(mUi->worldBox);
+    mUi->gridLayout_3->addWidget(&*mWorldCanvas);
+
+    mSettingsUI->setParent(mUi->settingsBox);
+    mUi->formLayout_3->addWidget(&*mSettingsUI);
+
+    mWorldCanvas->show();
+    mSettingsUI->show();
 }
 
 GameState::~GameState()
@@ -75,52 +109,129 @@ bool GameState::update(const sf::Time &deltaTime)
     return true;
 }
 
-void GameState::createLevels()
+void GameState::start()
 {
+    if (mWorldCanvas->isHidden())
+    {
+        mUi->gridLayout_3->addWidget(&*mWorldCanvas);
 
-    LevelManager::LevelPtr level1(new Level("Level 1: A New Seed", mLevelManager, mUi->levelContainer));
-    mUi->formLayout->addWidget(&(*level1));
+        mWorldCanvas->show();
+
+        //mLevelManager.prevLevel();
+        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
+
+        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Catnip, 1)));
+        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Lavender, 1)));
+        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Cattail, 3)));
+
+        //packetData =  connection.getPacket();
+        //mPlantodex.setUpPlantodex(&packetData);
+    }
+    else
+    {
+        mUi->gridLayout_3->removeWidget(&*mWorldCanvas);
+        mWorldCanvas->hide();
+
+        //mLevelManager.nextLevel();
+        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
+    }
+}
+
+void GameState::showPlantodex()
+{
+    mPlantodex.show();
+}
+
+void GameState::exit()
+{
+    // Save to database here or save whenever something is updated
 
 
+    requestStackPop();
+    requestStackPush(States::ID::LoginState);
+}
 
-    Level::QuestPtr quest(new Quest("So, you want to be a plant expert?", &*level1));
+// Register tiles ==============================================================================
+
+void GameState::registerTiles()
+{
+    mTileManager.setTile(Tiles::ID::Grass, Properties::ID(
+                         Properties::ID::Terrain | Properties::ID::Walkable | Properties::ID::Plantable));
+    mTileManager.setTile(Tiles::ID::Dirt, Properties::ID(
+                         Properties::ID::Terrain | Properties::ID::Walkable | Properties::ID::Plantable));
+    mTileManager.setTile(Tiles::ID::DeepFreshWater, Properties::ID(
+                         Properties::ID::Terrain));
+    mTileManager.setTile(Tiles::ID::DeepSaltWater, Properties::ID(
+                         Properties::ID::Terrain));
+    mTileManager.setTile(Tiles::ID::ShallowFreshWater, Properties::ID(
+                         Properties::ID::Terrain | Properties::ID::Walkable | Properties::ID::Plantable));
+    mTileManager.setTile(Tiles::ID::ShallowSaltWater, Properties::ID(
+                         Properties::ID::Terrain | Properties::ID::Walkable | Properties::ID::Plantable));
+    mTileManager.setTile(Tiles::ID::Sand, Properties::ID(
+                         Properties::ID::Terrain | Properties::ID::Walkable | Properties::ID::Plantable));
+    mTileManager.setTile(Tiles::ID::RedSand, Properties::ID(
+                         Properties::ID::Terrain | Properties::ID::Walkable | Properties::ID::Plantable));
+    mTileManager.setTile(Tiles::ID::Mountain, Properties::ID(
+                         Properties::ID::Terrain));
+
+    mTileManager.setTile(Tiles::ID::Catnip, Properties::ID(
+                         Properties::ID::Plant));
+    mTileManager.setTile(Tiles::ID::Cattail, Properties::ID(
+                         Properties::ID::Plant));
+    mTileManager.setTile(Tiles::ID::Lavender, Properties::ID(
+                         Properties::ID::Plant | Properties::ID::InsectRepellent));
+}
+
+// Register levels ==============================================================================
+
+void GameState::registerLevels()
+{
+    GameContext context(mLevelManager, mTileManager, mSettings, mPlayer);
+
+    // Create level
+    LevelManager::LevelPtr level(new Level("Level 1: A New Seed", mTileManager, mLevelManager, mUi->levelContainer));
+    mUi->formLayout->addWidget(&(*level));
+
+
+    // Setup quests
+    Level::QuestPtr quest(new Quest("So, you want to be a plant expert?", &*level));
 
     Quest::SubQuestPtr subQ(new SQCollectProperties("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
-                                                    Plant::Properties::InsectRepellent, 15, &*quest));
+                                                    Properties::ID::InsectRepellent, 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
 
 
-    level1->addMainQuest(std::move(quest));
+    level->addMainQuest(std::move(quest));
 
 
 
 
-    quest.reset(new Quest("The Harvester", &*level1));
+    quest.reset(new Quest("The Harvester", &*level));
 
 
     subQ.reset(new SQCollectSpecific("Gather 8 lavenders.",
-                                     Plant::ID::Lavender, 8, &*quest));
+                                     Tiles::ID::Lavender, 8, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
     subQ.reset(new SQCollectSpecific("Gather 15 cattails.",
-                                     Plant::ID::Cattail, 15, &*quest));
+                                     Tiles::ID::Cattail, 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
     subQ.reset(new SQCollectSpecific("Gather 7 catnips.",
-                                     Plant::ID::Catnip, 7, &*quest));
+                                     Tiles::ID::Catnip, 7, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
 
-    level1->addMainQuest(std::move(quest));
+    level->addMainQuest(std::move(quest));
 
 
 
-    Level::RewardPtr reward(new Reward("+ 150 points", &*level1));
+    Level::RewardPtr reward(new Reward("+ 150 points", &*level));
 
     reward->setOnActivate([&] ()
     {
@@ -128,23 +239,23 @@ void GameState::createLevels()
     });
 
 
-    level1->setRewardMain(std::move(reward));
+    level->setRewardMain(std::move(reward));
 
 
 
 
-    quest.reset(new Quest("Knowledge is power", &*level1));
+    quest.reset(new Quest("Knowledge is power", &*level));
 
-    subQ.reset(new SQCollectType("Gather at least 3 different species of plants.", 3, &*quest));
+    subQ.reset(new SQCollectType("Gather at least 3 different species of plants.", 3, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
 
 
-    level1->addOptionalQuest(std::move(quest));
+    level->addOptionalQuest(std::move(quest));
 
 
-    reward.reset(new Reward("+ Quick Plant Analyzer \n+ 50 points", &*level1));
+    reward.reset(new Reward("+ Quick Plant Analyzer \n+ 50 points", &*level));
 
     reward->setOnActivate([&] ()
     {
@@ -152,41 +263,48 @@ void GameState::createLevels()
     });
 
 
-    level1->setRewardOptional(std::move(reward));
+    level->setRewardOptional(std::move(reward));
+
+    // Setup map
+    level->getMap().setJuliaValue(std::complex<double>(-.621, 0));
+
+    std::vector<Tiles::ID> terrainTypes{Tiles::ID::DeepFreshWater, Tiles::ID::DeepSaltWater, Tiles::ID::Dirt,
+                Tiles::ID::Grass, Tiles::ID::Mountain, Tiles::ID::QuickSand, Tiles::ID::RedSand, Tiles::ID::Sand,
+                Tiles::ID::ShallowFreshWater, Tiles::ID::ShallowSaltWater};
+
+    std::vector<Tiles::ID> plantTypes{Tiles::ID::Catnip, Tiles::ID::Cattail, Tiles::ID::Lavender};
+
+    level->setupMap(std::move(terrainTypes), std::move(plantTypes));
 
 
-
-    mLevelManager.addLevel(std::move(level1));
-
-
+    // Register level into level manager
+    mLevelManager.addLevel(std::move(level));
 
 
+    // Level 2 ============================================
 
 
+    // Create level
+    level.reset(new Level("Level 2: Growing Sprout", mTileManager, mLevelManager, mUi->levelContainer));
+    mUi->formLayout->addWidget(&(*level));
 
 
-
-
-    level1.reset(new Level("Level 2: Growing Sprout", mLevelManager, mUi->levelContainer));
-    mUi->formLayout->addWidget(&(*level1));
-
-
-
-    quest.reset(new Quest("So, you want to be a plant expert?", &*level1));
+    // Setup quests
+    quest.reset(new Quest("So, you want to be a plant expert?", &*level));
 
     subQ.reset(new SQCollectProperties("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
-                                       Plant::Properties::InsectRepellent, 15, &*quest));
+                                       Properties::ID::InsectRepellent, 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
 
 
 
-    level1->addMainQuest(std::move(quest));
+    level->addMainQuest(std::move(quest));
 
 
 
-    reward.reset(new Reward("+ Quick Plant Analyzer \n+ 50 points", &*level1));
+    reward.reset(new Reward("+ Quick Plant Analyzer \n+ 50 points", &*level));
 
     reward->setOnActivate([&] ()
     {
@@ -194,42 +312,20 @@ void GameState::createLevels()
     });
 
 
-    level1->setRewardMain(std::move(reward));
+    level->setRewardMain(std::move(reward));
+
+    // Setup map
+    level->getMap().setJuliaValue(std::complex<double>(-.5, .002));
+
+    terrainTypes = std::vector<Tiles::ID>{Tiles::ID::Sand, Tiles::ID::DeepFreshWater, Tiles::ID::DeepSaltWater, Tiles::ID::Dirt,
+                Tiles::ID::Grass, Tiles::ID::Mountain, Tiles::ID::QuickSand, Tiles::ID::RedSand, Tiles::ID::Sand,
+                Tiles::ID::ShallowFreshWater, Tiles::ID::ShallowSaltWater};
+
+    plantTypes = std::vector<Tiles::ID>{Tiles::ID::Catnip, Tiles::ID::Cattail, Tiles::ID::Lavender};
+
+    level->setupMap(std::move(terrainTypes), std::move(plantTypes));
 
 
-
-    mLevelManager.addLevel(std::move(level1));
-}
-
-void GameState::start()
-{
-    if (mWorld.isHidden())
-    {
-        mUi->worldContainer->addWidget(&mWorld);
-
-        mWorld.show();
-
-        //mLevelManager.prevLevel();
-        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
-
-        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Plant::ID::Catnip, Plant::Properties::None, 1)));
-        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Plant::ID::Lavender, Plant::Properties::InsectRepellent, 1)));
-        mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Plant::ID::Cattail, Plant::Properties::None, 3)));
-
-        //packetData =  connection.getPacket();
-        //mPlantodex.setUpPlantodex(&packetData);
-    }
-    else
-    {
-        mUi->worldContainer->removeWidget(&mWorld);
-        mWorld.hide();
-
-        //mLevelManager.nextLevel();
-        //mUi->levelLabel->setText(mLevelManager.getCurrentLevel().getName());
-    }
-}
-
-void GameState::on_plantodexButton_clicked()
-{
-    mPlantodex.show();
+    // Register level into level manager
+    mLevelManager.addLevel(std::move(level));
 }

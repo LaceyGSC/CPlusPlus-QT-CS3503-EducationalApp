@@ -6,7 +6,6 @@
 #include <QGridLayout>
 
 #include "Commands.h"
-#include "SubQuest.h"
 
 #include <vector>
 #include <memory>
@@ -15,6 +14,8 @@
 namespace Ui {
 class Quest;
 }
+
+class SubQuest;
 
 class Quest : public QWidget
 {

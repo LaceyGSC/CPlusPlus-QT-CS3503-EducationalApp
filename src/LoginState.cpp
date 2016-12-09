@@ -13,6 +13,8 @@ LoginState::LoginState(StateStack &stack, Context &context, QWidget *parent) :
     this->show();
 
     connect(ui->loginButton, SIGNAL(pressed()), this, SLOT(loginSlot()));
+
+
 }
 
 LoginState::~LoginState()

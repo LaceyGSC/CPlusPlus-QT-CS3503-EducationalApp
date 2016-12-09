@@ -21,6 +21,10 @@ public:
 
     Level& getCurrentLevel() const;
 
+    int getNumberOfLevels() const;
+
+    Level& getFirstLevel() const;
+
 private:
     std::vector<LevelManager::LevelPtr>  mLevels;
     int mCurrentLevel;

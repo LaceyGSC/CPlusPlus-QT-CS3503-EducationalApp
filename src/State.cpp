@@ -7,7 +7,7 @@
 #include "State.h"
 #include "StateStack.h"
 
-#include "ResourceIdentifiers.h"
+#include "Identifiers.h"
 
 State::Context::Context(TextureManager &textures)
     : textures(textures)

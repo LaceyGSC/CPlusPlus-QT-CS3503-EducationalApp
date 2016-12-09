@@ -13,18 +13,41 @@
 #include "State.h"
 #include "StateStack.h"
 
-#include "World.h"
 #include "Plantodex.h"
 #include "ServerConnection.h"
 #include "LevelManager.h"
+#include "TileManager.h"
+#include "Player.h"
+
+#include <memory>
 
 namespace Ui {
     class GameState;
 }
 
+class WorldCanvas;
+class SettingsUI;
+
 class GameState : public State
 {
     Q_OBJECT
+public:
+    struct Settings
+    {
+        Settings();
+
+        bool fastTurn;
+    };
+
+    struct GameContext
+    {
+        GameContext(LevelManager &levelManager, TileManager &tileManager, Settings &settings, Player &player);
+
+        LevelManager &levelManager;
+        TileManager &tileManager;
+        Settings &settings;
+        Player &player;
+    };
 
 public:
     explicit        GameState(StateStack &stack, Context &context, QWidget *parent = 0);
@@ -33,23 +56,32 @@ public:
     virtual bool    update(const sf::Time &deltaTime);
 
 private:
-    void            createLevels();
+    void            registerTiles();
+    void            registerLevels();
 
 private slots:
     void            start();
 
-    void on_plantodexButton_clicked();
+    void            showPlantodex();
+
+    void            exit();
 
 private:
     Ui::GameState  *mUi;
 
+    TileManager mTileManager;
+    LevelManager mLevelManager;
+    Settings mSettings;
+
+    Player mPlayer;
+
+    // Forward declaration requires these to be a pointer or reference
     // SFML sprites should be declared in the World class and drawn there
-    World           mWorld;
+    std::unique_ptr<WorldCanvas> mWorldCanvas;
+    std::unique_ptr<SettingsUI> mSettingsUI;
 
     ServerConnection connection;
     Plantodex       mPlantodex;
-
-    LevelManager mLevelManager;
 
     QString         packetData;
   //  Character       mCharacter;

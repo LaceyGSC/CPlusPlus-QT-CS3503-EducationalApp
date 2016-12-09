@@ -4,9 +4,10 @@
 
 #include <utility>
 
-SubQuest::SubQuest(QWidget *parent)
+SubQuest::SubQuest(GameState::GameContext gameContext, QWidget *parent)
     : QWidget(parent)
     , mCompleted(false)
+    , mGameContext(gameContext)
     , mDesc(this)
     , mBar(this)
 {

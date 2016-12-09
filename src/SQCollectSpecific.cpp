@@ -2,8 +2,8 @@
 
 #include "Quest.h"
 
-SQCollectSpecific::SQCollectSpecific(const QString &desc, Plant::ID id, int actual, QWidget *parent)
-    : SubQuest(parent)
+SQCollectSpecific::SQCollectSpecific(const QString &desc, Tiles::ID id, int actual, GameState::GameContext gameContext, QWidget *parent)
+    : SubQuest(gameContext, parent)
     , mId(id)
     , mActual(actual)
     , mCollected(0)
@@ -27,13 +27,13 @@ SQCollectSpecific::SQCollectSpecific(const QString &desc, Plant::ID id, int actu
 
 void SQCollectSpecific::update(Command *command)
 {
-    if (command->commandType == CommandType::ID::PickUp)
+    if (command->commandType == CommandTypes::ID::PickUp)
     {
         auto derivedCommand = dynamic_cast<PickUp*>(command);
 
         if (derivedCommand->amount > 0)
         {
-            if (mId == derivedCommand->plantId && mCollected < mActual)
+            if (mId == derivedCommand->tileId && mCollected < mActual)
             {
                 if (mCollected + derivedCommand->amount > mActual)
                     // Clamp
@@ -46,7 +46,7 @@ void SQCollectSpecific::update(Command *command)
         }
         else if (derivedCommand->amount < 0)
         {
-            if (mId == derivedCommand->plantId && mCollected >= 0)
+            if (mId == derivedCommand->tileId && mCollected >= 0)
             {
                 if (mCollected - derivedCommand->amount < 0)
                     // Clamp

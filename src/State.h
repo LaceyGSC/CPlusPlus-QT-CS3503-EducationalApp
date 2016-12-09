@@ -12,8 +12,8 @@
 #include <QWidget>
 #include <SFML/System.hpp>
 
-#include "StateIdentifiers.h"
-#include "ResourceIdentifiers.h"
+#include "Identifiers.h"
+#include "Identifiers.h"
 
 #include <memory>
 

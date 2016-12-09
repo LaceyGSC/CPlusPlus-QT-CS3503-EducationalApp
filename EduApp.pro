@@ -14,7 +14,6 @@ TEMPLATE = app
 SOURCES += \
     src/Main.cpp \
     src/QSFMLWidget.cpp \
-    src/World.cpp \
     src/ResourceManager.inl \
     src/Application.cpp \
     src/State.cpp \
@@ -32,37 +31,41 @@ SOURCES += \
     src/SQCollectSpecific.cpp \
     src/SQCollectType.cpp \
     src/LevelManager.cpp \
-    src/Reward.cpp
+    src/Reward.cpp \
+    src/QuickPlantAnalyzer.cpp \
+    src/WorldCanvas.cpp \
+    src/TileManager.cpp \
+    src/Player.cpp \
+    src/SettingsUI.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
-    src/World.h \
     src/ResourceManager.h \
-    src/ResourceIdentifiers.h \
     src/Application.h \
     src/State.h \
     src/StateStack.h \
-    src/StateIdentifiers.h \
     src/GameState.h \
     src/FractalExpressionEvaluator.h \
 #    src/Character.h \
-    src/Land.h \
     src/ServerConnection.h \
     src/Plantodex.h \
     src/ServerConnection.h \
     src/LoginState.h \
     src/Level.h \
     src/Quest.h \
-    src/CommandTypeIdentifiers.h \
-    src/PlantIdentifiers.h \
-    src/MovementIdentifiers.h \
     src/Commands.h \
     src/SubQuest.h \
     src/SQCollectProperties.h \
     src/SQCollectSpecific.h \
     src/SQCollectType.h \
     src/LevelManager.h \
-    src/Reward.h
+    src/Reward.h \
+    src/QuickPlantAnalyzer.h \
+    src/Identifiers.h \
+    src/WorldCanvas.h \
+    src/TileManager.h \
+    src/Player.h \
+    src/SettingsUI.h
 
 FORMS += \
     src/Application.ui \
@@ -71,7 +74,9 @@ FORMS += \
     src/Plantodex.ui \
     src/Level.ui \
     src/Quest.ui \
-    src/Reward.ui
+    src/Reward.ui \
+    src/QuickPlantAnalyzer.ui \
+    src/SettingsUI.ui
 
 RESOURCES += \
     src/Textures.qrc

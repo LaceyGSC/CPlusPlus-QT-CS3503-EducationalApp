@@ -16,7 +16,7 @@
 #include <SFML/System.hpp>
 
 #include "StateStack.h"
-#include "ResourceIdentifiers.h"
+#include "Identifiers.h"
 #include "ResourceManager.h"
 
 // Forward declaration
@@ -36,6 +36,9 @@ public:
 private:
     // Setup all the game states
     void                    registerStates();
+
+    // Load all textures
+    void                    loadTextures();
 
 private slots:
     // The main game loop. This is where events and game logic are handled

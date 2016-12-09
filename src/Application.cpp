@@ -13,7 +13,7 @@
 
 #include <SFML/System.hpp>
 
-#include "StateIdentifiers.h"
+#include "Identifiers.h"
 #include "State.h"
 #include "GameState.h"
 #include "LoginState.h"
@@ -38,6 +38,8 @@ Application::Application(QWidget *parent)
     // Setup the states and push the first state
     registerStates();
 
+    loadTextures();
+
     mStateStack.pushState(States::ID::LoginState);
 
     // Starts the game loop
@@ -58,7 +60,31 @@ void Application::registerStates()
     // A grid layout is used as the main layout because it centers its elements
     mStateStack.registerState<LoginState>(States::ID::LoginState, mUi->mainLayout, mUi->mainContainer);
     mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
+}
 
+void Application::loadTextures()
+{
+    mTextures.load(Tiles::ID::Bridge             , "qrc:/../media/Textures/Bridge.png");
+    mTextures.load(Tiles::ID::Catnip             , "qrc:/../media/Textures/sprite_catnip-01.png");
+    mTextures.load(Tiles::ID::Cattail            , "qrc:/../media/Textures/sprite_cattail-01.png");
+    mTextures.load(Tiles::ID::DeepFreshWater     , "qrc:/../media/Textures/DeepFreshWater.png");
+    mTextures.load(Tiles::ID::DeepSaltWater      , "qrc:/../media/Textures/DeepSaltWater.png");
+    mTextures.load(Tiles::ID::Dirt               , "qrc:/../media/Textures/Dirt.png");
+    mTextures.load(Tiles::ID::Fire               , "qrc:/../media/Textures/Fire.png");
+    mTextures.load(Tiles::ID::Grass              , "qrc:/../media/Textures/Grass.png");
+    mTextures.load(Tiles::ID::Lavender           , "qrc:/../media/Textures/sprite_lavender-01.png");
+    mTextures.load(Tiles::ID::Mountain           , "qrc:/../media/Textures/Mountain.png");
+    mTextures.load(Tiles::ID::QuickSand          , "qrc:/../media/Textures/QuickSand.png");
+    mTextures.load(Tiles::ID::RedSand            , "qrc:/../media/Textures/RedSand.png");
+    mTextures.load(Tiles::ID::Sand               , "qrc:/../media/Textures/Sand.png");
+    mTextures.load(Tiles::ID::ShallowFreshWater  , "qrc:/../media/Textures/ShallowFreshWater.png");
+    mTextures.load(Tiles::ID::ShallowSaltWater   , "qrc:/../media/Textures/ShallowSaltWater.png");
+    mTextures.load(Tiles::ID::Tree               , "qrc:/../media/Textures/Tree.png");
+
+    mTextures.load(Tiles::ID::FaceUp             , "qrc:/../media/Textures/Up.png");
+    mTextures.load(Tiles::ID::FaceDown           , "qrc:/../media/Textures/Down.png");
+    mTextures.load(Tiles::ID::FaceRight          , "qrc:/../media/Textures/Right.png");
+    mTextures.load(Tiles::ID::FaceLeft           , "qrc:/../media/Textures/Left.png");
 }
 
 void Application::gameLoop()

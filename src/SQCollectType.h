@@ -14,12 +14,12 @@
 class SQCollectType : public SubQuest
 {
 public:
-    SQCollectType(const QString &desc, int actualTypes, QWidget *parent = 0);
+    SQCollectType(const QString &desc, int actualTypes, GameState::GameContext gameContext, QWidget *parent = 0);
 
     virtual void update(Command *command);
 
 private:
-    std::unordered_set<Plant::ID> mCollectedTypes;
+    std::unordered_set<Tiles::ID, EnumClassHash> mCollectedTypes;
 
     int mActualTypes;
 };

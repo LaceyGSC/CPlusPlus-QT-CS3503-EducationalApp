@@ -2,8 +2,8 @@
 
 #include "Quest.h"
 
-SQCollectProperties::SQCollectProperties(const QString &desc, Plant::Properties prop, int actual, QWidget *parent)
-    : SubQuest(parent)
+SQCollectProperties::SQCollectProperties(const QString &desc, Properties::ID prop, int actual, GameState::GameContext gameContext, QWidget *parent)
+    : SubQuest(gameContext, parent)
     , mProp(prop)
     , mActual(actual)
     , mCollected(0)
@@ -27,13 +27,13 @@ SQCollectProperties::SQCollectProperties(const QString &desc, Plant::Properties 
 
 void SQCollectProperties::update(Command *command)
 {
-    if (command->commandType == CommandType::ID::PickUp)
+    if (command->commandType == CommandTypes::ID::PickUp)
     {
         auto derivedCommand = dynamic_cast<PickUp*>(command);
 
         if (derivedCommand->amount > 0)
         {
-            if (mProp & derivedCommand->prop && mCollected < mActual)
+            if (mProp & mGameContext.tileManager.getTileProperties(derivedCommand->tileId) && mCollected < mActual)
             {
                 if (mCollected + derivedCommand->amount > mActual)
                     // Clamp
@@ -46,7 +46,7 @@ void SQCollectProperties::update(Command *command)
         }
         else if (derivedCommand->amount < 0)
         {
-            if (mProp & derivedCommand->prop && mCollected >= 0)
+            if (mProp & mGameContext.tileManager.getTileProperties(derivedCommand->tileId) && mCollected >= 0)
             {
                 if (mCollected - derivedCommand->amount < 0)
                     // Clamp

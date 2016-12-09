@@ -55,6 +55,11 @@
     </rect>
    </property>
   </widget>
+  <action name="actionDisableFastTurn">
+   <property name="text">
+    <string>Disable Fast Turn</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

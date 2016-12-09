@@ -1,35 +1,32 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "CommandTypeIdentifiers.h"
-#include "PlantIdentifiers.h"
-#include "MovementIdentifiers.h"
+#include "Identifiers.h"
 
 struct Command
 {
-    Command(CommandType::ID id = CommandType::ID::None);
+    Command(CommandTypes::ID id = CommandTypes::ID::None);
 
     // Makes this class a polymorphic base so that we can use dynamic_cast
     // to cast it to a derived struct
     virtual ~Command();
 
-    CommandType::ID commandType;
+    CommandTypes::ID commandType;
 };
 
 struct PickUp : public Command
 {
-    PickUp(Plant::ID id, Plant::Properties prop, int amount);
+    PickUp(Tiles::ID id, int amount);
 
-    Plant::ID plantId;
-    Plant::Properties prop;
+    Tiles::ID tileId;
     int amount;
 };
 
 struct Move : public Command
 {
-    Move(Movement::Direction dir, int steps);
+    Move(Directions::ID dir, int steps);
 
-    Movement::Direction dir;
+    Directions::ID dir;
     int steps;
 };
 

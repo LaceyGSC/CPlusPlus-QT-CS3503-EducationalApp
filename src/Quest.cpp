@@ -2,6 +2,7 @@
 #include "ui_Quest.h"
 
 #include "Level.h"
+#include "SubQuest.h"
 
 #include <utility>
 

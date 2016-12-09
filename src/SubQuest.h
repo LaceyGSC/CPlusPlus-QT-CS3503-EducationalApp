@@ -7,6 +7,7 @@
 #include <QProgressBar>
 
 #include "Commands.h"
+#include "GameState.h"
 
 class Quest;
 
@@ -15,7 +16,7 @@ class SubQuest : public QWidget
 {
 public:
     // Parent should be of type Quest
-    SubQuest(QWidget *parent = 0);
+    SubQuest(GameState::GameContext gameContext, QWidget *parent = 0);
 
     //void addData(SubQuest::Ptr data);
 
@@ -27,6 +28,8 @@ public:
 
 protected:
     bool mCompleted;
+
+    GameState::GameContext mGameContext;
 
     QLabel mDesc;
     QProgressBar mBar;

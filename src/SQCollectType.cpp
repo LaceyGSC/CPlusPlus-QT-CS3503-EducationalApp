@@ -2,8 +2,8 @@
 
 #include "Quest.h"
 
-SQCollectType::SQCollectType(const QString &desc, int actualTypes, QWidget *parent)
-    : SubQuest(parent)
+SQCollectType::SQCollectType(const QString &desc, int actualTypes, GameState::GameContext gameContext, QWidget *parent)
+    : SubQuest(gameContext, parent)
     , mCollectedTypes()
     , mActualTypes(actualTypes)
 {
@@ -26,11 +26,11 @@ SQCollectType::SQCollectType(const QString &desc, int actualTypes, QWidget *pare
 
 void SQCollectType::update(Command *command)
 {
-    if (command->commandType == CommandType::ID::PickUp)
+    if (command->commandType == CommandTypes::ID::PickUp)
     {
         auto derivedCommand = dynamic_cast<PickUp*>(command);
 
-        mCollectedTypes.insert(derivedCommand->plantId);
+        mCollectedTypes.insert(derivedCommand->tileId);
         mBar.setValue(mCollectedTypes.size());
 
         mCompleted = (mCollectedTypes.size() == mActualTypes);

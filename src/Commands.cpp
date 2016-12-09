@@ -1,6 +1,6 @@
 #include "Commands.h"
 
-Command::Command(CommandType::ID id)
+Command::Command(CommandTypes::ID id)
     : commandType(id)
 {
 }
@@ -9,16 +9,15 @@ Command::~Command()
 {
 }
 
-PickUp::PickUp(Plant::ID id, Plant::Properties prop, int amount)
-    : Command(CommandType::ID::PickUp)
-    , plantId(id)
-    , prop(prop)
+PickUp::PickUp(Tiles::ID id, int amount)
+    : Command(CommandTypes::ID::PickUp)
+    , tileId(id)
     , amount(amount)
 {
 }
 
-Move::Move(Movement::Direction dir, int steps)
-    : Command(CommandType::ID::Move)
+Move::Move(Directions::ID dir, int steps)
+    : Command(CommandTypes::ID::Move)
     , dir(dir)
     , steps(steps)
 {

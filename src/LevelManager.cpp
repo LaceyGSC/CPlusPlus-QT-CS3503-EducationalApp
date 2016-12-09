@@ -42,8 +42,20 @@ bool LevelManager::nextLevel()
     return true;
 }
 
+// Danger
 Level& LevelManager::getCurrentLevel() const
 {
     assert(mCurrentLevel < mLevels.size());
     return *(mLevels.at(mCurrentLevel));
+}
+
+int LevelManager::getNumberOfLevels() const
+{
+    return mLevels.size();
+}
+
+// Danger
+Level& LevelManager::getFirstLevel() const
+{
+    return *mLevels.front();
 }
