@@ -16,7 +16,7 @@ class SettingsUI : public QWidget
     Q_OBJECT
 
 public:
-    explicit SettingsUI(GameState::GameContext &context, QWidget *parent = 0);
+    explicit SettingsUI(GameState::GameContext context, QWidget *parent = 0);
     ~SettingsUI();
 
 private slots:

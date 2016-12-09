@@ -26,7 +26,7 @@ const sf::Vector2i WorldCanvas::TILE_DIMENSION = sf::Vector2i(32, 32);
 // Number of tiles displayed (column, row)
 const sf::Vector2i WorldCanvas::DISPLAY_DIMENSION = sf::Vector2i(19, 19);
 
-WorldCanvas::WorldCanvas(const QPoint &pos, const QSize &size, State::Context &context, GameState::GameContext &gameContext, QWidget *parent)
+WorldCanvas::WorldCanvas(const QPoint &pos, const QSize &size, State::Context context, GameState::GameContext gameContext, QWidget *parent)
     : QSFMLWidget(pos, size, context, parent)
     , mGameContext(gameContext)
     , mSprite()

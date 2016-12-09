@@ -76,9 +76,9 @@ private:
     Player mPlayer;
 
     // Forward declaration requires these to be a pointer or reference
+    std::unique_ptr<SettingsUI> mSettingsUI;
     // SFML sprites should be declared in the World class and drawn there
     std::unique_ptr<WorldCanvas> mWorldCanvas;
-    std::unique_ptr<SettingsUI> mSettingsUI;
 
     ServerConnection connection;
     Plantodex       mPlantodex;

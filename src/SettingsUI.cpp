@@ -1,7 +1,7 @@
 #include "SettingsUI.h"
 #include "ui_SettingsUI.h"
 
-SettingsUI::SettingsUI(GameState::GameContext &context, QWidget *parent)
+SettingsUI::SettingsUI(GameState::GameContext context, QWidget *parent)
     : QWidget(parent)
     , mUi(new Ui::SettingsUI)
     , mGameContext(context)
