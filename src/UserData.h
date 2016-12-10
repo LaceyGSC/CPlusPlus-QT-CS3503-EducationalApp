@@ -1,16 +1,15 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef USERDATA_H
+#define USERDATA_H
 
 #include <QString>
 #include <QTime>
 #include <vector>
 
 
-class Character
+struct UserData
 {
-public:
-    Character();
-    Character(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT, int tP);
+    UserData();
+    UserData(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT, int tP);
     QString userID;
     QString username;
     QString password;

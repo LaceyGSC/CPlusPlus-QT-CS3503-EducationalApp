@@ -1,6 +1,6 @@
 #include "AdminState.h"
 #include "ui_AdminState.h"
-#include "Character.h"
+#include "UserData.h"
 #include <QTableWidget>
 
 AdminState::AdminState(StateStack &stack, Context &context, QWidget *parent) :
@@ -92,7 +92,7 @@ void AdminState::createArray()
 
          QTime totalTime(timeParts.at(0).toInt(),timeParts.at(1).toInt(),timeParts.at(2).toInt(),0);
 
-         characterVect.push_back(Character(userID,username,password,currentLevel,currentQuest,cSQ,cSP,totalTime,totalPoints));
+         characterVect.push_back(UserData(userID,username,password,currentLevel,currentQuest,cSQ,cSP,totalTime,totalPoints));
      }
 
      //Populates the table with the list of characters

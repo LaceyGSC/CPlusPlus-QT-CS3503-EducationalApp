@@ -1,11 +1,11 @@
-#include "Character.h"
+#include "UserData.h"
 
-Character::Character()
+UserData::UserData()
 {
 
 }
 
-Character::Character(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT, int tP)
+UserData::UserData(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT, int tP)
 {
     userID = id;
     username = u;

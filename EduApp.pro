@@ -23,7 +23,6 @@ SOURCES += \
     src/ServerConnection.cpp \
     src/Plantodex.cpp \
     src/AdminState.cpp \
-    src/Character.cpp  \
     src/Level.cpp \
     src/Quest.cpp \
     src/Commands.cpp \
@@ -41,7 +40,8 @@ SOURCES += \
     src/SplashScreen.cpp \
     src/ManualDialog.cpp \
     src/Player.cpp \
-    src/FractalExpressionEvaluator.cpp
+    src/FractalExpressionEvaluator.cpp \
+    src/UserData.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -56,7 +56,6 @@ HEADERS += \
     src/ServerConnection.h \
     src/LoginState.h \
     src/AdminState.h \
-    src/Character.h  \
     src/Level.h \
     src/Quest.h \
     src/Commands.h \
@@ -74,7 +73,8 @@ HEADERS += \
     src/TitleState.h \
     src/SplashScreen.h \
     src/ManualDialog.h \
-    src/Player.h
+    src/Player.h \
+    src/UserData.h
 
 FORMS += \
     src/Application.ui \

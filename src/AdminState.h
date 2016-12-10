@@ -6,7 +6,7 @@
 #include "State.h"
 #include "StateStack.h"
 #include "ServerConnection.h"
-#include "Character.h"
+#include "UserData.h"
 #include <vector>
 #include <QTableWidget>
 
@@ -29,7 +29,7 @@ private:
     ServerConnection connection;
     int masterNum = 0;
 
-    std::vector<Character> characterVect;
+    std::vector<UserData> characterVect;
 
     void createArray();
     void createListView();
