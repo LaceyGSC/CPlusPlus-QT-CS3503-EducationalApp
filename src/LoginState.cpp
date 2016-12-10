@@ -51,6 +51,11 @@ void LoginState::createSlot()
         // empty string indicates issue with server
         QString resultNum = getContext().connection.getPacket();
 
+        while(resultNum == "")
+        {
+            resultNum = getContext().connection.getPacket();
+        }
+
         if(resultNum == "0")
         {
             ui->notifyLabel->setText("Failed to create user, Username is already taken");
@@ -87,6 +92,12 @@ void LoginState::loginSlot()
         //Gets result from packet, 1 is success
         // empty string indicates issue with server
         QString resultNum = getContext().connection.getPacket();
+
+        while(resultNum == "")
+        {
+            resultNum = getContext().connection.getPacket();
+        }
+
         if(resultNum == "" )
         {
             ui->notifyLabel->setText("Server Connection Error");
