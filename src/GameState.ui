@@ -76,7 +76,7 @@
         <property name="verticalSpacing">
          <number>3</number>
         </property>
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QGroupBox" name="settingsBox">
           <property name="title">
            <string>Settings</string>
@@ -92,7 +92,34 @@
             <number>3</number>
            </property>
            <property name="bottomMargin">
+            <number>9</number>
+           </property>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="playerBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Player</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout_4">
+           <property name="horizontalSpacing">
+            <number>0</number>
+           </property>
+           <property name="verticalSpacing">
             <number>3</number>
+           </property>
+           <property name="topMargin">
+            <number>3</number>
+           </property>
+           <property name="bottomMargin">
+            <number>9</number>
            </property>
           </layout>
          </widget>

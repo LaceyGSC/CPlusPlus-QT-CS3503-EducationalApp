@@ -91,10 +91,14 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     mWorldCanvas->setParent(mUi->worldBox);
     mUi->gridLayout_3->addWidget(&*mWorldCanvas);
 
+    mPlayer.setParent(mUi->playerBox);
+    mUi->formLayout_4->addWidget(&mPlayer);
+
     mSettingsUI->setParent(mUi->settingsBox);
     mUi->formLayout_3->addWidget(&*mSettingsUI);
 
     mWorldCanvas->show();
+    mPlayer.show();
     mSettingsUI->show();
 }
 

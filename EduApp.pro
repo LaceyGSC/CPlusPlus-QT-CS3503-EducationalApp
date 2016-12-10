@@ -35,11 +35,11 @@ SOURCES += \
     src/QuickPlantAnalyzer.cpp \
     src/WorldCanvas.cpp \
     src/TileManager.cpp \
-    src/Player.cpp \
     src/SettingsUI.cpp \
     src/TitleState.cpp \
     src/SplashScreen.cpp \
-    src/ManualDialog.cpp
+    src/ManualDialog.cpp \
+    src/Player.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -66,11 +66,11 @@ HEADERS += \
     src/Identifiers.h \
     src/WorldCanvas.h \
     src/TileManager.h \
-    src/Player.h \
     src/SettingsUI.h \
     src/TitleState.h \
     src/SplashScreen.h \
-    src/ManualDialog.h
+    src/ManualDialog.h \
+    src/Player.h
 
 FORMS += \
     src/Application.ui \
@@ -83,7 +83,8 @@ FORMS += \
     src/QuickPlantAnalyzer.ui \
     src/SettingsUI.ui \
     src/ManualDialog.ui \
-    src/TitleState.ui
+    src/TitleState.ui \
+    src/Player.ui
     src/TitleState.ui
 
 RESOURCES += \
