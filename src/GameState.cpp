@@ -23,6 +23,7 @@
 #include "SQCollectProperties.h"
 #include "SQCollectType.h"
 #include "SettingsUI.h"
+#include "Satchel.h"
 
 #include <vector>
 
@@ -47,7 +48,8 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     , mSettings()
     , mPlayer()
     , mSettingsUI(new SettingsUI(GameContext(mLevelManager, mTileManager, mSettings, mPlayer)))
-    , mWorldCanvas(new WorldCanvas(QPoint(0, 0), QSize(400, 400), context, GameContext(mLevelManager, mTileManager, mSettings, mPlayer)))
+    , mSatchel(new Satchel(context, GameContext(mLevelManager, mTileManager, mSettings, mPlayer)))
+    , mWorldCanvas(new WorldCanvas(QPoint(0, 0), QSize(400, 400), context, GameContext(mLevelManager, mTileManager, mSettings, mPlayer), &*mSatchel))
     , mPlantodex()
 {   
     mUi->setupUi(this);
@@ -62,22 +64,11 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     // Display the game state widget
     this->show();
 
-    // Sets the column ratio for Left : Mid : Right to 1 : 3 : 1
-
+    // Sets the column ratio to 1 : 3 : 1 : 2
     mUi->gameContainer->setColumnStretch(0, 1);
-    mUi->gameContainer->setColumnStretch(1, 3);
+    mUi->gameContainer->setColumnStretch(1, 2);
     mUi->gameContainer->setColumnStretch(2, 1);
-
-    //load world textures
-    /*const QMetaObject &tempMeta =Textures::staticMetaObject; //enumeration over enums coutesy of: http://stackoverflow.com/questions/25393257/unable-to-iterate-over-a-qt-enumeration
-    QMetaEnum tempEnum = tempMeta.enumerator(0);
-    for(int i = 0; i < tempEnum.keyCount();i++)
-    {
-        std::string tempstr = "qrc:/../media/Textures/";
-        tempstr += tempEnum.key(i);
-        tempstr +=".png";
-        getContext().textures.load(i, tempstr);
-    }*/
+    mUi->gameContainer->setColumnStretch(3, 2);
 
     QObject::connect(mUi->pushButton, SIGNAL(pressed()), this, SLOT(start()));
     QObject::connect(mUi->plantodexButton, SIGNAL(pressed()), this, SLOT(showPlantodex()));
@@ -96,8 +87,12 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     mSettingsUI->setParent(mUi->settingsBox);
     mUi->formLayout_3->addWidget(&*mSettingsUI);
 
+    mSatchel->setParent(mUi->inventoryBox);
+    mUi->gridLayout_4->addWidget(&*mSatchel);
+
     mWorldCanvas->show();
     mPlayer.show();
+    mSatchel->show();
     mSettingsUI->show();
 }
 

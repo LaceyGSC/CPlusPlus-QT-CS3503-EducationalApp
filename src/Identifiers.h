@@ -44,7 +44,15 @@ namespace Tiles
         SFMLLogo,
         Box2DLogo,
         QtLogo,
-        TitleLogo
+        TitleLogo,
+
+        // Backpack (Satchel)
+        SatchelTop,
+        SatchelBottom,
+        SatchelRight,
+        SatchelLeft,
+
+        Satchel
     };
 }
 

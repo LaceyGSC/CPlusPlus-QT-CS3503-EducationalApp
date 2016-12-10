@@ -18,6 +18,7 @@
 #include "qdebug.h"
 #include "Commands.h"
 #include "GameState.h"
+#include "Satchel.h"
 
 #include <iostream>
 
@@ -26,9 +27,10 @@ const sf::Vector2i WorldCanvas::TILE_DIMENSION = sf::Vector2i(32, 32);
 // Number of tiles displayed (column, row)
 const sf::Vector2i WorldCanvas::DISPLAY_DIMENSION = sf::Vector2i(19, 19);
 
-WorldCanvas::WorldCanvas(const QPoint &pos, const QSize &size, State::Context context, GameState::GameContext gameContext, QWidget *parent)
+WorldCanvas::WorldCanvas(const QPoint &pos, const QSize &size, State::Context context, GameState::GameContext gameContext, Satchel *satchel, QWidget *parent)
     : QSFMLWidget(pos, size, context, parent)
     , mGameContext(gameContext)
+    , mSatchel(satchel)
     , mSprite()
     , mCharacter()
 {
@@ -258,6 +260,7 @@ void WorldCanvas::movePlayer(const std::complex<int> &movement, Directions::ID d
             {
                 level.addPickedPlant(nextPosition);
                 level.update(&*std::unique_ptr<PickUp>(new PickUp(getPlantType(nextPosition), 1)));
+                mSatchel->spawnItem(getPlantType(nextPosition));
             }
             level.movePlayer(movement);
             level.update(&*std::unique_ptr<Move>(new Move(direction, 1)));
@@ -274,6 +277,7 @@ void WorldCanvas::movePlayer(const std::complex<int> &movement, Directions::ID d
                 {
                     level.addPickedPlant(nextPosition);
                     level.update(&*std::unique_ptr<PickUp>(new PickUp(getPlantType(nextPosition), 1)));
+                    mSatchel->spawnItem(getPlantType(nextPosition));
                 }
                 level.movePlayer(movement);
                 level.update(&*std::unique_ptr<Move>(new Move(direction, 1)));
