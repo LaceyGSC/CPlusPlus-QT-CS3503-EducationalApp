@@ -82,6 +82,14 @@ void MainWindow::getPackets()
         {
                 queryDatabasePlant();
         }
+        else if(queryList.at(0) == "all")
+        {
+            queryDatabaseUserAll();
+        }
+        else if(queryList.at(0) == "single")
+        {
+                queryDatabaseUserSingle(queryList.at(1));
+        }
         else if(queryList.at(0) == "webpage")
         {
                 createWebPage();
@@ -142,8 +150,97 @@ void MainWindow::queryDatabasePlant()
     packet << returnChars;
     client.send(packet);
 
-//    packet << returnChars;
-//   client.send(packet);
+}
+
+void MainWindow::queryDatabaseUserSingle(QString name)
+{
+    sf::Packet packet;
+    std::stringstream packetStream;
+    const char* returnChars;
+    QSqlQuery query(db);
+
+    QString theQuery = "Select * from Users where username = \"" + name + "\"";
+
+    query.exec(theQuery);
+
+    //send back user data
+    while (query.next())
+    {
+        int userID = query.value(0).toInt();
+        QString username = query.value(1).toString();
+        QString pass = query.value(2).toString();
+        int currentLevel = query.value(3).toInt();
+        int currentQuest = query.value(4).toInt();
+        QString currentSubQuest = query.value(5).toString();
+        QString currentProgress = query.value(6).toString();
+        QTime totalTime = query.value(7).toTime();
+        int points = query.value(8).toInt();
+
+        packetStream << userID <<"\n"
+                     << username.toStdString() << "\n"
+                     << pass.toStdString() << "\n"
+                     << currentLevel << "\n"
+                     << currentQuest << "\n"
+                     << currentSubQuest.toStdString() << "\n"
+                     << currentProgress.toStdString() << "\n"
+                     << totalTime.toString().toStdString() << "\n"
+                     << points << "\n";
+
+    }
+
+    //Creates string from stringstream, needed to get const char*
+    std::string returnString(packetStream.str());
+    //Creates const char* to add into returning packet
+    returnChars = returnString.c_str();
+
+    packet << returnChars;
+    client.send(packet);
+
+}
+
+void MainWindow::queryDatabaseUserAll()
+{
+    sf::Packet packet;
+    std::stringstream packetStream;
+    const char* returnChars;
+    QSqlQuery query(db);
+
+    QString theQuery = "Select * from Users";
+
+    query.exec(theQuery);
+
+    //send back user data
+    while (query.next())
+    {
+        int userID = query.value(0).toInt();
+        QString username = query.value(1).toString();
+        QString pass = query.value(2).toString();
+        int currentLevel = query.value(3).toInt();
+        int currentQuest = query.value(4).toInt();
+        QString currentSubQuest = query.value(5).toString();
+        QString currentProgress = query.value(6).toString();
+        QTime totalTime = query.value(7).toTime();
+        int points = query.value(8).toInt();
+
+        packetStream << userID <<"\n"
+                     << username.toStdString() << "\n"
+                     << pass.toStdString() << "\n"
+                     << currentLevel << "\n"
+                     << currentQuest << "\n"
+                     << currentSubQuest.toStdString() << "\n"
+                     << currentProgress.toStdString() << "\n"
+                     << totalTime.toString().toStdString() << "\n"
+                     << points << "\n";
+
+    }
+
+    //Creates string from stringstream, needed to get const char*
+    std::string returnString(packetStream.str());
+    //Creates const char* to add into returning packet
+    returnChars = returnString.c_str();
+
+    packet << returnChars;
+    client.send(packet);
 
 }
 
@@ -167,6 +264,8 @@ void MainWindow::queryDatabaseUserLogin(QString name, QString password)
             packet << "0";
 
             client.send(packet);
+
+            queryDatabaseUserSingle(name);
     }
     else
     {
@@ -176,54 +275,13 @@ void MainWindow::queryDatabaseUserLogin(QString name, QString password)
             packet << "2";
 
             client.send(packet);
-
-            packet.clear();
-
         }
         else
         {
             //send back number for single success, non admin
             packet << "1";
             client.send(packet);
-
-            packet.clear();
-
         }
-
-        theQuery = "Select * from Users";
-
-        query.exec(theQuery);
-
-        //send back user data
-        while (query.next())
-        {
-            int userID = query.value(0).toInt();
-            QString username = query.value(1).toString();
-            QString pass = query.value(2).toString();
-            int currentLevel = query.value(3).toInt();
-            int currentQuest = query.value(4).toInt();
-            QString currentSubQuest = query.value(5).toString();
-            QString currentProgress = query.value(6).toString();
-            QTime totalTime = query.value(7).toTime();
-
-            packetStream << userID <<"\n"
-                         << username.toStdString() << "\n"
-                         << pass.toStdString() << "\n"
-                         << currentLevel << "\n"
-                         << currentQuest << "\n"
-                         << currentSubQuest.toStdString() << "\n"
-                         << currentProgress.toStdString() << "\n"
-                         << totalTime.toString().toStdString() << "\n";
-
-        }
-
-        //Creates string from stringstream, needed to get const char*
-        std::string returnString(packetStream.str());
-        //Creates const char* to add into returning packet
-        returnChars = returnString.c_str();
-
-        packet << returnChars;
-        client.send(packet);
     }
 }
 

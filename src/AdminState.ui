@@ -250,6 +250,32 @@
     <string>Log Out</string>
    </property>
   </widget>
+  <widget class="QLabel" name="cPointsLabel">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>340</y>
+     <width>81</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Current Points:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cPointsLine">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>330</y>
+     <width>113</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

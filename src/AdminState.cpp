@@ -14,7 +14,10 @@ AdminState::AdminState(StateStack &stack, Context &context, QWidget *parent) :
     connect(ui->logOutButton, SIGNAL(pressed()), this, SLOT(logSlot()));
     connect(ui->studentTable, SIGNAL(cellClicked(int,int)),this, SLOT(selectedSlot(int, int)));
 
+    getContext().connection.sendPacket("all");
+
     createArray();
+
 }
 
 AdminState::~AdminState()
@@ -41,6 +44,7 @@ void AdminState::createArray()
      QString currentSubQuest;
      QString currentProgress;
      QString currentTime;
+     int totalPoints;
 
      std::vector<int> cSQ;
      std::vector<int> cSP;
@@ -63,6 +67,8 @@ void AdminState::createArray()
          currentProgress = queryList.at(i);
          i++;
          currentTime = queryList.at(i);
+         i++;
+         totalPoints = queryList.at(i).toInt();
 
          QStringList subQuestList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
          QStringList subProgList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
@@ -80,7 +86,7 @@ void AdminState::createArray()
 
          QTime totalTime(timeParts.at(0).toInt(),timeParts.at(1).toInt(),timeParts.at(2).toInt(),0);
 
-         characterVect.push_back(Character(userID,username,password,currentLevel,currentQuest,cSQ,cSP,totalTime));
+         characterVect.push_back(Character(userID,username,password,currentLevel,currentQuest,cSQ,cSP,totalTime,totalPoints));
      }
 
      //Populates the table with the list of characters
@@ -160,6 +166,9 @@ void AdminState::selectedSlot(int i, int c)
     this->ui->cQuestLine->setText(s);
     s = characterVect.at(i).totalTime.toString();
     this->ui->cProgressLine->setText(s);
+    s = QString::number(characterVect.at(i).totalPoints);
+    this->ui->cPointsLine->setText(s);
+
 
     //Sets the master number index for deletion
     masterNum = i;

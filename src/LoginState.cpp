@@ -86,33 +86,34 @@ void LoginState::loginSlot()
         //Gets result from packet, 1 is success
         // empty string indicates issue with server
         QString resultNum = getContext().connection.getPacket();
-
-        if(resultNum == "0")
+        if(resultNum == "" )
         {
-            ui->notifyLabel->setText("Login failed, please verify information or contact administrator");
+            ui->notifyLabel->setText("Server Connection Error");
         }
-        else if ( resultNum == "1")
+        else
         {
-            //Successful login to non admin account
+            if(resultNum == "0")
+            {
+                ui->notifyLabel->setText("Login failed, please verify information or contact administrator");
+            }
+            else if ( resultNum == "1")
+            {
+                //Successful login to non admin account
 
-            //Moves onto the World screen
-            requestStackPop();
-            requestStackPush(States::ID::GameState);
-        }
-        else if (resultNum == "2")
-        {
-            //Successful login to Admin account
+                //Moves onto the World screen
+                requestStackPop();
+                requestStackPush(States::ID::GameState);
+            }
+            else if (resultNum == "2")
+            {
+                //Successful login to Admin account
 
-            requestStackPop();
-            requestStackPush(States::ID::AdminState);
-        }
-        else if(resultNum == "")
-        {
-             ui->notifyLabel->setText("Server Connection Error");
+                requestStackPop();
+                requestStackPush(States::ID::AdminState);
+            }
         }
 
     }
-
 }
 
 void LoginState::cancelSlot()

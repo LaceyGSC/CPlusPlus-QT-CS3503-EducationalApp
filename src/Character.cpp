@@ -5,7 +5,7 @@ Character::Character()
 
 }
 
-Character::Character(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT)
+Character::Character(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT, int tP)
 {
     userID = id;
     username = u;
@@ -15,4 +15,5 @@ Character::Character(QString id, QString u, QString p, int cL, int cQ, std::vect
     currentSubQuest = cS;
     currentProgress = cP;
     totalTime = tT;
+    totalPoints = tP;
 }
