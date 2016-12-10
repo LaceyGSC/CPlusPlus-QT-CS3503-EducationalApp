@@ -48,7 +48,6 @@ void AdminState::createArray()
      int currentLevel;
      int currentQuest;
      QString currentSubQuest;
-     QString currentProgress;
      QString currentTime;
      int totalPoints;
 

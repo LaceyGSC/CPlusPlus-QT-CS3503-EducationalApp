@@ -260,8 +260,6 @@ void MainWindow::queryDatabaseUserLogin(QString name, QString password)
             packet << "0";
 
             client.send(packet);
-
-            queryDatabaseUserSingle(name);
     }
     else
     {
@@ -277,6 +275,8 @@ void MainWindow::queryDatabaseUserLogin(QString name, QString password)
             //send back number for single success, non admin
             packet << "1";
             client.send(packet);
+
+            queryDatabaseUserSingle(name);
         }
     }
 }

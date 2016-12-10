@@ -18,6 +18,7 @@
 #include "LevelManager.h"
 #include "TileManager.h"
 #include "Player.h"
+#include "UserData.h"
 
 #include <memory>
 #include <string>
@@ -70,6 +71,7 @@ private slots:
 
     void            exit();
 
+    void            loadUserData();
 private:
     Ui::GameState  *mUi;
 
@@ -86,9 +88,10 @@ private:
     std::unique_ptr<WorldCanvas> mWorldCanvas;
 
     Plantodex       mPlantodex;
+    UserData        mUserData;
+    QTime           mTime;
 
     QString         packetData;
-  //  Character       mCharacter;
 };
 
 #endif // GAMESTATE_H

@@ -94,6 +94,9 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     mPlayer.show();
     mSatchel->show();
     mSettingsUI->show();
+
+
+    loadUserData();
 }
 
 GameState::~GameState()
@@ -147,10 +150,85 @@ void GameState::showPlantodex()
     mPlantodex.show();
 }
 
+void GameState::loadUserData()
+{
+    QString loadedData = getContext().connection.getPacket();
+
+    QStringList queryList = loadedData.split(QRegExp("\\n+"), QString::SkipEmptyParts);
+
+    QString userID;
+    QString username;
+    QString password;
+    int currentLevel;
+    int currentQuest;
+    QString currentSubQuest;
+    QString currentTime;
+    int totalPoints;
+
+    QStringList subQuestList;
+    QStringList timeParts;
+    std::vector<int> cSQ;
+
+    //Iterates through divided list of variables, stores in array of characters
+    for(int i = 0; i < queryList.size(); i++)
+    {
+        mUserData.userID = queryList.at(i);
+        i++;
+        mUserData.username = queryList.at(i);
+        i++;
+        mUserData.password = queryList.at(i);
+        i++;
+        mUserData.currentLevel = queryList.at(i).toInt();
+        i++;
+        mUserData.currentQuest = queryList.at(i).toInt();
+        i++;
+
+        currentSubQuest = queryList.at(i);
+        i++;
+        currentTime = queryList.at(i);
+        i++;
+        subQuestList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+        timeParts = currentTime.split(QRegExp(":+"), QString::SkipEmptyParts);
+
+        mUserData.totalPoints = queryList.at(i).toInt();
+
+        for(int j = 0; j < subQuestList.size(); j++)
+        {
+            cSQ.push_back(subQuestList.at(j).toInt());
+        }
+
+        QTime totalTime(timeParts.at(0).toInt(),timeParts.at(1).toInt(),timeParts.at(2).toInt(),0);
+
+        mUserData.totalTime = totalTime;
+        mUserData.currentSubQuest = cSQ;
+    }
+
+    //Add totalTime to a new QTime
+    mTime.setHMS(timeParts.at(0).toInt(),timeParts.at(1).toInt(),timeParts.at(2).toInt(),0);
+    //Start time
+    mTime.start();
+
+}
+
 void GameState::exit()
 {
-    // Save to database here
 
+    // Save to database here
+   std::stringstream toSendStream;
+
+   toSendStream << "update\n" << mUserData.userID.toStdString()
+                << "\n" << mUserData.currentLevel
+                << "\n" << getLevelData()
+                << "\n" << mTime.hour()
+                << ":"  << mTime.minute()
+                << ":"  << mTime.second()
+                << "\n" << mUserData.totalPoints
+                << "\n";
+
+
+   std::string returnString(toSendStream.str());
+
+   getContext().connection.sendPacket(returnString);
 
     requestStackPop();
     requestStackPush(States::ID::LoginState);
