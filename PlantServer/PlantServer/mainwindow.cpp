@@ -336,7 +336,7 @@ void MainWindow::queryDatabaseUserDelete(QString name)
 void MainWindow::createWebPage()
 {
     std::ofstream outFile;
-    outFile.open("../../webpage.html");
+    outFile.open("..\..\webpage.html");
 
     QString theQuery = "Select * from Users";
     QSqlQuery query(db);
@@ -344,7 +344,7 @@ void MainWindow::createWebPage()
     std::stringstream htmlpage;
     htmlpage << "<html><head><title>PlantQuest Heuristics</title></head>"
     "<body><table align='left' border='1' cellpadding=\"10\"><caption align='top'><h2> Student List</h2>"
-    "<tr><th> Student ID </th><th> Username </th><th> Password </th><th> Current Level</th><th> Current Quest </th><th> Current Progress </th></tr>";
+    "<tr><th> Student ID </th><th> Username </th><th> Current Level</th><th> Current Quest </th><th> Current Time Played</th><th> Current Points </th></tr>";
 
     query.exec(theQuery);
 
@@ -352,19 +352,19 @@ void MainWindow::createWebPage()
     {
         int userID = query.value(0).toInt();
         QString username = query.value(1).toString();
-        QString pass = query.value(2).toString();
         int currentLevel = query.value(3).toInt();
         int currentQuest = query.value(4).toInt();
-        int currentProgress = query.value(6).toInt();
+        QTime totalTime = query.value(7).toTime();
+        int points = query.value(8).toInt();
 
         htmlpage << "<tr>";
 
         htmlpage << "<td>"<< userID << "</td>"
                  << "<td>"<< username.toStdString() << "</td>"
-                 << "<td>"<< pass.toStdString() << "</td>"
                  << "<td>"<< currentLevel << "</td>"
                  << "<td>"<< currentQuest << "</td>"
-                 << "<td>"<< currentProgress << "</td>";
+                 << "<td>"<< totalTime.toString().toStdString()<< "</td>"
+                 << "<td>"<< points << "</td>";
 
         htmlpage << "</tr>";
     }
@@ -382,7 +382,7 @@ void MainWindow::createWebPage()
 
     outFile << htmlpage.rdbuf();
 
-    QDesktopServices::openUrl(QUrl("../../webpage.html"));
+    QDesktopServices::openUrl(QUrl("..\..\webpage.html"));
 
     outFile.close();
 }
