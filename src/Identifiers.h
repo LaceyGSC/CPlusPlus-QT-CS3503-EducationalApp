@@ -82,7 +82,7 @@ namespace Properties
      * */
 }
 
-namespace States { enum class ID { None, TitleState, GameState, LoginState }; }
+namespace States { enum class ID { None, TitleState, GameState, LoginState, AdminState }; }
 
 namespace Directions { enum class ID { None, Up, Down, Left, Right }; }
 

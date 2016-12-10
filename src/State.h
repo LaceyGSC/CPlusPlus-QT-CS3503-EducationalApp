@@ -13,7 +13,6 @@
 #include <SFML/System.hpp>
 
 #include "Identifiers.h"
-#include "ResourceIdentifiers.h"
 #include "ServerConnection.h"
 
 #include <memory>

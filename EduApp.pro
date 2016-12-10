@@ -14,14 +14,12 @@ TEMPLATE = app
 SOURCES += \
     src/Main.cpp \
     src/QSFMLWidget.cpp \
-    src/World.cpp \
     src/ResourceManager.inl \
     src/Application.cpp \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
     src/LoginState.cpp \
-    src/FractalExspressionEvaluator.cpp \
     src/ServerConnection.cpp \
     src/Plantodex.cpp \
     src/AdminState.cpp \
@@ -42,17 +40,15 @@ SOURCES += \
     src/TitleState.cpp \
     src/SplashScreen.cpp \
     src/ManualDialog.cpp \
-    src/Player.cpp
+    src/Player.cpp \
+    src/FractalExpressionEvaluator.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
-    src/World.h \
     src/ResourceManager.h \
-    src/ResourceIdentifiers.h \
     src/Application.h \
     src/State.h \
     src/StateStack.h \
-    src/StateIdentifiers.h \
     src/GameState.h \
     src/FractalExpressionEvaluator.h \
     src/ServerConnection.h \

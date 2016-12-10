@@ -249,8 +249,6 @@ void MainWindow::queryDatabaseUserAll()
 void MainWindow::queryDatabaseUserLogin(QString name, QString password)
 {
     sf::Packet packet;
-    std::stringstream packetStream;
-    const char* returnChars;
     QSqlQuery query(db);
 
     QString theQuery = "Select * from Users where username = \"" + name + "\" and password = \"" + password +"\"";
