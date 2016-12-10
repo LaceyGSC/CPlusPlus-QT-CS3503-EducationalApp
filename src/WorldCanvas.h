@@ -20,7 +20,7 @@
 class WorldCanvas : public QSFMLWidget
 {
 public :
-    explicit        WorldCanvas(const QPoint &pos, const QSize &size, State::Context context, GameState::GameContext gameContext, QWidget *parent = 0);
+    explicit        WorldCanvas(const QPoint &pos, const QSize &size, State::Context context, GameState::GameContext gameContext, Satchel *satchel, QWidget *parent = 0);
 
     virtual void    onInit();
     virtual void    onDraw(sf::RenderTarget &target, sf::RenderStates states);
@@ -57,6 +57,8 @@ private:
     static const sf::Vector2i DISPLAY_DIMENSION;
 
     GameState::GameContext mGameContext;
+
+    Satchel* mSatchel;
 
     //drawingData
     sf::Sprite  mSprite;

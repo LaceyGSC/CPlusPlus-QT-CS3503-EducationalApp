@@ -41,7 +41,8 @@ SOURCES += \
     src/ManualDialog.cpp \
     src/Player.cpp \
     src/FractalExpressionEvaluator.cpp \
-    src/UserData.cpp
+    src/UserData.cpp \
+    src/Satchel.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -74,7 +75,8 @@ HEADERS += \
     src/SplashScreen.h \
     src/ManualDialog.h \
     src/Player.h \
-    src/UserData.h
+    src/UserData.h \
+    src/Satchel.h
 
 FORMS += \
     src/Application.ui \

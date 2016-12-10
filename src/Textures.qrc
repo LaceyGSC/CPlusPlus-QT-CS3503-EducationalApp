@@ -14,47 +14,19 @@
         <file>../media/Textures/RedSand.png</file>
         <file>../media/Textures/ShallowFreshWater.png</file>
         <file>../media/Textures/ShallowSaltWater.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Meme.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Down.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Left.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Right.png</file>
-    </qresource>
-    <qresource prefix="/">
         <file>../media/Textures/Up.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/up.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/down.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/left.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/right.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/sprite_catnip-01.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/sprite_cattail-01.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/sprite_lavender-01.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/sprite_sage-01.png</file>
-    </qresource>
-	<qresource prefix="/">
         <file>../media/Textures/sprite_teaTree-01.png</file>
         <file>../media/Textures/meme.png</file>
         <file>../media/Textures/Box2DLogo.png</file>
@@ -62,5 +34,10 @@
         <file>../media/Textures/SFMLLogo.png</file>
         <file>../media/Textures/TitleLogo.png</file>
         <file>../media/Fonts/ARHERMANN.ttf</file>
+        <file>../media/Textures/satchelbottom.png</file>
+        <file>../media/Textures/satchelleft.png</file>
+        <file>../media/Textures/satchelright.png</file>
+        <file>../media/Textures/satcheltop.png</file>
+        <file>../media/Textures/Satchel.png</file>
     </qresource>
 </RCC>

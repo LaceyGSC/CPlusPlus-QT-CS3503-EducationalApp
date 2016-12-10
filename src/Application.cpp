@@ -97,6 +97,11 @@ void Application::loadTextures()
     mTextures.load(Tiles::ID::FaceDown           , "qrc:/../media/Textures/Down.png");
     mTextures.load(Tiles::ID::FaceRight          , "qrc:/../media/Textures/Right.png");
     mTextures.load(Tiles::ID::FaceLeft           , "qrc:/../media/Textures/Left.png");
+
+    mTextures.load(Tiles::ID::Satchel            , "qrc:/../media/Textures/Satchel.png");
+
+
+    mTextures.get(Tiles::ID::Satchel).setSmooth(true);
 }
 
 void Application::gameLoop()

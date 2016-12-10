@@ -28,6 +28,7 @@ namespace Ui {
 
 class WorldCanvas;
 class SettingsUI;
+class Satchel;
 
 class GameState : public State
 {
@@ -80,6 +81,7 @@ private:
 
     // Forward declaration requires these to be a pointer or reference
     std::unique_ptr<SettingsUI> mSettingsUI;
+    std::unique_ptr<Satchel> mSatchel;
     // SFML sprites should be declared in the World class and drawn there
     std::unique_ptr<WorldCanvas> mWorldCanvas;
 
