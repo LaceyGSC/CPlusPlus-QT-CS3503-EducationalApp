@@ -20,6 +20,7 @@
 #include "Player.h"
 
 #include <memory>
+#include <string>
 
 namespace Ui {
     class GameState;
@@ -54,6 +55,8 @@ public:
                     ~GameState();
 
     virtual bool    update(const sf::Time &deltaTime);
+
+    std::string     getLevelData() const;
 
 private:
     void            registerTiles();

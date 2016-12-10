@@ -24,6 +24,8 @@
 #include "SQCollectType.h"
 #include "SettingsUI.h"
 
+#include <vector>
+
 GameState::Settings::Settings()
     : quickTurn(true)
 {
@@ -110,6 +112,31 @@ bool GameState::update(const sf::Time &deltaTime)
     return true;
 }
 
+std::string GameState::getLevelData() const
+{
+    std::vector<int> intData;
+
+    std::string levelData = "";
+
+    for (auto &levelIt : mLevelManager.getLevels())
+    {
+        // Process main quests first
+        for (auto &questIt : levelIt->getMainQuests())
+            for (auto &subQIt : questIt->getSubQuests())
+                intData.push_back(subQIt->getCompletionValue());
+
+        // Then, optional quests
+        for (auto &questIt : levelIt->getOptionalQuests())
+            for (auto &subQIt : questIt->getSubQuests())
+                intData.push_back(subQIt->getCompletionValue());
+    }
+
+    for (auto &it = intData.rbegin(); it != intData.rend(); ++it)
+        levelData.append(std::to_string(*it) + " ");
+
+    return levelData;
+}
+
 void GameState::start()
 {
     mLevelManager.getCurrentLevel().update(&*std::unique_ptr<PickUp>(new PickUp(Tiles::ID::Catnip, 1)));
@@ -127,7 +154,7 @@ void GameState::showPlantodex()
 
 void GameState::exit()
 {
-    // Save to database here or save whenever something is updated
+    // Save to database here
 
 
     requestStackPop();

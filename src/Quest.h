@@ -39,6 +39,8 @@ public:
     void setHashId(int value);
     int getHashId() const;
 
+    const std::vector<Quest::SubQuestPtr>& getSubQuests() const;
+
 private:
     Ui::Quest *mUi;
 

@@ -26,6 +26,8 @@ public:
 
     virtual void update(Command *command) = 0;
 
+    virtual int getCompletionValue() const = 0;
+
 protected:
     bool mCompleted;
 

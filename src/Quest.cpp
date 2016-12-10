@@ -66,3 +66,8 @@ int Quest::getHashId() const
 {
     return mHashId;
 }
+
+const std::vector<Quest::SubQuestPtr>& Quest::getSubQuests() const
+{
+    return mSubQuests;
+}
