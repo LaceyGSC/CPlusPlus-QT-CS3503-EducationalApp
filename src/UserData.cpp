@@ -5,7 +5,7 @@ UserData::UserData()
 
 }
 
-UserData::UserData(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT, int tP)
+UserData::UserData(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, QTime tT, int tP)
 {
     userID = id;
     username = u;
@@ -13,7 +13,6 @@ UserData::UserData(QString id, QString u, QString p, int cL, int cQ, std::vector
     currentLevel = cL;
     currentQuest = cQ;
     currentSubQuest = cS;
-    currentProgress = cP;
     totalTime = tT;
     totalPoints = tP;
 }

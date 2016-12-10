@@ -70,14 +70,11 @@ void AdminState::createArray()
          i++;
          currentSubQuest = queryList.at(i);
          i++;
-         currentProgress = queryList.at(i);
-         i++;
          currentTime = queryList.at(i);
          i++;
          totalPoints = queryList.at(i).toInt();
 
          QStringList subQuestList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
-         QStringList subProgList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
          QStringList timeParts = currentTime.split(QRegExp(":+"), QString::SkipEmptyParts);
 
          for(int j = 0; j < subQuestList.size(); j++)
@@ -85,14 +82,9 @@ void AdminState::createArray()
              cSQ.push_back(subQuestList.at(j).toInt());
          }
 
-         for(int k = 0; k < subQuestList.size(); k++)
-         {
-             cSP.push_back(subProgList.at(k).toInt());
-         }
-
          QTime totalTime(timeParts.at(0).toInt(),timeParts.at(1).toInt(),timeParts.at(2).toInt(),0);
 
-         characterVect.push_back(UserData(userID,username,password,currentLevel,currentQuest,cSQ,cSP,totalTime,totalPoints));
+         characterVect.push_back(UserData(userID,username,password,currentLevel,currentQuest,cSQ,totalTime,totalPoints));
      }
 
      //Populates the table with the list of characters

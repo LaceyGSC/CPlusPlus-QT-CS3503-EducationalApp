@@ -174,9 +174,8 @@ void MainWindow::queryDatabaseUserSingle(QString name)
         int currentLevel = query.value(3).toInt();
         int currentQuest = query.value(4).toInt();
         QString currentSubQuest = query.value(5).toString();
-        QString currentProgress = query.value(6).toString();
-        QTime totalTime = query.value(7).toTime();
-        int points = query.value(8).toInt();
+        QTime totalTime = query.value(6).toTime();
+        int points = query.value(7).toInt();
 
         packetStream << userID <<"\n"
                      << username.toStdString() << "\n"
@@ -184,7 +183,6 @@ void MainWindow::queryDatabaseUserSingle(QString name)
                      << currentLevel << "\n"
                      << currentQuest << "\n"
                      << currentSubQuest.toStdString() << "\n"
-                     << currentProgress.toStdString() << "\n"
                      << totalTime.toString().toStdString() << "\n"
                      << points << "\n";
 
@@ -220,9 +218,8 @@ void MainWindow::queryDatabaseUserAll()
         int currentLevel = query.value(3).toInt();
         int currentQuest = query.value(4).toInt();
         QString currentSubQuest = query.value(5).toString();
-        QString currentProgress = query.value(6).toString();
-        QTime totalTime = query.value(7).toTime();
-        int points = query.value(8).toInt();
+        QTime totalTime = query.value(6).toTime();
+        int points = query.value(7).toInt();
 
         packetStream << userID <<"\n"
                      << username.toStdString() << "\n"
@@ -230,7 +227,6 @@ void MainWindow::queryDatabaseUserAll()
                      << currentLevel << "\n"
                      << currentQuest << "\n"
                      << currentSubQuest.toStdString() << "\n"
-                     << currentProgress.toStdString() << "\n"
                      << totalTime.toString().toStdString() << "\n"
                      << points << "\n";
 
