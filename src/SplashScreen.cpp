@@ -133,7 +133,10 @@ void SplashScreen::resizeEvent(QResizeEvent *event)
     QSFMLWidget::resizeEvent(event);
     //mCanvas.setPosition(sf::Vector2i(event->size().width() / 2 - mCanvas.getSize().x / 2, event->size().height() / 2 - mCanvas.getSize().y / 2));
     //setStyleSheet("background-color:white;");
-    mCanvas.setSize(sf::Vector2u(event->size().width(), event->size().height()));
+
+    #ifndef __APPLE__
+    mCanvas.setSize(sf::Vector2u(event->size().width(), event->size().height())); //this line causes gaurenteed crashes on open
+    #endif
 }
 
 bool SplashScreen::update(const sf::Time &deltaTime)

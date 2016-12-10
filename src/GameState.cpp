@@ -129,9 +129,10 @@ std::string GameState::getLevelData() const
                 intData.push_back(subQIt->getCompletionValue());
     }
 
-    for (auto &it = intData.rbegin(); it != intData.rend(); ++it)
+    for (auto it = intData.rbegin(); it != intData.rend(); ++it)
+    {
         levelData.append(std::to_string(*it) + " ");
-
+    }
     return levelData;
 }
 
