@@ -9,7 +9,7 @@
 struct UserData
 {
     UserData();
-    UserData(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, std::vector<int> cP, QTime tT, int tP);
+    UserData(QString id, QString u, QString p, int cL, int cQ, std::vector<int> cS, QTime tT, int tP);
     QString userID;
     QString username;
     QString password;
@@ -18,7 +18,6 @@ struct UserData
     int currentQuest;
     int totalPoints;
     std::vector<int> currentSubQuest;
-    std::vector<int> currentProgress;
 };
 
 #endif // CHARACTER_H
