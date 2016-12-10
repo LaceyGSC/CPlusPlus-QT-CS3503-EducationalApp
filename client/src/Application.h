@@ -19,6 +19,7 @@
 #include "Identifiers.h"
 #include "ResourceManager.h"
 #include "ManualDialog.h"
+#include "MusicPlayer.h"
 
 #include <memory>
 
@@ -73,6 +74,7 @@ private:
     TextureManager          mTextures;
     ServerConnection        mConnection;
     FontManager             mFonts;
+    MusicPlayer             mMusic;
 };
 
 #endif // APPLICATION_H

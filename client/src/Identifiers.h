@@ -129,14 +129,6 @@ struct EnumClassHash
     }
 };
 
-struct EnumClassHashMusic
-{
-    std::size_t operator()(Music::ID id, Music::ID id2) const
-    {
-        return static_cast<std::size_t>(id);
-    }
-};
-
 // Courtesy of :
 // http://stackoverflow.com/questions/18098178/how-do-i-use-unordered-set
 

@@ -9,9 +9,10 @@
 
 #include "Identifiers.h"
 
-State::Context::Context(TextureManager &textures, FontManager &fonts, ServerConnection &connection)
+State::Context::Context(TextureManager &textures, FontManager &fonts, MusicPlayer &music, ServerConnection &connection)
     : textures(textures)
     , fonts(fonts)
+    , music(music)
     , connection(connection)
 {
 }

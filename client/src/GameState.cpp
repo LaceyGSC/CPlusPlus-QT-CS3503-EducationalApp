@@ -95,6 +95,7 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     mSatchel->show();
     mSettingsUI->show();
 
+    getContext().music.play(Music::ID::Game);
 
     loadUserData();
 }

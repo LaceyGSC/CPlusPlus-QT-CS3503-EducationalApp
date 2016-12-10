@@ -24,8 +24,7 @@ SOURCES += \
 
 EXTDIR = $$PWD/../ext
 
-!macx
-{
+!macx{
 LIBS += -L$${EXTDIR}/SFML-2.4.1/lib
 
 CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system
@@ -38,8 +37,7 @@ CONFIG(release, debug|release): LIBS += -L$${EXTDIR}/MySQL/ -llibmysql
 CONFIG(debug, debug|release): LIBS += -L$${EXTDIR}/MySQL/ -llibmysql
 }
 
-macx
-{
+macx{
 QMAKE_MAC_SDK = macosx10.12
 
 LIBS += -L"/usr/local/lib" -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window

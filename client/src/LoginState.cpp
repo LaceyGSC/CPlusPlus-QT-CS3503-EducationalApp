@@ -25,6 +25,8 @@ LoginState::LoginState(StateStack &stack, Context &context, QWidget *parent) :
     connect(ui->loginButton, SIGNAL(pressed()), this, SLOT(loginSlot()));
     connect(ui->createButton, SIGNAL(pressed()), this, SLOT(createSlot()));
     connect(ui->cancelButton, SIGNAL(pressed()), this, SLOT(cancelSlot()));
+
+    getContext().music.play(Music::ID::Login);
 }
 
 LoginState::~LoginState()
