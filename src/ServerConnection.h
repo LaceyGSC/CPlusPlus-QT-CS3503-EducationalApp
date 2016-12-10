@@ -8,7 +8,7 @@ class ServerConnection
 {
 public:
     ServerConnection();
-    void setupConnection();
+    sf::Socket::Status setupConnection();
     void sendPacket(std::string query);
     QString getPacket();
 

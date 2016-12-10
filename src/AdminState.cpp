@@ -128,7 +128,7 @@ void AdminState::deleteSlot()
     if(masterNum != 0)
     {
         std::string userID = characterVect.at(masterNum).userID.toStdString();
-        std::string sendQuery = "delete " + userID;
+        std::string sendQuery = "delete\n" + userID;
         getContext().connection.sendPacket(sendQuery);
 
         this->ui->idLine->setText("");

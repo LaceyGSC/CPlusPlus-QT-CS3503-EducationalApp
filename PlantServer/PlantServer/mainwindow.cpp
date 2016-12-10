@@ -64,7 +64,7 @@ void MainWindow::getPackets()
         qDebug() << "Msg received: " << msg.c_str() << "\n";
         recievedQuery = QString::fromStdString(msg);
 
-        QStringList queryList = recievedQuery.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+        QStringList queryList = recievedQuery.split(QRegExp("\\n+"), QString::SkipEmptyParts);
 
         if(queryList.at(0) == "login")
         {
