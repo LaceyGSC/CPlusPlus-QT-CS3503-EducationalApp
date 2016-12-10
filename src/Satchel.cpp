@@ -44,8 +44,7 @@ void Satchel::onInit()
 //    getContext().textures.load(Tiles::ID::SatchelLeft, "qrc:/../media/Textures/satchelleft.png");
 //    getContext().textures.load(Tiles::ID::SatchelBottom, "qrc:/../media/Textures/satchelbottom.png");
 
-    getContext().textures.load(Tiles::ID::Satchel, "qrc:/../media/Textures/Satchel.png");
-    getContext().textures.get(Tiles::ID::Satchel).setSmooth(true);
+    // Moved texture loading to Application.cpp. Textures should only be loaded once
 }
 
 void Satchel::onDraw(sf::RenderTarget &target, sf::RenderStates states)

@@ -202,7 +202,7 @@ void GameState::registerLevels()
     Level::QuestPtr quest(new Quest("So, you want to be a plant expert?", &*level));
 
     Quest::SubQuestPtr subQ(new SQCollectProperties("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
-                                                    Properties::ID::InsectRepellent, 7, 15, context, &*quest));
+                                                    Properties::ID::InsectRepellent, 0, 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
@@ -217,17 +217,17 @@ void GameState::registerLevels()
 
 
     subQ.reset(new SQCollectSpecific("Gather 8 lavenders.",
-                                     Tiles::ID::Lavender, 7, 8, context, &*quest));
+                                     Tiles::ID::Lavender, 0, 8, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
     subQ.reset(new SQCollectSpecific("Gather 15 cattails.",
-                                     Tiles::ID::Cattail, 12, 15, context, &*quest));
+                                     Tiles::ID::Cattail, 0, 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
     subQ.reset(new SQCollectSpecific("Gather 7 catnips.",
-                                     Tiles::ID::Catnip, 3, 7, context, &*quest));
+                                     Tiles::ID::Catnip, 0, 7, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
@@ -251,7 +251,7 @@ void GameState::registerLevels()
 
     quest.reset(new Quest("Knowledge is power", &*level));
 
-    subQ.reset(new SQCollectType("Gather at least 3 different species of plants.", 2, 3, context, &*quest));
+    subQ.reset(new SQCollectType("Gather at least 3 different species of plants.", 0, 3, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
