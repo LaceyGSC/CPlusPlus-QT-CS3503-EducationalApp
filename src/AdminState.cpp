@@ -34,6 +34,12 @@ void AdminState::createArray()
 {
      //Gets mass packet of user, divides by newline
      QString allUsers = getContext().connection.getPacket();
+
+     while(allUsers == "")
+     {
+         allUsers = getContext().connection.getPacket();
+     }
+
      QStringList queryList = allUsers.split(QRegExp("\\n+"), QString::SkipEmptyParts);
 
      QString userID;
