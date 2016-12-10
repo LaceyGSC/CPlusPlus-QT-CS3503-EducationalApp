@@ -221,7 +221,7 @@ void GameState::registerLevels()
 
     reward->setOnActivate([&] ()
     {
-        qDebug() << "Rewarded Main!";
+        mPlayer.addPoints(150);
     });
 
 
@@ -245,7 +245,7 @@ void GameState::registerLevels()
 
     reward->setOnActivate([&] ()
     {
-        qDebug() << "Rewarded Optional!";
+        mPlayer.addPoints(50);
     });
 
 
@@ -294,7 +294,7 @@ void GameState::registerLevels()
 
     reward->setOnActivate([&] ()
     {
-        qDebug() << "Rewarded Main!";
+        mPlayer.addPoints(50);
     });
 
 

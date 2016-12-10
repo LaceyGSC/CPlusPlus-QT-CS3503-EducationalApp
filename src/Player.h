@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <QWidget>
+#include <QTimer>
 
 #include "Identifiers.h"
 
@@ -20,13 +21,25 @@ public:
     ~Player();
 
     void turn(Directions::ID facing);
-
     Directions::ID getFacing() const;
+
+    void addPoints(int points);
+
+    int getPoints() const;
+
+private slots:
+    void endAnimation();
 
 private:
     Ui::Player *mUi;
 
     Directions::ID mFacing;
+
+    // For animation
+    QTimer mTimer;
+
+    int mPendingPoints;
+    int mPoints;
 };
 
 #endif // PLAYER_H
