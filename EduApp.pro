@@ -88,8 +88,8 @@ FORMS += \
     src/SettingsUI.ui \
     src/ManualDialog.ui \
     src/TitleState.ui \
-    src/Player.ui
-    src/TitleState.ui
+    src/Player.ui  \
+    src/TitleState.ui  \
     src/AdminState.ui
 
 RESOURCES += \
