@@ -133,5 +133,5 @@ DEPENDPATH += $${EXTDIR}/Box2D
 
 PRE_TARGETDEPS += $${EXTDIR}/Box2D/debug/libBox2D.a
 
-QMAKE_POST_LINK="install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
+#QMAKE_POST_LINK="install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
 }
