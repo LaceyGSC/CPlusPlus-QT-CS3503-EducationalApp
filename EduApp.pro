@@ -19,10 +19,11 @@ SOURCES += \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
-    src/FractalExpressionEvaluator.cpp \
     src/LoginState.cpp \
     src/ServerConnection.cpp \
     src/Plantodex.cpp \
+    src/AdminState.cpp \
+    src/Character.cpp  \
     src/Level.cpp \
     src/Quest.cpp \
     src/Commands.cpp \
@@ -39,7 +40,8 @@ SOURCES += \
     src/TitleState.cpp \
     src/SplashScreen.cpp \
     src/ManualDialog.cpp \
-    src/Player.cpp
+    src/Player.cpp \
+    src/FractalExpressionEvaluator.cpp
 
 HEADERS += \
     src/QSFMLWidget.h \
@@ -53,6 +55,8 @@ HEADERS += \
     src/Plantodex.h \
     src/ServerConnection.h \
     src/LoginState.h \
+    src/AdminState.h \
+    src/Character.h  \
     src/Level.h \
     src/Quest.h \
     src/Commands.h \
@@ -86,6 +90,7 @@ FORMS += \
     src/TitleState.ui \
     src/Player.ui
     src/TitleState.ui
+    src/AdminState.ui
 
 RESOURCES += \
     src/Textures.qrc

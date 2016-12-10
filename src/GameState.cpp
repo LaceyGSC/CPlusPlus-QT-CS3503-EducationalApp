@@ -60,9 +60,6 @@ GameState::GameState(StateStack &stack, Context &context, QWidget *parent)
     // Display the game state widget
     this->show();
 
-    // Start the MySQL connection
-    connection.sendPacket("Select * from PlantDatabase");
-
     // Sets the column ratio for Left : Mid : Right to 1 : 3 : 1
 
     mUi->gameContainer->setColumnStretch(0, 1);

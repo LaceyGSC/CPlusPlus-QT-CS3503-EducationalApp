@@ -18,6 +18,7 @@
 #include "TitleState.h"
 #include "GameState.h"
 #include "LoginState.h"
+#include "AdminState.h"
 #include "ServerConnection.h"
 
 // 60 FPS
@@ -27,7 +28,7 @@ Application::Application(QWidget *parent)
     : QMainWindow(parent)
     , mUi(new Ui::Application)
     , mManual(new ManualDialog(this))
-    , mStateStack(State::Context(mTextures, mFonts))
+    , mStateStack(State::Context(mTextures, mFonts,connection))
     , mLoopTimer(this)
     , mElapsedTime(sf::Time::Zero)
     , mClock()
@@ -69,6 +70,7 @@ void Application::registerStates()
     // A grid layout is used as the main layout because it centers its elements
     mStateStack.registerState<TitleState>(States::ID::TitleState, mUi->mainLayout, mUi->mainContainer);
     mStateStack.registerState<LoginState>(States::ID::LoginState, mUi->mainLayout, mUi->mainContainer);
+    mStateStack.registerState<AdminState>(States::ID::AdminState, mUi->mainLayout, mUi->mainContainer);
     mStateStack.registerState<GameState>(States::ID::GameState, mUi->mainLayout, mUi->mainContainer);
 }
 
