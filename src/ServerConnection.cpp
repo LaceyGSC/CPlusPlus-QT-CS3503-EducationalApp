@@ -17,10 +17,12 @@ ServerConnection::ServerConnection()
 
 }
 
-void ServerConnection::setupConnection()
+sf::Socket::Status ServerConnection::setupConnection()
 {
     sf::Socket::Status status = socket.connect(host, port);
     socket.setBlocking(false);
+
+    return status;
 }
 
 void ServerConnection::sendPacket(std::string query)

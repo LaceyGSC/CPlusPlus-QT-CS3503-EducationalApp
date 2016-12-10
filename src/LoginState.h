@@ -5,6 +5,7 @@
 
 #include "State.h"
 #include "StateStack.h"
+#include <SFML/Network.hpp>
 #include "ServerConnection.h"
 
 namespace Ui {
@@ -23,6 +24,7 @@ public:
 
 private:
     Ui::LoginState *ui;
+    sf::Socket::Status status;
 
 private slots:
     void createSlot();
