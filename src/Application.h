@@ -71,6 +71,7 @@ private:
 
     // Resource managers
     TextureManager          mTextures;
+    ServerConnection        connection;
     FontManager             mFonts;
 };
 

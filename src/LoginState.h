@@ -5,6 +5,7 @@
 
 #include "State.h"
 #include "StateStack.h"
+#include "ServerConnection.h"
 
 namespace Ui {
 class LoginState;

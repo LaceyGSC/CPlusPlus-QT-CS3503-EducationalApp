@@ -13,6 +13,8 @@
 #include <SFML/System.hpp>
 
 #include "Identifiers.h"
+#include "ResourceIdentifiers.h"
+#include "ServerConnection.h"
 
 #include <memory>
 
@@ -28,10 +30,11 @@ public:
     // Context allows the states to get resources from the resource managers
     struct Context
     {
-                        Context(TextureManager &textures, FontManager &fonts);
+                        Context(TextureManager &textures, FontManager &fonts, ServerConnection &connection);
 
         TextureManager  &textures;
         FontManager     &fonts;
+        ServerConnection &connection;
     };
 
 public:

@@ -14,15 +14,18 @@ TEMPLATE = app
 SOURCES += \
     src/Main.cpp \
     src/QSFMLWidget.cpp \
+    src/World.cpp \
     src/ResourceManager.inl \
     src/Application.cpp \
     src/State.cpp \
     src/StateStack.cpp \
     src/GameState.cpp \
-    src/FractalExpressionEvaluator.cpp \
     src/LoginState.cpp \
+    src/FractalExspressionEvaluator.cpp \
     src/ServerConnection.cpp \
     src/Plantodex.cpp \
+    src/AdminState.cpp \
+    src/Character.cpp  \
     src/Level.cpp \
     src/Quest.cpp \
     src/Commands.cpp \
@@ -43,16 +46,21 @@ SOURCES += \
 
 HEADERS += \
     src/QSFMLWidget.h \
+    src/World.h \
     src/ResourceManager.h \
+    src/ResourceIdentifiers.h \
     src/Application.h \
     src/State.h \
     src/StateStack.h \
+    src/StateIdentifiers.h \
     src/GameState.h \
     src/FractalExpressionEvaluator.h \
     src/ServerConnection.h \
     src/Plantodex.h \
     src/ServerConnection.h \
     src/LoginState.h \
+    src/AdminState.h \
+    src/Character.h  \
     src/Level.h \
     src/Quest.h \
     src/Commands.h \
@@ -86,6 +94,7 @@ FORMS += \
     src/TitleState.ui \
     src/Player.ui
     src/TitleState.ui
+    src/AdminState.ui
 
 RESOURCES += \
     src/Textures.qrc

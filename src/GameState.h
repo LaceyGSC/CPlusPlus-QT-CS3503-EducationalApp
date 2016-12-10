@@ -80,7 +80,6 @@ private:
     // SFML sprites should be declared in the World class and drawn there
     std::unique_ptr<WorldCanvas> mWorldCanvas;
 
-    ServerConnection connection;
     Plantodex       mPlantodex;
 
     QString         packetData;
