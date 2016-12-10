@@ -24,6 +24,8 @@ SOURCES += \
 
 EXTDIR = $$PWD/../ext
 
+!macx
+{
 LIBS += -L$${EXTDIR}/SFML-2.4.1/lib
 
 CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system
@@ -34,5 +36,16 @@ DEPENDPATH += $${EXTDIR}/SFML-2.4.1/include
 
 CONFIG(release, debug|release): LIBS += -L$${EXTDIR}/MySQL/ -llibmysql
 CONFIG(debug, debug|release): LIBS += -L$${EXTDIR}/MySQL/ -llibmysql
+}
 
+macx
+{
+QMAKE_MAC_SDK = macosx10.12
 
+LIBS += -L"/usr/local/lib" -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window
+
+INCLUDEPATH += "/usr/local/include"
+DEPENDPATH += "/usr/local/include"
+
+QMAKE_POST_LINK="install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
+}

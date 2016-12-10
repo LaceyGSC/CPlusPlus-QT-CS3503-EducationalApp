@@ -43,7 +43,8 @@ SOURCES += \
     src/TileManager.cpp \
     src/TitleState.cpp \
     src/UserData.cpp \
-    src/WorldCanvas.cpp
+    src/WorldCanvas.cpp \
+    src/MusicPlayer.cpp
 
 HEADERS  += \
     src/AdminState.h \
@@ -76,7 +77,8 @@ HEADERS  += \
     src/TileManager.h \
     src/TitleState.h \
     src/UserData.h \
-    src/WorldCanvas.h
+    src/WorldCanvas.h \
+    src/MusicPlayer.h
 
 FORMS    += \
     src/AdminState.ui \
@@ -98,6 +100,8 @@ RESOURCES += \
 
 EXTDIR = $$PWD/../ext
 
+!macx
+{
 LIBS += -L$${EXTDIR}/SFML-2.4.1/lib
 
 CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system
@@ -111,3 +115,23 @@ CONFIG(debug, debug|release): LIBS += -L$${EXTDIR}/Box2D/debug -lBox2D
 
 INCLUDEPATH += $${EXTDIR}/Box2D
 DEPENDPATH += $${EXTDIR}/Box2D
+}
+
+macx
+{
+QMAKE_MAC_SDK = macosx10.12
+
+LIBS += -L"/usr/local/lib" -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window
+
+INCLUDEPATH += "/usr/local/include"
+DEPENDPATH += "/usr/local/include"
+
+LIBS += -L$${EXTDIR}/Box2D/debug/ -lBox2D
+
+INCLUDEPATH += $${EXTDIR}/Box2D
+DEPENDPATH += $${EXTDIR}/Box2D
+
+PRE_TARGETDEPS += $${EXTDIR}/Box2D/debug/libBox2D.a
+
+QMAKE_POST_LINK="install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/lib/ $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp && install_name_tool -add_rpath $${EXTDIR}/SFML-2.4.1-osx-clang/extlibs/Frameworks/vorbisenc.framework/Versions/A/vorbisenc $$OUT_PWD/EduApp.app/Contents/MacOS/EduApp"
+}
