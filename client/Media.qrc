@@ -50,5 +50,7 @@
         <file>../media/Textures/Tree.png</file>
         <file>../media/Textures/up.png</file>
         <file>../media/Textures/Wall.png</file>
+        <file>../media/Music/Sneaky_Adventure_-_Vanoss_Gaming_Background_Music_.ogg</file>
+        <file>../media/Music/The_Happy_Troll_song_-_by_D1ofAquavibe.ogg</file>
     </qresource>
 </RCC>
