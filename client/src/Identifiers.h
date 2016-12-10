@@ -90,6 +90,8 @@ namespace Properties
      * */
 }
 
+namespace Music { enum class ID { Login, Game }; }
+
 namespace States { enum class ID { None, TitleState, GameState, LoginState, AdminState }; }
 
 namespace Directions { enum class ID { None, Up, Down, Left, Right }; }
@@ -124,6 +126,14 @@ struct EnumClassHash
     std::size_t operator()(T t) const
     {
         return static_cast<std::size_t>(t);
+    }
+};
+
+struct EnumClassHashMusic
+{
+    std::size_t operator()(Music::ID id, Music::ID id2) const
+    {
+        return static_cast<std::size_t>(id);
     }
 };
 
