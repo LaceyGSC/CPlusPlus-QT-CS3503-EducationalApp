@@ -100,8 +100,8 @@ RESOURCES += \
 
 EXTDIR = $$PWD/../ext
 
-!macx
-{
+!macx{
+
 LIBS += -L$${EXTDIR}/SFML-2.4.1/lib
 
 CONFIG(release, debug|release): LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system
@@ -117,8 +117,8 @@ INCLUDEPATH += $${EXTDIR}/Box2D
 DEPENDPATH += $${EXTDIR}/Box2D
 }
 
-macx
-{
+macx{
+
 QMAKE_MAC_SDK = macosx10.12
 
 LIBS += -L"/usr/local/lib" -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-network -lsfml-window
