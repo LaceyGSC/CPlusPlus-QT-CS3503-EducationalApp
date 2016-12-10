@@ -1,0 +1,54 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../media/Fonts/ARHERMANN.ttf</file>
+        <file>../media/Images/agave.jpg</file>
+        <file>../media/Images/Barrel Cactus.png</file>
+        <file>../media/Textures/Box2DLogo.png</file>
+        <file>../media/Textures/Bridge.png</file>
+        <file>../media/Textures/DeepFreshWater(old).png</file>
+        <file>../media/Textures/DeepFreshWater.png</file>
+        <file>../media/Textures/DeepSaltWater(old).png</file>
+        <file>../media/Textures/DeepSaltWater.png</file>
+        <file>../media/Textures/Default.png</file>
+        <file>../media/Textures/Dirt(old).png</file>
+        <file>../media/Textures/Dirt.png</file>
+        <file>../media/Textures/down.png</file>
+        <file>../media/Textures/Fire.png</file>
+        <file>../media/Textures/Grass(old).png</file>
+        <file>../media/Textures/Grass.png</file>
+        <file>../media/Textures/left.png</file>
+        <file>../media/Textures/meme.png</file>
+        <file>../media/Textures/Mountain(old).png</file>
+        <file>../media/Textures/Mountain.png</file>
+        <file>../media/Textures/Plant.png</file>
+        <file>../media/Textures/QtLogo.png</file>
+        <file>../media/Textures/Quicksand.png</file>
+        <file>../media/Textures/RedSand(old).png</file>
+        <file>../media/Textures/RedSand.png</file>
+        <file>../media/Textures/right.png</file>
+        <file>../media/Textures/Saguaro.png</file>
+        <file>../media/Textures/Sand(old).png</file>
+        <file>../media/Textures/Sand.png</file>
+        <file>../media/Textures/Satchel.png</file>
+        <file>../media/Textures/satchelbottom.png</file>
+        <file>../media/Textures/satchelleft.png</file>
+        <file>../media/Textures/satchelright.png</file>
+        <file>../media/Textures/satcheltop.png</file>
+        <file>../media/Textures/SFMLLogo.png</file>
+        <file>../media/Textures/ShallowFreshWater(old).png</file>
+        <file>../media/Textures/ShallowFreshWater.png</file>
+        <file>../media/Textures/ShallowSaltWater(old).png</file>
+        <file>../media/Textures/ShallowSaltWater.png</file>
+        <file>../media/Textures/sprite_catnip-01.png</file>
+        <file>../media/Textures/sprite_cattail-01.png</file>
+        <file>../media/Textures/sprite_lavender-01.png</file>
+        <file>../media/Textures/sprite_sage-01.png</file>
+        <file>../media/Textures/sprite_teaTree-01.png</file>
+        <file>../media/Textures/Thumbs.db</file>
+        <file>../media/Textures/TitleLogo.png</file>
+        <file>../media/Textures/Tree(old).png</file>
+        <file>../media/Textures/Tree.png</file>
+        <file>../media/Textures/up.png</file>
+        <file>../media/Textures/Wall.png</file>
+    </qresource>
+</RCC>
