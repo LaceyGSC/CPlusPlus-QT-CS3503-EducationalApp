@@ -76,3 +76,8 @@ void SQCollectProperties::update(Command *command)
         }
     }
 }
+
+int SQCollectProperties::getCompletionValue() const
+{
+    return mCollected;
+}

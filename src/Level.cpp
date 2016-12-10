@@ -196,6 +196,16 @@ bool Level::isPlantPicked(const std::complex<int> &position) const
     return mPickedPlants.find(position) != mPickedPlants.end();
 }
 
+const std::vector<Level::QuestPtr>& Level::getMainQuests() const
+{
+    return mMainQuests;
+}
+
+const std::vector<Level::QuestPtr>& Level::getOptionalQuests() const
+{
+    return mOptionalQuests;
+}
+
 void Level::getNextLevel()
 {
     mParentManager->nextLevel();

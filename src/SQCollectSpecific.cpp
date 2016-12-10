@@ -76,3 +76,8 @@ void SQCollectSpecific::update(Command *command)
         }
     }
 }
+
+int SQCollectSpecific::getCompletionValue() const
+{
+    return mCollected;
+}

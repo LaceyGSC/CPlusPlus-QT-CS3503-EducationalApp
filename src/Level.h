@@ -63,6 +63,9 @@ public:
     void addPickedPlant(const std::complex<int> &position);
     bool isPlantPicked(const std::complex<int> &position) const;
 
+    const std::vector<QuestPtr>& getMainQuests() const;
+    const std::vector<QuestPtr>& getOptionalQuests() const;
+
 public slots:
     void getNextLevel();
     void getPrevLevel();

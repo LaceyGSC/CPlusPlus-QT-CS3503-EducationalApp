@@ -17,6 +17,8 @@ public:
 
     virtual void update(Command *command);
 
+    virtual int getCompletionValue() const;
+
 private:
 
     Tiles::ID mId;

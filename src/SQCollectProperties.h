@@ -17,6 +17,8 @@ public:
 
     virtual void update(Command *command);
 
+    virtual int getCompletionValue() const;
+
 private:
 
     Properties::ID mProp;

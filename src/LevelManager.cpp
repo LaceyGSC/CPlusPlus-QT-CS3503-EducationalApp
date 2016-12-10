@@ -59,3 +59,8 @@ Level& LevelManager::getFirstLevel() const
 {
     return *mLevels.front();
 }
+
+const std::vector<LevelManager::LevelPtr>& LevelManager::getLevels() const
+{
+    return mLevels;
+}

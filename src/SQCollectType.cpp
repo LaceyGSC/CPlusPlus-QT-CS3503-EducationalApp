@@ -53,3 +53,7 @@ void SQCollectType::update(Command *command)
     }
 }
 
+int SQCollectType::getCompletionValue() const
+{
+    return mCollected;
+}
