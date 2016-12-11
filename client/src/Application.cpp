@@ -28,12 +28,14 @@ Application::Application(QWidget *parent)
     : QMainWindow(parent)
     , mUi(new Ui::Application)
     , mManual(new ManualDialog(this))
-    , mStateStack(State::Context(mTextures, mFonts, mMusic, mConnection))
     , mLoopTimer(this)
     , mElapsedTime(sf::Time::Zero)
     , mClock()
     , mTextures()
     , mFonts()
+    , mSounds()
+    , mMusic()
+    , mStateStack(State::Context(mTextures, mFonts, mSounds, mMusic, mConnection))
 {
     mUi->setupUi(this);
 

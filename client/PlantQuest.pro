@@ -44,7 +44,8 @@ SOURCES += \
     src/TitleState.cpp \
     src/UserData.cpp \
     src/WorldCanvas.cpp \
-    src/MusicPlayer.cpp
+    src/MusicPlayer.cpp \
+    src/SoundPlayer.cpp
 
 HEADERS  += \
     src/AdminState.h \
@@ -78,7 +79,8 @@ HEADERS  += \
     src/TitleState.h \
     src/UserData.h \
     src/WorldCanvas.h \
-    src/MusicPlayer.h
+    src/MusicPlayer.h \
+    src/SoundPlayer.h
 
 FORMS    += \
     src/AdminState.ui \

@@ -261,6 +261,8 @@ void WorldCanvas::movePlayer(const std::complex<int> &movement, Directions::ID d
                 level.addPickedPlant(nextPosition);
                 level.update(&*std::unique_ptr<PickUp>(new PickUp(getPlantType(nextPosition), 1)));
                 mSatchel->spawnItem(getPlantType(nextPosition));
+                getContext().sounds.removeStoppedSounds();
+                getContext().sounds.play(Sounds::ID::Pickup, 40.f);
             }
             level.movePlayer(movement);
             level.update(&*std::unique_ptr<Move>(new Move(direction, 1)));
@@ -278,6 +280,8 @@ void WorldCanvas::movePlayer(const std::complex<int> &movement, Directions::ID d
                     level.addPickedPlant(nextPosition);
                     level.update(&*std::unique_ptr<PickUp>(new PickUp(getPlantType(nextPosition), 1)));
                     mSatchel->spawnItem(getPlantType(nextPosition));
+                    getContext().sounds.removeStoppedSounds();
+                    getContext().sounds.play(Sounds::ID::Pickup, 40.f);
                 }
                 level.movePlayer(movement);
                 level.update(&*std::unique_ptr<Move>(new Move(direction, 1)));

@@ -321,6 +321,8 @@ void GameState::registerLevels()
     reward->setOnActivate([&] ()
     {
         mPlayer.addPoints(150);
+        getContext().sounds.removeStoppedSounds();
+        getContext().sounds.play(Sounds::ID::MainQuest, 40.f);
     });
 
 
@@ -345,6 +347,8 @@ void GameState::registerLevels()
     reward->setOnActivate([&] ()
     {
         mPlayer.addPoints(50);
+        getContext().sounds.removeStoppedSounds();
+        getContext().sounds.play(Sounds::ID::OptionalQuest, 80.f);
     });
 
 
@@ -394,6 +398,8 @@ void GameState::registerLevels()
     reward->setOnActivate([&] ()
     {
         mPlayer.addPoints(50);
+        getContext().sounds.removeStoppedSounds();
+        getContext().sounds.play(Sounds::ID::MainQuest, 40.f);
     });
 
 

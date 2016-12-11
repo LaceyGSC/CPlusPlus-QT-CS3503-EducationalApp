@@ -52,5 +52,8 @@
         <file>../media/Textures/Wall.png</file>
         <file>../media/Music/Sneaky_Adventure_-_Vanoss_Gaming_Background_Music_.ogg</file>
         <file>../media/Music/The_Happy_Troll_song_-_by_D1ofAquavibe.ogg</file>
+        <file>../media/Sounds/327894__kreastricon62__bush-cut.wav</file>
+        <file>../media/Sounds/274183__littlerobotsoundfactory__jingle-win-synth-04.wav</file>
+        <file>../media/Sounds/171671__fins__success-1.wav</file>
     </qresource>
 </RCC>

@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <complex>
 
-// For fast enum lookup, search for: Tiles, Properties, States, Directions, CommandTypes, Fonts
+// For fast enum lookup, search for: Tiles, Properties, Sounds, Music, States, Directions, CommandTypes, Fonts
 
 // Textures of all entities (plants, terrains, etc.)
 namespace Tiles
@@ -90,6 +90,16 @@ namespace Properties
      * */
 }
 
+namespace Sounds
+{
+    enum class ID
+    {
+        Pickup,
+        MainQuest,
+        OptionalQuest
+    };
+}
+
 namespace Music { enum class ID { Login, Game }; }
 
 namespace States { enum class ID { None, TitleState, GameState, LoginState, AdminState }; }
@@ -146,6 +156,7 @@ namespace sf
 {
     class Texture;
     class Font;
+    class SoundBuffer;
 }
 template <typename Resource, typename Identifier>
 class ResourceManager;
@@ -153,5 +164,6 @@ class ResourceManager;
 // Typedefs for different types of resources
 typedef ResourceManager<sf::Texture, Tiles::ID>  TextureManager;
 typedef ResourceManager<sf::Font, Fonts::ID>  FontManager;
+typedef ResourceManager<sf::SoundBuffer, Sounds::ID> SoundBufferManager;
 
 #endif // IDENTIFIERS_H

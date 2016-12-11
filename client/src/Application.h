@@ -20,6 +20,7 @@
 #include "ResourceManager.h"
 #include "ManualDialog.h"
 #include "MusicPlayer.h"
+#include "SoundPlayer.h"
 
 #include <memory>
 
@@ -74,6 +75,7 @@ private:
     TextureManager          mTextures;
     ServerConnection        mConnection;
     FontManager             mFonts;
+    SoundPlayer             mSounds;
     MusicPlayer             mMusic;
 };
 
