@@ -26,6 +26,7 @@
 #include "Satchel.h"
 
 #include <vector>
+#include <iostream>
 
 GameState::Settings::Settings()
     : quickTurn(true)
@@ -189,6 +190,7 @@ void GameState::loadUserData()
         i++;
         currentTime = queryList.at(i);
         i++;
+
         subQuestList = currentSubQuest.split(QRegExp("\\s+"), QString::SkipEmptyParts);
         timeParts = currentTime.split(QRegExp(":+"), QString::SkipEmptyParts);
 
@@ -216,24 +218,36 @@ void GameState::exit()
 {
 
     // Save to database here
-   std::stringstream toSendStream;
+    std::stringstream toSendStream;
 
-   toSendStream << "update\n" << mUserData.userID.toStdString()
-                << "\n" << mUserData.currentLevel
-                << "\n" << getLevelData()
-                << "\n" << mTime.hour()
-                << ":"  << mTime.minute()
-                << ":"  << mTime.second()
-                << "\n" << mUserData.totalPoints
-                << "\n";
+    toSendStream << "update\n" << mUserData.userID.toStdString()
+                 << "\n" << mUserData.currentLevel
+                 << "\n" << getLevelData()
+                 << "\n" << mTime.hour()
+                 << ":"  << mTime.minute()
+                 << ":"  << mTime.second()
+                 << "\n" << mUserData.totalPoints
+                 << "\n";
 
 
-   std::string returnString(toSendStream.str());
+    std::string returnString(toSendStream.str());
 
-   getContext().connection.sendPacket(returnString);
+    getContext().connection.sendPacket(returnString);
 
     requestStackPop();
     requestStackPush(States::ID::LoginState);
+}
+
+
+int GameState::getLoadedLevelData()
+{
+    if (mUserData.currentSubQuest.empty())
+        return 0;
+
+    int returnVal = mUserData.currentSubQuest.back();
+    qDebug() << returnVal;
+    mUserData.currentSubQuest.pop_back();
+    return returnVal;
 }
 
 // Register tiles ==============================================================================
@@ -269,6 +283,8 @@ void GameState::registerTiles()
 
 // Register levels ==============================================================================
 
+
+
 void GameState::registerLevels()
 {
     GameContext context(mLevelManager, mTileManager, mSettings, mPlayer);
@@ -282,7 +298,7 @@ void GameState::registerLevels()
     Level::QuestPtr quest(new Quest("So, you want to be a plant expert?", &*level));
 
     Quest::SubQuestPtr subQ(new SQCollectProperties("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
-                                                    Properties::ID::InsectRepellent, 0, 15, context, &*quest));
+                                                    Properties::ID::InsectRepellent, getLoadedLevelData(), 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
@@ -297,17 +313,17 @@ void GameState::registerLevels()
 
 
     subQ.reset(new SQCollectSpecific("Gather 8 lavenders.",
-                                     Tiles::ID::Lavender, 0, 8, context, &*quest));
+                                     Tiles::ID::Lavender, getLoadedLevelData(), 8, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
     subQ.reset(new SQCollectSpecific("Gather 15 cattails.",
-                                     Tiles::ID::Cattail, 0, 15, context, &*quest));
+                                     Tiles::ID::Cattail, getLoadedLevelData(), 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
     subQ.reset(new SQCollectSpecific("Gather 7 catnips.",
-                                     Tiles::ID::Catnip, 0, 7, context, &*quest));
+                                     Tiles::ID::Catnip, getLoadedLevelData(), 7, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
@@ -333,7 +349,7 @@ void GameState::registerLevels()
 
     quest.reset(new Quest("Knowledge is power", &*level));
 
-    subQ.reset(new SQCollectType("Gather at least 3 different species of plants.", 0, 3, context, &*quest));
+    subQ.reset(new SQCollectType("Gather at least 3 different species of plants.", getLoadedLevelData(), 3, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 
@@ -382,7 +398,7 @@ void GameState::registerLevels()
     quest.reset(new Quest("So, you want to be a plant expert?", &*level));
 
     subQ.reset(new SQCollectProperties("Mosquitos are pesky little creatures. Gather 15 plants to fend them off.",
-                                       Properties::ID::InsectRepellent, 0, 15, context, &*quest));
+                                       Properties::ID::InsectRepellent, getLoadedLevelData(), 15, context, &*quest));
 
     quest->addSubQuest(std::move(subQ));
 

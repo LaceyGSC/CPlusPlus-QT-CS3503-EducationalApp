@@ -72,6 +72,9 @@ private slots:
     void            exit();
 
     void            loadUserData();
+
+    int             getLoadedLevelData();
+
 private:
     Ui::GameState  *mUi;
 
